@@ -104,7 +104,6 @@ city* allcity(int id)
 }
 int main(int args,char *argv[])
 {
-	// dsaaadas;
 	if(system("[ `whoami` = \"root\" ]"))
 	{
 		printf("You should run it as root!\n");
@@ -134,12 +133,6 @@ int main(int args,char *argv[])
 	messagebox(NULL,"请输入用户名:\nalso it\'s a test","Welcome to the game",MB_OK);
 	printf("Your username:");
 	std::cin >> filepl;
-	/* while(1) */
-	/* { */
-	/* 	std::string s; */
-	/* 	std::cin >> s; */
-	/* 	std::cout << s << std::endl; */
-	/* } */
 	debug_print("get username:"+filepl);
 	extern int ver_new;
 	if(ver_new == 1)
@@ -156,7 +149,6 @@ int main(int args,char *argv[])
 	//debug_start
 	puts("Loading...");
 	unsigned long long rres = readrc();
-	//printf("%llu %llu\n",rres,rres&1); Sleep(999);
 	city *c = (rres & 1) ? allcity(4) : allcity(0);
 	puts("Made a city");
 	player *P = new player(1 , 1 , "common");
@@ -165,13 +157,6 @@ int main(int args,char *argv[])
 	P->apin(c->M);
 	P->pet->apin(c->M);
 	puts("Made a player");
-	/*
-	fprintf(information,"information test\n");
-	if(!information) puts("ERROR");
-	readinforma();
-	if(!information) puts("ERROR");
-	puts("fprintf test done");
-	*/
 	while(1)
 	{
 		if(ver_new == 1)
