@@ -1,0 +1,1 @@
+int war(people* , people *);

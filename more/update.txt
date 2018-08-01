@@ -1,0 +1,36 @@
+The writer , the smartest man in the virtual world (maybe not) who call himself Kewth'-K.D , first wrote this on 2018.4.7 .
+
+There the writer must thank a friend named DaXiaLiu.
+In fact he made the game (1.0 and 2.0) first and the writer just sequel this game.
+
+You can ignore the game but you can't look down on the game or the writer.
+Of couse it's just a small game to , but I hope everyone including me play it can enjoy itself.
+
+This update log is made on 2018.4.7.
+And the game is made in so long long ago that nobody remeber it.
+Here the writer list some important update:
+	
+	In 2018:
+		In May. :
+			Day 16:
+				全新版本(以后简称yzzl)已复原磨炼功能
+				yzzl中可以自定义主城界面
+			Day 3:
+				将对游戏的代码本身进行一次重大维护,以及对玩法的本质革新,这可能会花费很多时间,因而会有一段时间停更,
+		In Apr. :
+			Day 26:
+				修改xxbug
+			Day 22:
+				优化新模式结束界面并增加奖励(经验)
+				将新模式中进入空白区死亡改为受到大量伤害
+				在新模式中增加了5x5的实时地图,并将查看地图从观看全局改为附近10x10
+				增加了新模式难度并设为只有10级以上才能参加
+			Day 16:
+				修复了有时有些东西有时候不随等级变化的bug
+			Day 15:
+				对于Ubuntu平台设置了蛇皮的加密,密码232083
+				加入配置功能,在游戏目录打开".add"文件进行配置
+				修复新手村bug使新手村变得可过
+			Day 7:
+				加入新模式(测试版), 在主城输入-1234进入
+				修改boss模式的行动,若超过2秒未反应则视为无行动
