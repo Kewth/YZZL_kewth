@@ -73,8 +73,7 @@ int cutcity::xz1::onein(people* P)
 	int E_lv = PL->bag->wood_h(0) / 100;
 	for(int i=0;i<Esl;i++)
 	{
-		if(i) E[i] = new pig(5,i+1,E_lv);
-		else E[i] = new snake(5,i+1,E_lv);
+		E[i] = new Tree_guard(5,i+1,E_lv);
 		E[i]->apin(M);
 		/* Pr[i] = std::make_pair(E[i] , M); */
 		/* pthread_create(&tids[i] , NULL , Emain , (void*)&Pr[i]); */
@@ -92,7 +91,7 @@ int cutcity::xz1::onein(people* P)
 		puts("按Q退出");
 		readinforma();
 		/* int c = ifgetch(199); */
-		int c = getch();
+		int c = ifgetch(199);
 		if(c == 'Q') warres = 3;
 		int mres = M->move(P , c);
 		if(mres == 1)

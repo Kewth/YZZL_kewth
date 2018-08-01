@@ -22,6 +22,7 @@ int BAG::coin_h(int oocoin)
 	}
 	else coin += oocoin;
 	if(oocoin > 0) messagebox(nullptr,("金币x"+number_str(oocoin)).c_str(),"获得：",MB_OK);
+	else messagebox(nullptr,("金币x"+number_str(oocoin)).c_str(),"失去：",MB_OK);
 	return coin;
 }
 int BAG::yuanli_h(int ooyuanli)
@@ -34,6 +35,7 @@ int BAG::yuanli_h(int ooyuanli)
 	}
 	else yuanli += ooyuanli;
 	if(ooyuanli > 0) messagebox(nullptr,("元力x"+number_str(ooyuanli)).c_str(),"获得：",MB_OK);
+	else messagebox(nullptr,("元力x"+number_str(ooyuanli)).c_str(),"失去：",MB_OK);
 	return yuanli;
 }
 int BAG::wood_h(int oowood)
@@ -46,6 +48,7 @@ int BAG::wood_h(int oowood)
 	}
 	else wood += oowood;
 	if(oowood > 0) messagebox(NULL,("木头x"+number_str(oowood)).c_str(),"获得：",MB_OK);
+	else messagebox(NULL,("木头x"+number_str(oowood)).c_str(),"失去：",MB_OK);
 	return wood;
 }
 BAG::BAG():coin(0),yuanli(0),wood(0),max_coin(1000000000) {}
