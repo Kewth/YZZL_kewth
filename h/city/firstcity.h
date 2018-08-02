@@ -12,6 +12,8 @@ class firstcity:public city
 		xz_of_city(7);
 		xz_of_city(8);
 		xz_of_city(9);
+		xz_of_city(10);
+		xz_of_city(11);
 	public:
 		firstcity();
 };

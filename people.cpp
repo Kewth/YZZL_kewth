@@ -748,6 +748,8 @@ Dog::Dog(int x,int y,int lv,std::string bl)
 void Dog::rc_hp(people * , int& , int) {}
 void Dog::rc_die(people *kill_p)
 {
+	if(kill_p->m_typ == "player")
+		fprintf(information , "天啊,你竟然差点杀了Doge");
 	kill_p->c_hp(this , -1000 , 'r');
 }
 int Dog::look(MAP *M)
