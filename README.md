@@ -12,13 +12,24 @@
 
 **And the game is made in so long long ago that nobody remeber it.**
 
-* [更新日志](#upd_dir)
+* [简介](#li_introduce)  
+* [编译方式](#re_comp)
+* [更新日志](#upd_dir)  
+
+** <div id="li_introduce">介绍:</div> **
 
 暂无介绍
 
 ** <div id="upd_dir">Here the writer list some important update:</div> **
 
 In 2018:
+
+*	In Aug\. :
+
+> Day 2:
+> > 1. 兼容windows
+> > 
+> > 2. 改变了初始生命，攻击等数据只有预期的10%的版本特性
 
 *   In July\. :
 
@@ -272,7 +283,7 @@ In 2018:
 > > 
 > > 2. 改boss模式的行动,若超过2秒未反应则视为无行d
 
-
+** <div id="re_comp">手动编译</div> **
 
 Some tips:
 =====

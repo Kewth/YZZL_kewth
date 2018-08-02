@@ -34,12 +34,12 @@ print_inF::print_inF(Pos U , Pos D , Pos B):U(U),D(D),B(B),now_pox(U.x)
 	auto print_ru = []() -> void { printf("\\"); } ;
 	auto print_rd = []() -> void { printf("/"); } ;
 #else
-	auto print_hang = []() { printf("©¤"); } ;
-	auto print_lie = []() { printf("©¦"); } ;
-	auto print_lu = []() { printf("©°"); } ;
-	auto print_ld = []() { printf("©¸"); } ;
-	auto print_ru = []() { printf("©´"); } ;
-	auto print_rd = []() { printf("©¼"); } ;
+	auto print_hang = []() -> void { printf("â”€"); } ;
+	auto print_lie = []() -> void { printf("â”‚"); } ;
+	auto print_lu = []() -> void { printf("â”Œ"); } ;
+	auto print_ld = []() -> void { printf("â””"); } ;
+	auto print_ru = []() -> void { printf("â”"); } ;
+	auto print_rd = []() -> void { printf("â”˜"); } ;
 #endif
 	P_gotoxy(U.move('d'));
 	for(int i=U.y+1;i<D.y;i++)

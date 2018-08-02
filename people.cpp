@@ -498,9 +498,9 @@ player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement)
 	belong = "space";
 	m_typ = "player";
 	m_name = "你";
-	m_hpsx = m_hp = FIR_hp;
-	m_war = FIR_war;
-	m_magic = m_magicsx = FIR_magic;
+	m_hpsx = m_hp = FIR_hp * 10;
+	m_war = FIR_war * 10;
+	m_magic = m_magicsx = FIR_magic * 10;
 	Px=x; Py=y; face='P';
 	/* B = new plboss(0); */
 	pet = new Dog(x , y+1 , 0 , belong);

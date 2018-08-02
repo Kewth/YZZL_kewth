@@ -17,7 +17,7 @@ class MAP // {{{
 		char& operator () (int,int);
 		int newfloor(int,int);
 		int move(people*,char);
-	MAP(int,int,std::string="»ÄÒ°");
+	MAP(int,int,std::string="r–ì");
 //	friend int player::look(MAP *M);
 }; // }}}
 

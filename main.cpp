@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <stdio.h> 
 #include <stdlib.h>
 #include "h/more.h"
