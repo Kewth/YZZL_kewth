@@ -209,6 +209,7 @@ int version_check() // for linux
 	std::string v_y , v_m , v_d;
 	extern std::string up_y , up_m , up_d;
 	fin >> v_y >> v_m >>v_d;
+	debug_print(("get version:"+v_y+v_m+v_d).c_str());
 	ver_new = 1;
 	if(v_y > up_y || v_m > up_m || v_d > up_d)
 	{
