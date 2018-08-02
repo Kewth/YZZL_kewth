@@ -4,10 +4,10 @@
 #include "h/people.h"
 int BAG::list()
 {
-	printf("½ğ±Ò:%d\n",coin);
-	if(coin == max_coin) puts("(´ïµ½ÉÏÏŞ)");
-	printf("ÔªÁ¦:%d\n",yuanli);
-	printf("Ä¾Í·:%d\n",wood);
+	printf("é‡‘å¸:%d\n",coin);
+	if(coin == max_coin) puts("(è¾¾åˆ°ä¸Šé™)");
+	printf("å…ƒåŠ›:%d\n",yuanli);
+	printf("æœ¨å¤´:%d\n",wood);
 	system("pause");
 	return 0;
 }
@@ -17,11 +17,11 @@ int BAG::coin_h(int oocoin)
 	if((long long)coin + oocoin > max_coin) coin = max_coin;
 	else if(coin + oocoin < 0)
 	{
-		printf("½ğ±Ò²»×ã!!\n");
+		printf("é‡‘å¸ä¸è¶³!!\n");
 		return -1;
 	}
 	else coin += oocoin;
-	if(oocoin > 0) messagebox(nullptr,("½ğ±Òx"+number_str(oocoin)).c_str(),"»ñµÃ£º",MB_OK);
+	if(oocoin > 0) messagebox(nullptr,("é‡‘å¸x"+number_str(oocoin)).c_str(),"è·å¾—ï¼š",MB_OK);
 	return coin;
 }
 int BAG::yuanli_h(int ooyuanli)
@@ -29,11 +29,11 @@ int BAG::yuanli_h(int ooyuanli)
 	if(!ooyuanli) return yuanli;
 	else if(yuanli + ooyuanli < 0)
 	{
-		printf("ÔªÁ¦²»×ã!!\n");
+		printf("å…ƒåŠ›ä¸è¶³!!\n");
 		return -1;
 	}
 	else yuanli += ooyuanli;
-	if(ooyuanli > 0) messagebox(nullptr,("ÔªÁ¦x"+number_str(ooyuanli)).c_str(),"»ñµÃ£º",MB_OK);
+	if(ooyuanli > 0) messagebox(nullptr,("å…ƒåŠ›x"+number_str(ooyuanli)).c_str(),"è·å¾—ï¼š",MB_OK);
 	return yuanli;
 }
 int BAG::wood_h(int oowood)
@@ -41,11 +41,11 @@ int BAG::wood_h(int oowood)
 	if(!oowood) return wood;
 	else if(wood + oowood < 0)
 	{
-		printf("Ä¾²Ä²»×ã!!\n");
+		printf("æœ¨æä¸è¶³!!\n");
 		return -1;
 	}
 	else wood += oowood;
-	if(oowood > 0) messagebox(NULL,("Ä¾Í·x"+number_str(oowood)).c_str(),"»ñµÃ£º",MB_OK);
+	if(oowood > 0) messagebox(NULL,("æœ¨å¤´x"+number_str(oowood)).c_str(),"è·å¾—ï¼š",MB_OK);
 	return wood;
 }
 BAG::BAG():coin(0),yuanli(0),wood(0),max_coin(1000000000) {}
@@ -55,13 +55,13 @@ void achievement::c_get(player * P , std::string name)
 {
 	if(m_achi.count(name))
 	{
-		messagebox(NULL,("--" + name + "--").c_str(),"ÒÑ»ñµÃ´Ë³É¾Í:",MB_OK);
+		messagebox(NULL,("--" + name + "--").c_str(),"å·²è·å¾—æ­¤æˆå°±:",MB_OK);
 		return ;
 	}
 	else 
 	{
 		m_achi.insert(name);
-		messagebox(NULL,("|-" + name + "-|").c_str(),"»ñµÃ³É¾Í:",MB_OK);
+		messagebox(NULL,("|-" + name + "-|").c_str(),"è·å¾—æˆå°±:",MB_OK);
 		if(name == "first_find1") P->get_more_hpsx(500);
 		else if(name == "first_find2") P->get_more_hpsx(500);
 	}
@@ -69,9 +69,9 @@ void achievement::c_get(player * P , std::string name)
 void achievement::c_look(std::string name)
 {
 	system("cls");
-	if(name == "first_find1") puts("½âËø:ÔÚĞÂÊÖ³ÇÖĞÀë¿ª½Ì³ÌÕÒµ½²Êµ°1\n½±Àø:ÉúÃüÉÏÏŞ+500");
-	else if(name == "first_find2") puts("½âËø:ÔÚĞÂÊÖ³ÇÖĞÀë¿ª½Ì³ÌÕÒµ½²Êµ°2\n½±Àø:ÉúÃüÉÏÏŞ+500");
-	else puts("Î´Öª³É¾Í..\n");
+	if(name == "first_find1") puts("è§£é”:åœ¨æ–°æ‰‹åŸä¸­ç¦»å¼€æ•™ç¨‹æ‰¾åˆ°å½©è›‹1\nå¥–åŠ±:ç”Ÿå‘½ä¸Šé™+500");
+	else if(name == "first_find2") puts("è§£é”:åœ¨æ–°æ‰‹åŸä¸­ç¦»å¼€æ•™ç¨‹æ‰¾åˆ°å½©è›‹2\nå¥–åŠ±:ç”Ÿå‘½ä¸Šé™+500");
+	else puts("æœªçŸ¥æˆå°±..\n");
 	system("pause");
 }
 void achievement::c_lookall()
@@ -82,8 +82,8 @@ void achievement::c_lookall()
 	for(uint begin=0 , page=1;;)
 	{
 		system("cls");
-		printf("°´¶ÔÓ¦Êı×Ö²é¿´ÏêÇé\n°´qÍË³ö,>ÏÂÒ»Ò³,<ÉÏÒ»Ò³\n");
-		printf("µÚ%dÒ³:\n",page);
+		printf("æŒ‰å¯¹åº”æ•°å­—æŸ¥çœ‹è¯¦æƒ…\næŒ‰qé€€å‡º,>ä¸‹ä¸€é¡µ,<ä¸Šä¸€é¡µ\n");
+		printf("ç¬¬%dé¡µ:\n",page);
 		for(uint i=begin;i<begin+10 && i<acv.size();i++)
 			printf("%d.%s\n",i-begin,acv[i].c_str());
 		int xz_num = getch();

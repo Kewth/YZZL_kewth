@@ -122,4 +122,4 @@ int version_check()
 {
 	ver_new = 0;
 }
-//ÖÐÎÄ
+//ä¸­æ–‡

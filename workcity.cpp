@@ -10,10 +10,10 @@ int workcity::xz1::onein(people* P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%sºÃÏñÏë´ò¿ªÒ»Ğ©Ææ¹ÖµÄ¶«Î÷\n",P->m_name.c_str());
+		fprintf(information , "%så¥½åƒæƒ³æ‰“å¼€ä¸€äº›å¥‡æ€ªçš„ä¸œè¥¿\n",P->m_name.c_str());
 		return 0;
 	}
-	say("","¼´½«´ò¿ªÉñÆæµÄÄ¿Â¼...",69);
+	say("","å³å°†æ‰“å¼€ç¥å¥‡çš„ç›®å½•...",69);
 	system(("xdg-open " + filepl +" 2> /dev/null").c_str());
 	return 0;
 }
@@ -21,11 +21,11 @@ int workcity::xz2::onein(people *P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%sºÃÏñÏë´ò¿ªÒ»Ğ©Ææ¹ÖµÄ¶«Î÷\n",P->m_name.c_str());
+		fprintf(information , "%så¥½åƒæƒ³æ‰“å¼€ä¸€äº›å¥‡æ€ªçš„ä¸œè¥¿\n",P->m_name.c_str());
 		return 0;
 	}
 	extern std::string ftppl;
-	say("","¼´½«´ò¿ªÉñÆæµÄÄ¿Â¼...",69);
+	say("","å³å°†æ‰“å¼€ç¥å¥‡çš„ç›®å½•...",69);
 	puts(ftppl.c_str());
 	system(("xdg-open " + ftppl +" 2> /dev/null").c_str());
 	return 0;
@@ -34,19 +34,19 @@ workcity::workcity()
 {
 	newmap("workcity.txt");
 	int mid = maxn >> 1;
-	M->m_name = "¹¤³Çworkcity";
+	M->m_name = "å·¥åŸworkcity";
 	M->f(mid,0) = new gotocity(0,mid,maxn,'<');
 	M->f(mid,-1) = new wall();
 	M->f(mid,1) = new grass('-');
 	M->f(maxn-5,1) = new xz0();
 	for(uint i=0;i<xz0::name.size();i++)
-		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ÓÉ´ËÍË³ö");
+		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ç”±æ­¤é€€å‡º");
 	M->f(maxn-4,1) = new xz1();
 	for(uint i=0;i<xz1::name.size();i++)
-		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ÓÉ´Ë´ò¿ªÅäÖÃÄ¿Â¼");
+		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ç”±æ­¤æ‰“å¼€é…ç½®ç›®å½•");
 	M->f(maxn-3,1) = new xz2();
 	for(uint i=0;i<xz2::name.size();i++)
-		M->f(maxn-3,i+2) = new grass(xz2::name[i],"ÓÉ´Ë´ò¿ª´Ë°æ±¾µÄÍøÂçÆ½Ì¨");
+		M->f(maxn-3,i+2) = new grass(xz2::name[i],"ç”±æ­¤æ‰“å¼€æ­¤ç‰ˆæœ¬çš„ç½‘ç»œå¹³å°");
 }
 std::string workcity::xz0::name = "exit";
 std::string workcity::xz1::name = "open_dir";//QwQ
