@@ -26,30 +26,45 @@ Pos Pos::move(char fg)
 // print_inF {{{
 print_inF::print_inF(Pos U , Pos D , Pos B):U(U),D(D),B(B),now_pox(U.x)
 {
+#ifdef windows
+	auto print_hang = []() -> void { printf("-"); } ;
+	auto print_lie = []() -> void { printf("|"); } ;
+	auto print_lu = []() -> void { printf("/"); } ;
+	auto print_ld = []() -> void { printf("\\"); } ;
+	auto print_ru = []() -> void { printf("\\"); } ;
+	auto print_rd = []() -> void { printf("/"); } ;
+#else
+	auto print_hang = []() -> void { printf("─"); } ;
+	auto print_lie = []() -> void { printf("│"); } ;
+	auto print_lu = []() -> void { printf("┌"); } ;
+	auto print_ld = []() -> void { printf("└"); } ;
+	auto print_ru = []() -> void { printf("┐"); } ;
+	auto print_rd = []() -> void { printf("┘"); } ;
+#endif
 	P_gotoxy(U.move('d'));
 	for(int i=U.y+1;i<D.y;i++)
-		printf("─");
+		print_hang();
 	gotoxy(D.x , U.y + 1);
 	for(int i=U.y+1;i<D.y;i++)
-		printf("─");
+		print_hang();
 	Pos now = U.move('s');
 	while(now.x < D.x)
 		P_gotoxy(now) ,
-		printf("│") ,
+		print_lie() ,
 		now = now.move('s');
 	now = D.move('w');
 	while(now.x > U.x)
 		P_gotoxy(now) ,
-		printf("│") ,
+		print_lie() ,
 		now = now.move('w') ;
 	P_gotoxy(U);
-	printf("┌");
+	print_lu();
 	P_gotoxy(D);
-	printf("┘");
+	print_rd();
 	gotoxy(U.x , D.y);
-	printf("┐");
+	print_ru();
 	gotoxy(D.x , U.y);
-	printf("└");
+	print_ld();
 	gotoxy(U.x , U.y + 5);
 }
 print_inF::~print_inF()
@@ -156,7 +171,7 @@ void cpinfors(int times)
 		puts(s.c_str());
 	}
 	if(times > 1)
-		system(("copy " + filepl + "informa" + (char)('0'+times-1) + ".txt " + filepl + "informa" + (char)('0'+times) + ".txt").c_str());
+		system(("copy " + filepl + "informa" + (char)('0'+times-1) + ".txt " + filepl + "informa" + (char)('0'+times) + ".txt > just_now.txt").c_str());
 	fin.close();
 	cpinfors(times - 1);
 }

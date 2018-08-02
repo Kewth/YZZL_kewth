@@ -1,22 +1,21 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <stdio.h> 
 #include <stdlib.h>
 #include "h/more.h"
-//#define windows NULL
-#ifdef windows
-std::string filepl = "C:/yzzlrc/user/";
-std::string ftppl = "C:/yzzlrc/";
-#else
-std::string filepl = "/home/user/.yzzl/";
-std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a/b/c/d/";
-#endif
 #include "h/city.h"
 #include "h/allcity.h"
 #include "h/shuju.h"
 #include "h/const.h"
+#ifdef windows
+std::string filepl = "C:\\yzzlrc\\user\\";
+std::string ftppl = "C:\\yzzlrc\\";
+#else
+std::string filepl = "/home/user/.yzzl/";
+std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a/b/c/d/";
+#endif
 extern FILE *information;
 std::string color;
-std::string release = "11.0" , up_y = "2018" , up_m = "07" , up_d = "28";
+std::string release = "11.0" , up_y = "2018" , up_m = "08" , up_d = "02";
 void flash(bool nocolor , bool quick)
 {
 	printf("Flashing\n");
@@ -104,11 +103,13 @@ city* allcity(int id)
 }
 int main(int args,char *argv[])
 {
+#ifndef windows
 	if(system("[ `whoami` = \"root\" ]"))
 	{
 		printf("You should run it as root!\n");
 		return 0;
 	}
+#endif
 	debug_print("\ngame start:");
 	puts("check version...");
 	std::thread to_ck_ver(version_check);
@@ -141,7 +142,7 @@ int main(int args,char *argv[])
 	if(ver_new == 3)
 		return 0;
 #ifdef windows
-	filepl = "C:/yzzlrc/" + filepl + "/";
+	filepl = "C:\\yzzlrc\\" + filepl + "\\";
 #else
 	filepl = "/home/" + filepl + "/.yzzl/";
 #endif

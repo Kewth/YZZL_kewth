@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 #include "more.h"
-/* #include "boss.h" */
 #include "bag.h"
 #include "jn.h"
 class people;
@@ -18,7 +17,7 @@ class MAP // {{{
 		char& operator () (int,int);
 		int newfloor(int,int);
 		int move(people*,char);
-	MAP(int,int,std::string="荒野");
+	MAP(int,int,std::string="荒野");//峳栰
 //	friend int player::look(MAP *M);
 }; // }}}
 
