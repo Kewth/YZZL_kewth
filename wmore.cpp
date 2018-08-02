@@ -104,13 +104,22 @@ int Sleep__(int x)
 	Sleep(x);
 	return 0;
 }
-void messagebox(void *null,const char * s1,const char *s2,int x)
+int messagebox(void *null,const char * s1,const char *s2,int x)
 {
-	if(x == 1) MessageBox(NULL,_T(s1),_T(s2),__MSABI_LONG(0x00000000)); // MB_OK
+	if(x == 1) return MessageBox(NULL,_T(s1),_T(s2),__MSABI_LONG(0x00000000)); // MB_OK
+	else if(x == 2) return MessageBox(NULL,_T(s1),_T(s2),__MSABI_LONG(0x0000000000000001)); // MB_YESNO
 }
+bool debug_open;
+bool debug_to_print;
 void debug_print(std::string f)
 {
 	FILE *for_debug = fopen("C:/yzzlrc/debug.txt" , "a");
 	fputs((f + '\n').c_str(),for_debug);
 	fclose(for_debug);
 }
+int ver_new;
+int version_check()
+{
+	ver_new = 0;
+}
+//ÖÐÎÄ

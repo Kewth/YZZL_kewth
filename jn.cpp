@@ -6,36 +6,36 @@ int JN::lvup()
 {
 	if(m_lv == m_lvmax)
 	{
-		messagebox(NULL,(m_name+"ç­‰çº§å·²æ»¡å°±ä¸è¦çé€¼é€¼äº†,å¹´è½»äºº").c_str(),"æŠ€èƒ½",MB_OK);
+		messagebox(NULL,(m_name+"µÈ¼¶ÒÑÂú¾Í²»ÒªÏ¹±Æ±ÆÁË,ÄêÇáÈË").c_str(),"¼¼ÄÜ",MB_OK);
 		return -1;
 	}
 	m_lv ++;
-	messagebox(NULL,(m_name+"å‡çº§").c_str(),"æŠ€èƒ½:",MB_OK);
+	messagebox(NULL,(m_name+"Éı¼¶").c_str(),"¼¼ÄÜ:",MB_OK);
 	return 0;
 }
 int JN::doit(player * P)
 {
 	if(P->magic_h(-m_need[m_lv]) == -1)
 	{
-		fprintf(information,"é­”æ³•å€¼ä¸è¶³!");
+		fprintf(information,"Ä§·¨Öµ²»×ã!");
 		return -1;
 	}
-	fprintf(information,"æ­£åœ¨ä½¿ç”¨%s\n",m_name.c_str());
+	fprintf(information,"ÕıÔÚÊ¹ÓÃ%s\n",m_name.c_str());
 	P->upd();
 	P->m_sta["stop"].first = clock() + m_tuse[m_lv];
 	return rldo(P);
 }
 void JN::check(bool more)
 {
-	printf("%dçº§%s:",m_lv,m_name.c_str());
-	if(m_lv == m_lvmax) printf("å·²æ»¡çº§") , more = 0;
+	printf("%d¼¶%s:",m_lv,m_name.c_str());
+	if(m_lv == m_lvmax) printf("ÒÑÂú¼¶") , more = 0;
 	puts("");
 	rlcheck(more);
-	printf("å‡†å¤‡æ—¶é—´:%d",m_tuse[m_lv]);
-	if(more) printf("(ä¸‹ä¸€çº§:%d)",m_tuse[m_lv+1]);
+	printf("×¼±¸Ê±¼ä:%d",m_tuse[m_lv]);
+	if(more) printf("(ÏÂÒ»¼¶:%d)",m_tuse[m_lv+1]);
 	puts("");
-	printf("é­”æ³•å€¼æ¶ˆè€—:%d",m_need[m_lv]);
-	if(more) printf("(ä¸‹ä¸€çº§:%d)",m_need[m_lv+1]);
+	printf("Ä§·¨ÖµÏûºÄ:%d",m_need[m_lv]);
+	if(more) printf("(ÏÂÒ»¼¶:%d)",m_need[m_lv+1]);
 	puts("");
 }
 jn_hp::jn_hp(int lv)
@@ -54,7 +54,7 @@ jn_hp::jn_hp(int lv)
 	memcpy(m_tuse,use,sizeof(use));
 	memcpy(m_pay,pay,sizeof(pay));
 	m_lv = lv;
-	m_name = "æ²»ç–—";
+	m_name = "ÖÎÁÆ";
 }
 int jn_hp::rldo(player * P)
 {
@@ -63,9 +63,9 @@ int jn_hp::rldo(player * P)
 }
 void jn_hp::rlcheck(bool more)
 {
-	printf("å›å¤%d",m_val[m_lv]);
-	if(more) printf("(ä¸‹ä¸€çº§:%d)",m_val[m_lv+1]);
-	puts("ç‚¹ç”Ÿå‘½");
+	printf("»Ø¸´%d",m_val[m_lv]);
+	if(more) printf("(ÏÂÒ»¼¶:%d)",m_val[m_lv+1]);
+	puts("µãÉúÃü");
 }
 list_jn::list_jn(std::vector<int> v)
 {
@@ -98,7 +98,7 @@ jn_dikang::jn_dikang(int lv)
 	memcpy(m_tuse,use,sizeof(use));
 	memcpy(m_pay,pay,sizeof(pay));
 	m_lv = lv;
-	m_name = "æŠµæŠ—";
+	m_name = "µÖ¿¹";
 }
 int jn_dikang::rldo(player * P)
 {
@@ -108,8 +108,8 @@ int jn_dikang::rldo(player * P)
 void jn_dikang::rlcheck(bool more)
 {
 	printf("%d",m_val2[m_lv]);
-	if(more) printf("(ä¸‹ä¸€çº§:%d)",m_val2[m_lv+1]);
-	printf("mså†…æŠµæŠ—%d",m_val[m_lv]);
-	if(more) printf("(ä¸‹ä¸€çº§:%d)",m_val[m_lv+1]);
-	puts("ç‚¹ä¼¤å®³");
+	if(more) printf("(ÏÂÒ»¼¶:%d)",m_val2[m_lv+1]);
+	printf("msÄÚµÖ¿¹%d",m_val[m_lv]);
+	if(more) printf("(ÏÂÒ»¼¶:%d)",m_val[m_lv+1]);
+	puts("µãÉËº¦");
 }

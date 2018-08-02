@@ -7,7 +7,7 @@ int firstcity::xz0::onein(people* P)
 	if(P->m_typ != "player") return 0;
 	player *pl = (player*) P;
 	pl->bag->coin_h(1000);
-	say("","å¥–åŠ±1000é‡‘å¸!\næ­£åœ¨ä¼ é€\n",69);
+	say("","½±Àø1000½ğ±Ò!\nÕıÔÚ´«ËÍ\n",69);
 	P->Px = 1;
 	P->Py += 2;
 	return 0;
@@ -17,20 +17,20 @@ int firstcity::xz1::onein(people* P)
 	if(P->m_typ != "player") return 0;
 	player *pl = (player*) P;
 	pl->bag->coin_h(100);
-	say("","å¥–åŠ±100é‡‘å¸!\næ­£åœ¨ä¼ é€\n",69);
+	say("","½±Àø100½ğ±Ò!\nÕıÔÚ´«ËÍ\n",69);
 	P->Py+=2;
 	return 0;
 }
 int firstcity::xz2::onein(people* P)
 {
 	if(P->m_typ != "player") return 0;
-	say("","é¦–å…ˆé¢å‘å®ƒ\nç„¶åæŒ‰jå‘å®ƒçš„æ–¹å‘ç§»åŠ¨\næ”»å‡»èŠ±è´¹200ms",89);
+	say("","Ê×ÏÈÃæÏòËü\nÈ»ºó°´jÏòËüµÄ·½ÏòÒÆ¶¯\n¹¥»÷»¨·Ñ200ms",89);
 	return 0;
 }
 int firstcity::xz3::onein(people* P)
 {
 	if(P->m_typ == "player") 
-		say("","ä¸å¥½,è¿™æœ‰é™·é˜±!\n",69);
+		say("","²»ºÃ,ÕâÓĞÏİÚå!\n",69);
 	P->Px = 7;
 	P->Py = 1;
 	return 0;
@@ -39,7 +39,7 @@ int firstcity::xz4::onein(people *P)
 {
 	if(P->m_typ != "player") return 0;
 	extern FILE* information;
-	fprintf(information,"å¤šèµ°èµ°è¯•è¯•\n");
+	fprintf(information,"¶à×ß×ßÊÔÊÔ\n");
 	static int jsq = 0;
 	jsq ++;
 	if(jsq == 10) P->Py += 3;
@@ -51,7 +51,7 @@ int firstcity::xz5::onein(people *P)
 	if(P->m_typ != "player") return 0;
 	player *pl = (player*) P;
 	extern FILE* information;
-	fprintf(information,"ç»ˆäºèµ°å‡ºæ¥äº†\n");
+	fprintf(information,"ÖÕÓÚ×ß³öÀ´ÁË\n");
 	static int jsq = 0;
 	if(!jsq) pl->magic_h(100);
 	jsq ++;
@@ -61,7 +61,7 @@ int firstcity::xz5::onein(people *P)
 int firstcity::xz6::onein(people *P)
 {
 	if(P->m_typ != "player") return 0;
-	say("å‘å¯¼","æ­å–œä½ æ€»ç®—æ˜¯é€šè¿‡äº†æ–°æ‰‹åŸçš„è€ƒéªŒ,ä¸‹æ¬¡æ¥æˆ‘ä¼šå°†ä½ å¸¦åˆ°ä¸»åŸ,é‚£é‡Œ......\n",79);
+	say("Ïòµ¼","¹§Ï²Äã×ÜËãÊÇÍ¨¹ıÁËĞÂÊÖ³ÇµÄ¿¼Ñé,ÏÂ´ÎÀ´ÎÒ»á½«Äã´øµ½Ö÷³Ç,ÄÇÀï......\n",79);
 	extern std::string filepl;
 	system(("echo set notfirst >> " + filepl + "add.rc").c_str());
 	return 3;
@@ -83,7 +83,7 @@ int firstcity::xz8::onein(people *P)
 int firstcity::xz9::onein(people *P)
 {
 	if(P->m_typ != "player") return 0;
-	say("","ä½ æ€ä¹ˆèµ°åˆ°è¿™æ¥äº†?",59);
+	say("","ÄãÔõÃ´×ßµ½ÕâÀ´ÁË?",59);
 	P->Px -= 2;
 	P->Py = 4;
 	return 0;
@@ -94,33 +94,33 @@ firstcity::firstcity()
 		for(int j=1;j<maxn;j++)
 			M->f(i,j) = new grass(' ');
 	/* int mid = maxn >> 1; */
-	M->m_name = "æ–°æ‰‹åŸfirstcity";
+	M->m_name = "ĞÂÊÖ³Çfirstcity";
 	for(uint i=0;i<infor.size();i++)
-		M->f(1,i+1) = new grass(infor[i] , "å¦‚ä½ æ‰€è§,æŒ‰då¯ä»¥å‘å³ç§»åŠ¨"),
+		M->f(1,i+1) = new grass(infor[i] , "ÈçÄãËù¼û,°´d¿ÉÒÔÏòÓÒÒÆ¶¯"),
 		M->f(2,i+1) = new wall(),
-		M->f(3,i+1) = new grass(infor[i]=='d'?'a':infor[i] , "åŒæ ·çš„æŒ‰aå¯ä»¥å·¦ç§»"),
+		M->f(3,i+1) = new grass(infor[i]=='d'?'a':infor[i] , "Í¬ÑùµÄ°´a¿ÉÒÔ×óÒÆ"),
 		M->f(4,i+1) = new wall(),
 		M->f(5,i+1) = new grass('>'),
 		M->f(6,i+1) = new wall();
-	M->f(1,infor.size()+1) = new grass('!' , "å†è¯•è¯•å³ç§»,ä½ ä¼šå‘ç°ä½ æ— æ³•ç§»åŠ¨,å› ä¸ºä½ çš„å³è¾¹æ˜¾ç„¶æ˜¯ä¸€å µå¢™,ç°åœ¨æŒ‰så‘ä¸‹");
+	M->f(1,infor.size()+1) = new grass('!' , "ÔÙÊÔÊÔÓÒÒÆ,Äã»á·¢ÏÖÄãÎŞ·¨ÒÆ¶¯,ÒòÎªÄãµÄÓÒ±ßÏÔÈ»ÊÇÒ»¶ÂÇ½,ÏÖÔÚ°´sÏòÏÂ");
 	for(uint i=1;i<=4;i++)
 		M->f(i , infor.size()+2) = new wall();
 	M->f(4 , infor.size()+1) = new wall();
-	M->f(3 , infor.size()+1) = new grass('!' , "æœ‰æ²¡æœ‰å‘ç°ä½ çœ‹ä¸åˆ°ä¸Šé¢çš„å­—å´æ–°çœ‹è§ä¸‹é¢çš„å­—äº†?\näº‹å®ä¸Šè¿™æ˜¯å› ä¸ºä½ çš„è§†çº¿æ”¶åˆ°äº†å¢™çš„é˜»æŒ¡");
-	M->f(4,1) = new grass('!' , "é‚£ä¹ˆè‡ªå·±èµ°èµ°å§");
+	M->f(3 , infor.size()+1) = new grass('!' , "ÓĞÃ»ÓĞ·¢ÏÖÄã¿´²»µ½ÉÏÃæµÄ×ÖÈ´ĞÂ¿´¼ûÏÂÃæµÄ×ÖÁË?\nÊÂÊµÉÏÕâÊÇÒòÎªÄãµÄÊÓÏßÊÕµ½ÁËÇ½µÄ×èµ²");
+	M->f(4,1) = new grass('!' , "ÄÇÃ´×Ô¼º×ß×ß°É");
 	for(uint i=1;i<=5;i++)
 		M->f(i,infor.size()+3) = new grass(' '),
 		M->f(i,infor.size()+4) = new wall();
 	for(uint i=infor.size()+1;i<=infor.size()+4;i++)
 		M->f(6,i) = new wall(); 
-	M->f(5,infor.size()+3) = new grass('!' , "ä¸ç”¨è¯´ä½ ä¹Ÿèƒ½çŒœåˆ°,æŒ‰wå‘ä¸Š");
-	M->f(2,infor.size()+3) = new grass('!' , "ä¸Šå»å§");
+	M->f(5,infor.size()+3) = new grass('!' , "²»ÓÃËµÄãÒ²ÄÜ²Âµ½,°´wÏòÉÏ");
+	M->f(2,infor.size()+3) = new grass('!' , "ÉÏÈ¥°É");
 	M->f(1,infor.size()+3) = new xz0();
 	uint sz = infor.size() + 4;
 	for(uint i=1;i<=6;i++)
 		M->f(i,sz+2) = new wall();
 	M->f(6,sz+1) = new wall();
-	M->f(3,sz+1) = new grass('!' , "ä½ æ˜¯å¦æ³¨æ„åˆ°ä½ è·å¾—äº†é‡‘å¸?\næŒ‰Bæ‰“å¼€èƒŒåŒ…çœ‹çœ‹");
+	M->f(3,sz+1) = new grass('!' , "ÄãÊÇ·ñ×¢Òâµ½Äã»ñµÃÁË½ğ±Ò?\n°´B´ò¿ª±³°ü¿´¿´");
 	M->f(5,sz+1) = new xz1();
 	//
 	sz += 2;
@@ -130,7 +130,7 @@ firstcity::firstcity()
 		M->f(6,i) = new wall();
 	atree * T = new atree(3 , sz+3 , 0);
 	T->apin(M);
-	M->f(5,sz+2) = new grass('!' , "çœ‹è§å³ä¸Šè§’é‚£ä¸ª\'T\'äº†å—?\nç°åœ¨å‘Šè¯‰ä½ å¦‚ä½•æ”»å‡»å®ƒ");
+	M->f(5,sz+2) = new grass('!' , "¿´¼ûÓÒÉÏ½ÇÄÇ¸ö\'T\'ÁËÂğ?\nÏÖÔÚ¸æËßÄãÈçºÎ¹¥»÷Ëü");
 	M->f(3,sz+1) = new xz2();
 	M->f(1,sz+14) = new xz3();
 	M->f(1,sz+11) = new grass(';');
@@ -153,11 +153,11 @@ firstcity::firstcity()
 	for(uint i=1;i<=10;i++)
 		M->f(8,i) = new wall();
 	M->f(7,4) = new xz5();
-	M->f(7,5) = new grass('!' , "ç°åœ¨å—ä¼¤ä¸¥é‡,æŒ‰iä½¿ç”¨æ²»ç–—");
+	M->f(7,5) = new grass('!' , "ÏÖÔÚÊÜÉËÑÏÖØ,°´iÊ¹ÓÃÖÎÁÆ");
 	M->f(7,9) = new xz6();
 	M->f(9,3) = new grass('<');
 	M->f(9,1) = new xz9();
-	//å½©è›‹
+	//²Êµ°
 	M->f(maxn-1 , 1) = new xz7();
 	M->f(7,maxn-1) = new xz8();
 }

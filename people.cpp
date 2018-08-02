@@ -54,7 +54,7 @@ int MAP::move(people *P,char flag)
 				if(pres == 1)
 				{
 					res = 1;
-					if(!p(P->Px , P->Py)) debug_print("error:mapä¸­æ²¡æœ‰è¦ç¦»å¼€çš„ä½ç½®,ä½ç½®" + number_str(P->Px) + "," + number_str(P->Py));
+					if(!p(P->Px , P->Py)) debug_print("error:mapÖĞÃ»ÓĞÒªÀë¿ªµÄÎ»ÖÃ,Î»ÖÃ" + number_str(P->Px) + "," + number_str(P->Py));
 					else
 						/* debug_print("debug:p_leave"), */
 						meet_p -> m_mut_leave . unlock(),
@@ -64,12 +64,12 @@ int MAP::move(people *P,char flag)
 			}
 			else meet_p -> m_mut_leave . unlock();
 		}
-		else fprintf(information , "%sç²¾å‡†é—ªé¿!\n",meet_p->m_name.c_str());
+		else fprintf(information , "%s¾«×¼ÉÁ±Ü!\n",meet_p->m_name.c_str());
 	}
 	/* debug_print("debug:meet3");//debug */
 	if(!f(P->Px,P->Py))
 	{
-		debug_print("error:æ²¡æœ‰åœ°é¢,å‘ç”Ÿåœ¨"+this->m_name+number_str(P->Px)+","+number_str(P->Py));
+		debug_print("error:Ã»ÓĞµØÃæ,·¢ÉúÔÚ"+this->m_name+number_str(P->Px)+","+number_str(P->Py));
 		return -1;
 	}
 	if(!back)
@@ -121,7 +121,7 @@ MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name
 		else
 		{
 			printf("MAP make error:%d(ex%d)\n",lres,floorsl);
-			debug_print("warning:åœ°å›¾æ­»è§’,è”é€šå¤§å°"+number_str(lres)+"æœŸå¾…"+number_str(floorsl));
+			debug_print("warning:µØÍ¼ËÀ½Ç,ÁªÍ¨´óĞ¡"+number_str(lres)+"ÆÚ´ı"+number_str(floorsl));
 			if(maxn-mins == 4)
 			{
 				for(int i=mins;i<=maxn;i++,puts(""))
@@ -158,10 +158,10 @@ void wall::rl_introduce()
 	Kuang.clear();
 	printf("WALL:");
 	Kuang.tonext();
-	printf("æ˜¾è€Œæ˜“è§,è¿™æ˜¯ä¸€å µå¢™");
+	printf("ÏÔ¶øÒ×¼û,ÕâÊÇÒ»¶ÂÇ½");
 	Kuang.tonext();
-	printf("å®ƒä¸ä»…æ— æ³•ç»è¿‡");
-	printf("è€Œä¸”ä¼šæŒ¡ä½ä½ çš„è§†é‡");
+	printf("Ëü²»½öÎŞ·¨¾­¹ı");
+	printf("¶øÇÒ»áµ²×¡ÄãµÄÊÓÒ°");
 	Kuang.tonext();
 	system("pause");
 }
@@ -182,11 +182,11 @@ void grass::rl_introduce()
 	Kuang.clear();
 	printf("Grass:");
 	Kuang.tonext();
-	printf("è¿™é‡Œæ˜¯ä¸€å—æ ‡æœ‰%cçš„è‰åœ°",this->face);
+	printf("ÕâÀïÊÇÒ»¿é±êÓĞ%cµÄ²İµØ",this->face);
 	if(!this->infor.empty())
 	{
 		Kuang.tonext();
-		printf("è€Œä¸”è¿™ä¸Šé¢ä¼¼ä¹æœ‰ä»€ä¹ˆä¿¡æ¯...");
+		printf("¶øÇÒÕâÉÏÃæËÆºõÓĞÊ²Ã´ĞÅÏ¢...");
 	}
 	Kuang.tonext();
 	system("pause");
@@ -223,9 +223,9 @@ void Door::rl_introduce()
 	Kuang.clear();
 	printf("Door:");
 	Kuang.tonext();
-	printf("è¿™æ˜¯ä¸€æ‰‡æ­£%sç€çš„é—¨",this->isopen?"å¼€":"å…³");
+	printf("ÕâÊÇÒ»ÉÈÕı%s×ÅµÄÃÅ",this->isopen?"¿ª":"¹Ø");
 	Kuang.tonext();
-	printf("å®ƒæ˜¯ç”±%sé˜µè¥åˆ›é€ çš„",this->belong.c_str());
+	printf("ËüÊÇÓÉ%sÕóÓª´´ÔìµÄ",this->belong.c_str());
 	Kuang.tonext();
 	system("pause");
 }
@@ -251,18 +251,18 @@ void FakeWall::rl_introduce()
 	Kuang.clear();
 	printf("FakeWall!");
 	Kuang.tonext();
-	printf("Ops!!!éœ‡æƒŠ!!!");
+	printf("Ops!!!Õğ¾ª!!!");
 	Kuang.tonext();
-	printf("è¿™ç©æ„é•¿å¾—å’Œå¢™ä¸€æ¨¡ä¸€æ ·");
+	printf("ÕâÍæÒâ³¤µÃºÍÇ½Ò»Ä£Ò»Ñù");
 	Kuang.tonext();
-	printf("è€Œä¸”ä¹Ÿèƒ½é˜»æŒ¡è§†çº¿");
+	printf("¶øÇÒÒ²ÄÜ×èµ²ÊÓÏß");
 	Kuang.tonext();
-	printf("ä½†æ˜¯å®ƒç«Ÿç„¶å¯ä»¥éšæ„é€šè¿‡!!!");
+	printf("µ«ÊÇËü¾¹È»¿ÉÒÔËæÒâÍ¨¹ı!!!");
 }
 // }}}
 
 // people {{{
-// people æ„é€  {{{
+// people ¹¹Ôì {{{
 people::people():flag('w')
 {
 	const int stasl = 4;
@@ -301,42 +301,42 @@ void people::introduce() // {{{
 	Kuang.clear();
 	printf("%s:",m_name.c_str());
 	Kuang.tonext();
-	printf("æ‰€å±é˜µè¥:%s",belong.c_str());
+	printf("ËùÊôÕóÓª:%s",belong.c_str());
 	Kuang.tonext();
-	printf("ç”Ÿå‘½å€¼:%d/%d",m_hp,c_hpmax());
+	printf("ÉúÃüÖµ:%d/%d",m_hp,c_hpmax());
 	Kuang.tonext();
-	printf("ä¼¤å®³å€¼:%d",c_war());
+	printf("ÉËº¦Öµ:%d",c_war());
 	Kuang.tonext();
 	system("pause");
 } // }}}
 int people::apin(MAP* M) // {{{
 {
-	debug_print("debug:people"+m_name+"å‡ºç°"+M->m_name+"("+number_str(Px)+","+number_str(Py)+")->");
+	debug_print("debug:people"+m_name+"³öÏÖ"+M->m_name+"("+number_str(Px)+","+number_str(Py)+")->");
 	m_inM = M;
 	people *t_p = M->p(Px , Py);
 	int res = 0;
 	if(t_p)
 	{
-		debug_print("warning:é‡å¤å‡ºç°:"+t_p->m_name);
+		debug_print("warning:ÖØ¸´³öÏÖ:"+t_p->m_name);
 		/* m_mut_leave.unlock(); */
 		res = 1;
 	}
 	else M->p(Px,Py) = this;
 	if(!M->f(Px,Py))
 	{
-		debug_print("warning:å‡ºç”Ÿæ— åœ°é¢");
+		debug_print("warning:³öÉúÎŞµØÃæ");
 		M->f(Px,Py) = new grass();
 		/* m_mut_leave.unlock(); */
 		res = 1;
 	}
 	m_mut_leave.unlock();
-	debug_print("debug:people"+m_name+"å‡ºç°"+M->m_name+"<-");
+	debug_print("debug:people"+m_name+"³öÏÖ"+M->m_name+"<-");
 	return res;
 } // }}}
 int people::leave(MAP *M) // {{{
-//1: æ— æ³•ç¦»å¼€
+//1: ÎŞ·¨Àë¿ª
 {
-	debug_print("debug:people"+m_name+"ç¦»å¼€"+M->m_name+"("+number_str(Px)+","+number_str(Py)+")->");
+	debug_print("debug:people"+m_name+"Àë¿ª"+M->m_name+"("+number_str(Px)+","+number_str(Py)+")->");
 	if(!M)
 		return -1;
 	int res = 0;
@@ -344,20 +344,20 @@ int people::leave(MAP *M) // {{{
 	{
 		if(!M->p(Px,Py))
 		{
-			debug_print("error:åœ¨æ­¤ä¹‹å‰æå‰ç¦»å¼€,å‘ç”Ÿåœ¨"+number_str(Px)+","+number_str(Py));
+			debug_print("error:ÔÚ´ËÖ®Ç°ÌáÇ°Àë¿ª,·¢ÉúÔÚ"+number_str(Px)+","+number_str(Py));
 			return -1;
 		}
 		else if(M->p(Px , Py) != this)
 		{
-			debug_print("error:ç¦»å¼€ä½ç½®å·²è¢«æŠ¢å ,å‘ç”Ÿåœ¨"+number_str(Px)+","+number_str(Py));
+			debug_print("error:Àë¿ªÎ»ÖÃÒÑ±»ÇÀÕ¼,·¢ÉúÔÚ"+number_str(Px)+","+number_str(Py));
 			res = -1;
 		}
 		else
 			M->p(Px, Py) = nullptr;
 	}
-	else fprintf(information , "%sè¢«ç‰µåˆ¶æ— æ³•ç§»åŠ¨!\n",m_name.c_str()) , res = 1;
+	else fprintf(information , "%s±»Ç£ÖÆÎŞ·¨ÒÆ¶¯!\n",m_name.c_str()) , res = 1;
 	/* m_inM = nullptr; */
-	debug_print("debug:"+m_name+"ç¦»å¼€"+M->m_name+"<-");
+	debug_print("debug:"+m_name+"Àë¿ª"+M->m_name+"<-");
 	return res;
 } // }}}
 bool people::c_hp(people *from_p,int val,int typ) // {{{
@@ -380,12 +380,12 @@ bool people::c_hp(people *from_p,int val,int typ) // {{{
 void people::get_more_war(int cg) // {{{
 {
 	m_war += cg;
-	if(m_typ == "player") messagebox(NULL,("ä¼¤å®³æé«˜"+number_str(cg)).c_str(),"èƒ½åŠ›å¢å¼º:",MB_OK);
+	if(m_typ == "player") messagebox(NULL,("ÉËº¦Ìá¸ß"+number_str(cg)).c_str(),"ÄÜÁ¦ÔöÇ¿:",MB_OK);
 } // }}}
 void people::get_more_hpsx(int cg) // {{{
 {
 	m_hpsx += cg;
-	if(m_typ == "player") messagebox(NULL,("ç”Ÿå‘½ä¸Šé™"+number_str(cg)).c_str(),"èƒ½åŠ›å¢å¼º:",MB_OK);
+	if(m_typ == "player") messagebox(NULL,("ÉúÃüÉÏÏŞ"+number_str(cg)).c_str(),"ÄÜÁ¦ÔöÇ¿:",MB_OK);
 } // }}}
 int people::c_hpmax() // {{{
 {
@@ -409,7 +409,7 @@ char people::reflag(char c) // {{{
 int player::meet(people* P) // {{{
 //1:kill
 {
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"->");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"->");
 	//std::lock_guard<std::mutex> lock(P->m_mut_leave);
 	int res = 0;
 	if(ready_fight)
@@ -418,12 +418,12 @@ int player::meet(people* P) // {{{
 		int bres;
 		if(m_lianji == 3)
 			bres = P->c_hp(this , -m_war*2.5) ,
-			fprintf(information , "%så¯¹%sæ‰“å‡ºäº†é‡ä¼¤!\n",m_name.c_str(),P->m_name.c_str()) ;
+			fprintf(information , "%s¶Ô%s´ò³öÁËÖØÉË!\n",m_name.c_str(),P->m_name.c_str()) ;
 		else if(m_lianji >= 34)
 			bres = P->c_hp(this , -m_war*0.04);
 		else if(m_lianji >= 25)
 			bres = P->c_hp(this , -m_war*0.1) ,
-				fprintf(information , "%så¼€å§‹å¯¹é¢‘ç¹çš„æ”»å‡»æ„Ÿåˆ°ä¹åŠ›...\n",m_name.c_str());
+				fprintf(information , "%s¿ªÊ¼¶ÔÆµ·±µÄ¹¥»÷¸Ğµ½·¦Á¦...\n",m_name.c_str());
 		else if(m_lianji >= 15)
 			bres = P->c_hp(this , -m_war*0.2);
 		else if(m_lianji >= 8)
@@ -434,16 +434,16 @@ int player::meet(people* P) // {{{
 			bres = P->c_hp(this , -m_war);
 		if(m_lianji == 2 || m_lianji == 4)
 			P->m_sta["back"] = std::make_pair(clock()+300 , flag) ,
-			fprintf(information , "%så¯¹%sæ‰“å‡ºäº†å‡»é€€!!!\n",m_name.c_str(),P->m_name.c_str());
+			fprintf(information , "%s¶Ô%s´ò³öÁË»÷ÍË!!!\n",m_name.c_str(),P->m_name.c_str());
 		if(bres == 1)
 		{
-			debug_print("debug:"+m_name+"å‡»æ€people"+P->m_name+"->");
+			debug_print("debug:"+m_name+"»÷É±people"+P->m_name+"->");
 			res = 1;
-			debug_print("debug:"+m_name+"å‡»æ€people"+P->m_name+"<-");
+			debug_print("debug:"+m_name+"»÷É±people"+P->m_name+"<-");
 		}
 	}
 	else P->introduce() , m_lianji = 0;
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"<-");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"<-");
 	return res;
 } // }}}
 int player::move(char fg) // {{{
@@ -460,14 +460,14 @@ int player::move(char fg) // {{{
 	else if(fg == 'L')
 	{
 		Pos l_pos(0 , 0);
-		printf("è¾“å…¥å…¶åæ ‡x:");
+		printf("ÊäÈëÆä×ø±êx:");
 		l_pos.x = intgetch();
-		printf("è¾“å…¥å…¶åæ ‡y:");
+		printf("ÊäÈëÆä×ø±êy:");
 		l_pos.y = intgetch();
 		if(!m_inM) debug_print("error:no map in people");
 		else if(m_inM->p(l_pos)) m_inM->p(l_pos)->introduce();
 		else if(m_inM->f(l_pos)) m_inM->f(l_pos)->introduce();
-		else fprintf(information , "æŒ‡å®šä½ç½®æ­¤æ—¶ä¸ºç©º!\n");
+		else fprintf(information , "Ö¸¶¨Î»ÖÃ´ËÊ±Îª¿Õ!\n");
 	}
 	else if(fg == 'B') bag->list();
 	else if(fg == 'Z') this->introduce();
@@ -492,12 +492,12 @@ int player::move(char fg) // {{{
 	return res;
 } // }}}
 bool player::_cans(MAP *M,int x,int y,bool cansee) { if(!M->f(x,y)) M->newfloor(x,y); return cansee && M->f(x,y)->cansee(this); }
-// playeræ„é€  {{{
+// player¹¹Ôì {{{
 player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement),IO_name(name) 
 {
 	belong = "space";
 	m_typ = "player";
-	m_name = "ä½ ";
+	m_name = "Äã";
 	m_hpsx = m_hp = FIR_hp;
 	m_war = FIR_war;
 	m_magic = m_magicsx = FIR_magic;
@@ -509,7 +509,7 @@ player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement)
 	sjin(this , name);
 	debug_print("made a player");
 } // }}}
-// player ææ„ {{{
+// player Îö¹¹ {{{
 player::~player()
 {
 	sjout(this , IO_name);
@@ -529,7 +529,7 @@ int player::look(MAP *M) // {{{
 	_map2<bool> cansee;
 	cansee(Px,Py) = 1;
 	const int maxl = 8 , liest = 20 , lieen = 50 , hang = 11;
-	// åˆ¤æ–­è§†é‡ {{{
+	// ÅĞ¶ÏÊÓÒ° {{{
 	#define cans(x,y) _cans(M,x,y,cansee(x,y))
 	for(int len=1;len<=maxl+1;len++)
 	{
@@ -548,7 +548,7 @@ int player::look(MAP *M) // {{{
 	}
 	#undef cans
 	// }}}
-	//  è¿›è¡Œæ‰“å° {{{
+	//  ½øĞĞ´òÓ¡ {{{
 	for(int i=Px-maxl;i<=Px+maxl;i++)
 	{
 		for(int j=Py-maxl;j<=Py+maxl;j++)
@@ -573,24 +573,24 @@ int player::look(MAP *M) // {{{
 		}
 		puts("");
 	}
-	// æ‰“å°çŠ¶æ€æ  {{{
+	// ´òÓ¡×´Ì¬À¸ {{{
 	cgcolor(std::string("0") + (char)('0'+rand()%7));
 	print_inF Kuang(Pos(1 , liest) , Pos(hang , lieen) , Pos(maxl * 2 + 2 , 1));
-	// æç¤º {{{
+	// ÌáÊ¾ {{{
 	cgcolor("");
 	printf("Your imformation:");
 	// }}}
-	// ä½ç½® {{{
+	// Î»ÖÃ {{{
 	Kuang.tonext();
 	cgcolor("");
 	printf("place:%d %d(in %s)",Px,Py,M->m_name.c_str());
 	// }}}
-	// ç­‰çº§ {{{
+	// µÈ¼¶ {{{
 	Kuang.tonext();
 	cgcolor("");
 	printf("LV:%d/%d(EXP:%d/%d)",m_lv,lvmax,m_exp,lvup[m_lv]);
 	// }}}
-	// ç”Ÿå‘½å€¼ {{{
+	// ÉúÃüÖµ {{{
 	Kuang.tonext();
 	cgcolor("");
 	printf("Your HP:");
@@ -616,7 +616,7 @@ int player::look(MAP *M) // {{{
 	cgcolor("");
 	putchar(')');
 	// }}}
-	// é­”æ³•å€¼ + ä¼¤å®³ {{{
+	// Ä§·¨Öµ + ÉËº¦ {{{
 	Kuang.tonext();
 	cgcolor("");
 	printf("Your Magic:");
@@ -629,29 +629,29 @@ int player::look(MAP *M) // {{{
 	printf("  |  ");
 	printf("ATK:%d",c_war());
 	// }}}
-	// æŠ€èƒ½I {{{
+	// ¼¼ÄÜI {{{
 	Kuang.tonext();
 	cgcolor("");
-	printf("-I-:%s(%dçº§)",m_I->m_name.c_str(),m_I->m_lv);
+	printf("-I-:%s(%d¼¶)",m_I->m_name.c_str(),m_I->m_lv);
 	// }}}
-	// æŠ€èƒ½O {{{
+	// ¼¼ÄÜO {{{
 	Kuang.tonext();
 	cgcolor("");
-	printf("-O-:%s(%dçº§)",m_O->m_name.c_str(),m_O->m_lv);
+	printf("-O-:%s(%d¼¶)",m_O->m_name.c_str(),m_O->m_lv);
 	// }}}
-	// æ‰€å¤„çŠ¶æ€ {{{
+	// Ëù´¦×´Ì¬ {{{
 	Kuang.tonext();
 	cgcolor("");
 	int now = clock();
-	printf("çŠ¶æ€:");
+	printf("×´Ì¬:");
 	for(auto iter = m_sta.begin();iter != m_sta.end();iter++)
 		if(now < iter->second.first)
 			printf("-%s",iter->first.c_str());
 	// }}}
-	// è¿å‡»æ•° {{{
+	// Á¬»÷Êı {{{
 	Kuang.tonext();
 	cgcolor("");
-	if(m_lianji) printf("%dè¿å‡»!!!\n",m_lianji);
+	if(m_lianji) printf("%dÁ¬»÷!!!\n",m_lianji);
 	// }}}
 	// }}}
 	cgcolor(""); // }}}
@@ -661,15 +661,15 @@ void player::introduce() // {{{
 {
 	print_inF Kuang(Pos(1,1) , Pos(7,38) , Pos(1,1));
 	Kuang.clear();
-	printf("å‹‡å£«%s:",IO_name.c_str());
+	printf("ÓÂÊ¿%s:",IO_name.c_str());
 	Kuang.tonext();
-	printf("åŸºç¡€ç”Ÿå‘½ä¸Šé™:%5d  åŸºç¡€ä¼¤å®³:%dn",m_hpsx,m_war);
+	printf("»ù´¡ÉúÃüÉÏÏŞ:%5d  »ù´¡ÉËº¦:%dn",m_hpsx,m_war);
 	Kuang.tonext();
-	printf("å®é™…ç”Ÿå‘½ä¸Šé™:%5d  å®é™…ä¼¤å®³:%d",c_hpmax(),c_war());
+	printf("Êµ¼ÊÉúÃüÉÏÏŞ:%5d  Êµ¼ÊÉËº¦:%d",c_hpmax(),c_war());
 	Kuang.tonext();
-	printf("åŸºç¡€é­”æ³•ä¸Šé™:%d",m_magicsx);
+	printf("»ù´¡Ä§·¨ÉÏÏŞ:%d",m_magicsx);
 	Kuang.tonext();
-	printf("ä½œä¸ºä¸€ä¸ªå‹‡å£«,ä½ è¿˜æ˜¯å¤ªèœäº†");
+	printf("×÷ÎªÒ»¸öÓÂÊ¿,Äã»¹ÊÇÌ«²ËÁË");
 	Kuang.tonext();
 	system("pause");
 } // }}}
@@ -684,7 +684,7 @@ void player::exp_h(int ooexp) // {{{
 		m_war += FIR_war * power11(m_lv);
 		m_magicsx += FIR_magic * power11(m_lv);
 		m_lv ++;
-		messagebox(NULL,"å‡çº§äº†ï¼ï¼ï¼\n","æ­å–œï¼š",MB_OK);
+		messagebox(NULL,"Éı¼¶ÁË£¡£¡£¡\n","¹§Ï²£º",MB_OK);
 	}
 } // }}}
 int player::magic_h(int oomagic) // {{{
@@ -701,12 +701,12 @@ void player::rc_hp(people *,int& val,int typ) // {{{
 	int now = clock();
 	if(now < m_sta["dikang"].first && typ != 'r' && val < 0)
 		val = std::min(0 , val + m_sta["dikang"].second) ,
-		fprintf(information,"æŠµæŠ—ç”Ÿæ•ˆ!\n") ;
+		fprintf(information,"µÖ¿¹ÉúĞ§!\n") ;
 	m_hpinfor.push(val);
 } // }}}
 void player::rc_die(people *kill_p) // {{{
 {
-	fprintf(information , "%sæ€æ­»äº†ä½ !\n",kill_p->m_name.c_str());
+	fprintf(information , "%sÉ±ËÀÁËÄã!\n",kill_p->m_name.c_str());
 	kill_p->exp_h(100*power11(m_lv));
 } // }}}
 int player::call_pet(MAP *M) // {{{
@@ -722,7 +722,7 @@ int player::call_pet(MAP *M) // {{{
 		pet->Py = Py + movey[fg];
 		pet->apin(M);
 	}
-	else fprintf(information , "å¬å”¤!!â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€å¤±è´¥......\n");
+	else fprintf(information , "ÕÙ»½!!©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤Ê§°Ü......\n");
 	debug_print("debug:you call pet<-");
 	return 0;
 } // }}}
@@ -751,7 +751,7 @@ void Dog::rc_die(people *kill_p)
 	kill_p->c_hp(this , -1000 , 'r');
 }
 int Dog::look(MAP *M)
-//1 : MAP ä¸ºç©º
+//1 : MAP Îª¿Õ
 {
 	if(!M) return -1;
 	for(int i=0;i<4;i++)
@@ -777,12 +777,12 @@ int Dog::look(MAP *M)
 }
 int Dog::meet(people* P)
 {
-	debug_print("debug:Dog"+m_name+"é­é‡"+P->m_name+"->");
+	debug_print("debug:Dog"+m_name+"ÔâÓö"+P->m_name+"->");
 	int res = 0;
 	//std::lock_guard<std::mutex> lock(P->m_mut_leave);
 	if(P->belong == belong) res = 0;
 	else if(P->c_hp(this,-c_war()) == 1) res = 1;
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"<-");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"<-");
 	return res;
 }
 void Dog::exp_h(int ooexp)
@@ -802,7 +802,7 @@ void Dog::exp_h(int ooexp)
 pig::pig(int x,int y,int lv,std::string bl)
 {
 	m_typ = "pig";
-	m_name = "æµæµªè€…";
+	m_name = "Á÷ÀËÕß";
 	color = "04";
 	belong = bl;
 	Px = x;
@@ -838,12 +838,12 @@ int pig::look(MAP *M)
 }
 int pig::meet(people* P)
 {
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"->");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"->");
 	int res = 0;
 	//std::lock_guard<std::mutex> lock(P->m_mut_leave);
 	if(P->belong == belong) res = 0;
 	else if(P->c_hp(this,-c_war()) == 1) res = 1;
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"<-");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"<-");
 	return res;
 }
 void pig::exp_h(int ooexp)
@@ -863,7 +863,7 @@ void pig::exp_h(int ooexp)
 snake::snake(int x,int y,int lv,std::string bl)
 {
 	m_typ = "snake";
-	m_name = "æ€æˆ®è€…";
+	m_name = "É±Â¾Õß";
 	color = "04";
 	belong = bl;
 	Px = x;
@@ -929,12 +929,12 @@ int snake::look(MAP *M)
 }
 int snake::meet(people* P)
 {
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"->");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"->");
 	int res = 0;
 	//std::lock_guard<std::mutex> lock(P->m_mut_leave);
 	if(P->belong == belong) res = 0;
 	else if(P->c_hp(this,-c_war()) == 1) res = 1;
-	debug_print("debug:"+m_name+"é­é‡"+P->m_name+"<-");
+	debug_print("debug:"+m_name+"ÔâÓö"+P->m_name+"<-");
 	return res;
 }
 void snake::exp_h(int ooexp)
@@ -954,7 +954,7 @@ void snake::exp_h(int ooexp)
 atree::atree(int x,int y,int lv,std::string bl)
 {
 	m_typ = "tree";
-	m_name = "çµæ ‘";
+	m_name = "ÁéÊ÷";
 	belong = bl;
 	/* B = bs; */
 	m_exp = lv ? lvup[lv - 1] : 0;
@@ -979,7 +979,7 @@ int atree::look(MAP *)
 }
 int atree::meet(people*)
 {
-	debug_print("error:atreeæ„å¤–åœ°é­é‡");
+	debug_print("error:atreeÒâÍâµØÔâÓö");
 	return -1;
 }
 void atree::exp_h(int ooexp)

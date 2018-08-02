@@ -71,4 +71,6 @@ const int MB_OK = 1 , MB_YESNO = 2;
 //FILE* information , *for_debug;
 extern FILE *information;
 // }}}
+typedef unsigned int uint;
+#define windows nullptr
 #endif
