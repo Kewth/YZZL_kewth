@@ -16,11 +16,11 @@
 * [编译方式](#re_comp)
 * [更新日志](#upd_dir)  
 
-** <div id="li_introduce">介绍:</div> **
+**<div id="li_introduce">介绍:</div>**
 
 暂无介绍
 
-** <div id="upd_dir">Here the writer list some important update:</div> **
+**<div id="upd_dir">Here the writer list some important update:</div>**
 
 In 2018:
 
@@ -125,6 +125,7 @@ In 2018:
 > > 1. 完善了新手教程
 > > 
 > > 2. 给治疗和抵抗新增2个等级,并修改了之前的6个等级,具体如下:
+> > ```
 > >			治疗:
 > >				0~1:回复量约提高100%(相比调整前,下同)
 > >				2:回复量提高150%
@@ -142,6 +143,7 @@ In 2018:
 > >				技能耗蓝在0~3级略微增加,4级之后减少
 > >			技能耗时普遍提高约100%
 > >			技能升级消耗普遍提高20~50%
+> > ```
 
 > Day 8:
 > > 1. 添加了简单的新手教程(仍在完善)
@@ -283,7 +285,9 @@ In 2018:
 > > 
 > > 2. 改boss模式的行动,若超过2秒未反应则视为无行d
 
-** <div id="re_comp">手动编译</div> **
+**<div id="re_comp">手动编译</div>**  
+Linux :运行more目录下的G.sh  
+windows :运行G.bat  
 
 Some tips:
 =====
