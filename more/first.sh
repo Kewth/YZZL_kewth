@@ -1,7 +1,7 @@
 #!/bin/bash  
 
 " echo "alias yz
-read -p "ÇëÊäÈëÓÃ»§Ãû(ÒÔÔÚhome/½¨Á¢Ò»¸ö±ØĞëµÄÎÄ¼ş¼Ğ)" user
+read -p "è¯·è¾“å…¥ç”¨æˆ·å(ä»¥åœ¨home/å»ºç«‹ä¸€ä¸ªå¿…é¡»çš„æ–‡ä»¶å¤¹)" user
 mkdir /home/$user/
 cd /home/$user/
 rm .yzzl -r
@@ -9,17 +9,17 @@ mkdir .yzzl
 cd .yzzl
 for((i=1;i<=10;i++));  
 do
-	echo -e "\e[37;40m ´´½¨ÎÄ¼ş:informa$i.txt\033[0m\033[1A"
+	echo -e "\e[37;40m åˆ›å»ºæ–‡ä»¶:informa$i.txt\033[0m\033[1A"
 	sleep 0.1
 	touch informa$i.txt
 done
 city=("maincity" "cutcity" "funcity","workcity")
 for c in ${city[@]};
 do
-	echo -e "\e[37;40m ´´½¨ÎÄ¼ş:$c.txt       \033[0m\033[1A"
+	echo -e "\e[37;40m åˆ›å»ºæ–‡ä»¶:$c.txt       \033[0m\033[1A"
 	sleep 0.05
 	touch $c.txt
-	echo -e "\e[37;40m Ğ´ÈëÎÄ¼ş:$c.txt       \033[0m\033[1A"
+	echo -e "\e[37;40m å†™å…¥æ–‡ä»¶:$c.txt       \033[0m\033[1A"
 	echo ......... > $c.txt
 	sleep 0.05
 done

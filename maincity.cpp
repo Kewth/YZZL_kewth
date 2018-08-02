@@ -10,7 +10,7 @@ int maincity::xz0::onein(people*)
 }
 int maincity::xz1::onein(people* P)
 {
-	fprintf(information , "%s¿ªÊ¼ÁËÄ¥Á·\n",P->m_name.c_str());
+	fprintf(information , "%så¼€å§‹äº†ç£¨ç»ƒ\n",P->m_name.c_str());
 	if(P->m_typ != "player")
 	{
 		P->m_sta["stop"] = std::make_pair(clock() + 3999,0);
@@ -20,27 +20,27 @@ int maincity::xz1::onein(people* P)
 	player * PP = (player *) P;
 	int lv = PP->m_lv;
 	system("cls");
-	std::cout<<"ÇëÑ¡ÔñÄÑ¶È£º\n";
-	std::cout<<"1¡¢¼òµ¥\n";
-	std::cout<<"2¡¢ÆÕÍ¨";
-	if(lv<2) printf("£¨Î´½âËø£©\n");else printf("\n");
-	std::cout<<"3¡¢À§ÄÑ";
-	if(lv<6) printf("£¨Î´½âËø£©\n");else printf("\n");
-	std::cout<<"4¡¢ÌôÕ½";
-	if(lv<10) printf("£¨Î´½âËø£©\n");else printf("\n");
-	std::cout<<"5£¬µØÓü";
-	if(lv<16) printf("£¨Î´½âËø£©\n");else printf("\n");
-	std::cout<<"6£¬´Î¸ßÊÔÁ¶";
-	if(lv<22) printf("£¨Î´½âËø£©\n");else printf("\n");
-	std::cout<<"7£¬×î¸ßÊÔÁ¶";
-	if(lv<28) printf("£¨Î´½âËø£©\n");else printf("\n");
-	std::cout<<"×¢£ºÌÓÅÜ¡¢Ê§°Ü²»ÄÜ»ñµÃ½±Àø.\n";
-	std::cout<<"ÇëÊäÈëÄÑ¶È±àºÅ\n";
+	std::cout<<"è¯·é€‰æ‹©éš¾åº¦ï¼š\n";
+	std::cout<<"1ã€ç®€å•\n";
+	std::cout<<"2ã€æ™®é€š";
+	if(lv<2) printf("ï¼ˆæœªè§£é”ï¼‰\n");else printf("\n");
+	std::cout<<"3ã€å›°éš¾";
+	if(lv<6) printf("ï¼ˆæœªè§£é”ï¼‰\n");else printf("\n");
+	std::cout<<"4ã€æŒ‘æˆ˜";
+	if(lv<10) printf("ï¼ˆæœªè§£é”ï¼‰\n");else printf("\n");
+	std::cout<<"5ï¼Œåœ°ç‹±";
+	if(lv<16) printf("ï¼ˆæœªè§£é”ï¼‰\n");else printf("\n");
+	std::cout<<"6ï¼Œæ¬¡é«˜è¯•ç‚¼";
+	if(lv<22) printf("ï¼ˆæœªè§£é”ï¼‰\n");else printf("\n");
+	std::cout<<"7ï¼Œæœ€é«˜è¯•ç‚¼";
+	if(lv<28) printf("ï¼ˆæœªè§£é”ï¼‰\n");else printf("\n");
+	std::cout<<"æ³¨ï¼šé€ƒè·‘ã€å¤±è´¥ä¸èƒ½è·å¾—å¥–åŠ±.\n";
+	std::cout<<"è¯·è¾“å…¥éš¾åº¦ç¼–å·\n";
 	char c;
 	c=getch();
 	if((c=='2'&&lv<2)||(c=='3'&&lv<6)||(c=='4'&&lv<10)||(c=='5'&&lv<16)||(c=='6'&&lv<22)||(c=='7'&&lv<28))
 	{
-		printf("Î´½âËø´ËÄÑ¶È!\n");
+		printf("æœªè§£é”æ­¤éš¾åº¦!\n");
 		system("pause");
 		return 0;
 	}
@@ -94,18 +94,18 @@ int maincity::xz1::onein(people* P)
 		printf("\n\n\n");
 		if(res==1)
 		{
-			printf("µĞÈËÉ±ËÀÁËÄã!!\n");
-			printf("        ½á¾Ö£ºÕ½ËÀÉ³³¡\n");
+			printf("æ•Œäººæ€æ­»äº†ä½ !!\n");
+			printf("        ç»“å±€ï¼šæˆ˜æ­»æ²™åœº\n");
 		}
 		if(res==2)
 		{
-			printf("        ½á¾Ö£º×ßÎªÉÏ²ß\n");
+			printf("        ç»“å±€ï¼šèµ°ä¸ºä¸Šç­–\n");
 		}
 		if(res==3)
 		{
-			printf("µĞÈËÊ£Óà0HP£¡£¡\n");
-			printf("ÄãÉ±ËÀÁËµĞÈË£¡£¡\n");
-			printf("        ½á¾Ö£º´ó»ñÈ«Ê¤\n");
+			printf("æ•Œäººå‰©ä½™0HPï¼ï¼\n");
+			printf("ä½ æ€æ­»äº†æ•Œäººï¼ï¼\n");
+			printf("        ç»“å±€ï¼šå¤§è·å…¨èƒœ\n");
 		}
 		system("pause");
 		Sleep(999);
@@ -117,7 +117,7 @@ int xz_yangshen(people * P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%s¿ªÊ¼ÁËÑøÉñ\n",P->m_name.c_str());
+		fprintf(information , "%så¼€å§‹äº†å…»ç¥\n",P->m_name.c_str());
 		P->c_hp(nullptr , 100);
 		return 0;
 	}
@@ -126,23 +126,23 @@ int xz_yangshen(people * P)
 	int yuanli = pl->bag->yuanli_h(0);
 	int oohp = 400*power11(lv);
 	int oomagic = 70*power11(lv);
-	printf("ÄãÄ¿Ç°ÓĞÔªÁ¦£º%d\n",yuanli);
-	printf("ÊÇ·ñ»¨·Ñ%dµãÔªÁ¦À´»Ö¸´",lv);
+	printf("ä½ ç›®å‰æœ‰å…ƒåŠ›ï¼š%d\n",yuanli);
+	printf("æ˜¯å¦èŠ±è´¹%dç‚¹å…ƒåŠ›æ¥æ¢å¤",lv);
 	cgcolor("02");
 	printf("%d",oohp);
 	system("color");
-	printf("µãHPºÍ");
+	printf("ç‚¹HPå’Œ");
 	cgcolor("02");
 	printf("%d",oomagic);
 	system("color");
-	printf("µãÄ§·¨Öµ£¿\n1,ÊÇ        ÆäÓà£¬·ñ\n");
+	printf("ç‚¹é­”æ³•å€¼ï¼Ÿ\n1,æ˜¯        å…¶ä½™ï¼Œå¦\n");
 	char xzxz;
 	xzxz=getch();
 	if(xzxz=='1')
 	{
 		if(pl->bag->yuanli_h(-lv) != -1)
 		{
-			printf("ÑøÉñ³É¹¦!\n");
+			printf("å…»ç¥æˆåŠŸ!\n");
 			pl->c_hp(nullptr , oohp);
 			pl->magic_h(oomagic);
 		}
@@ -158,30 +158,30 @@ int maincity::xz3::onein(people * P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%s³¢ÊÔÑ§Ï°,È»¶øÒ»ÇÏ²»Í¨\n",P->m_name.c_str());
+		fprintf(information , "%så°è¯•å­¦ä¹ ,ç„¶è€Œä¸€çªä¸é€š\n",P->m_name.c_str());
 		P->m_sta["stop"] = std::make_pair(clock() + 999,0);
 		return 0;
 	}
 	player * pl = (player *) P;
-	printf("Ñ¡ÔñÄãÒªÑ§Ï°µÄ¼¼ÄÜ:\n");
+	printf("é€‰æ‹©ä½ è¦å­¦ä¹ çš„æŠ€èƒ½:\n");
 	int l=0,r=1;
 #define jns(x) pl->m_list->jn[x]
 	for(int i=l;i<=r;i++)
 	{
-		if(jns(i)->m_lv == jns(i)->m_lvmax) printf("%d. %s(Âú¼¶)\n",i,jns(i)->m_name.c_str());
-		else printf("%d. %s(½ğ±Ò:%d)\n",i,pl->m_list->jn[i]->m_name.c_str(),pl->m_list->jn[i]->m_pay[pl->m_list->jn[i]->m_lv]);
+		if(jns(i)->m_lv == jns(i)->m_lvmax) printf("%d. %s(æ»¡çº§)\n",i,jns(i)->m_name.c_str());
+		else printf("%d. %s(é‡‘å¸:%d)\n",i,pl->m_list->jn[i]->m_name.c_str(),pl->m_list->jn[i]->m_pay[pl->m_list->jn[i]->m_lv]);
 	}
-	printf("%d. ÍË³ö\n\n",r+1);
+	printf("%d. é€€å‡º\n\n",r+1);
 	int xzs = getch() - '0';
 	while(xzs<l || xzs>r+1) xzs = getch() - '0';
 	if(xzs == r+1) return 0;
 	if(!pl || !pl->bag || !pl->m_list || !pl->m_list->jn[xzs]) puts("ERROR");
 	jns(xzs)->check(1);
-	printf("È·¶¨Éı¼¶?(y/n)\n");
+	printf("ç¡®å®šå‡çº§?(y/n)\n");
 	if(!csgetch()) return 0;
 	if(pl->bag->coin_h(-pl->m_list->jn[xzs]->m_pay[pl->m_list->jn[xzs]->m_lv]) == -1)
 	{
-		puts("½ğ±Ò²»×ã!");
+		puts("é‡‘å¸ä¸è¶³!");
 		Sleep(999);
 	}
 	else
@@ -200,7 +200,7 @@ maincity::maincity()
 {
 	newmap("maincity.txt");
 	int mid = maxn >> 1;
-	M->m_name = "Ö÷³Çmaincity";
+	M->m_name = "ä¸»åŸmaincity";
 	M->f(0,mid) = new gotocity(1,maxn,mid,'^');
 	M->f(-1,mid) = new wall();
 	M->f(1,mid) = new grass('|');
@@ -212,19 +212,19 @@ maincity::maincity()
 	M->f(mid,maxn-1) = new grass('-');
 	M->f(maxn-5,1) = new xz0();
 	for(uint i=0;i<xz0::name.size();i++)
-		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ÓÉ´ËÍË³ö");
+		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ç”±æ­¤é€€å‡º");
 	M->f(maxn-4,1) = new xz1();
 	for(uint i=0;i<xz1::name.size();i++)
-		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ÓÉ´ËÄ¥Á¶");
+		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ç”±æ­¤ç£¨ç‚¼");
 	M->f(maxn-3,1) = new xz2();
 	for(uint i=0;i<xz2::name.size();i++)
-		M->f(maxn-3,i+2) = new grass(xz2::name[i],"ÓÉ´ËÑøÉñ");
+		M->f(maxn-3,i+2) = new grass(xz2::name[i],"ç”±æ­¤å…»ç¥");
 	M->f(maxn-2,1) = new xz3();
 	for(uint i=0;i<xz3::name.size();i++)
-		M->f(maxn-2,i+2) = new grass(xz3::name[i],"ÓÉ´ËÑ§Ï°");
+		M->f(maxn-2,i+2) = new grass(xz3::name[i],"ç”±æ­¤å­¦ä¹ ");
 	M->f(maxn-1,1) = new xz4();
 	for(uint i=0;i<xz4::name.size();i++)
-		M->f(maxn-1,i+2) = new grass(xz4::name[i],"ÓÉ´Ë²é¿´³É¾Í");
+		M->f(maxn-1,i+2) = new grass(xz4::name[i],"ç”±æ­¤æŸ¥çœ‹æˆå°±");
 }
 std::string maincity::xz0::name = "exit";
 std::string maincity::xz1::name = "fight";

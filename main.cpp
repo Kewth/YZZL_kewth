@@ -48,11 +48,11 @@ void flash(bool nocolor , bool quick)
 			if(i==20) system((color="color 0f").c_str());
 		}
 		float s=(times + 1 - i)*0.2;
-		printf("»¶Ó­Íæ±¾ÓÎÏ·\nPowerby Íò´óÊ¦ copyright <c> 2018 °æÈ¨ËùÓĞ\n°´~Í£Ö¹ÑÕÉ«±ä»¯²¢½øÈëÖ÷³Ç\nÔ¼%.1fÃëºó×Ô¶¯Ìø×ª\n",s);
-		printf("release:V%s(%s.%s.%s¸üĞÂ)\n",release.c_str(),up_y.c_str(),up_m.c_str(),up_d.c_str());
+		printf("æ¬¢è¿ç©æœ¬æ¸¸æˆ\nPowerby ä¸‡å¤§å¸ˆ copyright <c> 2018 ç‰ˆæƒæ‰€æœ‰\næŒ‰~åœæ­¢é¢œè‰²å˜åŒ–å¹¶è¿›å…¥ä¸»åŸ\nçº¦%.1fç§’åè‡ªåŠ¨è·³è½¬\n",s);
+		printf("release:V%s(%s.%s.%sæ›´æ–°)\n",release.c_str(),up_y.c_str(),up_m.c_str(),up_d.c_str());
 		printf("K        W          W     TTTTTTTTT      H      H         \n");
 		printf(" e        W        W          T          H      H         \n");
-		printf("           W  W   W           T          HHHHHHHH     ³öÆ·\n");
+		printf("           W  W   W           T          HHHHHHHH     å‡ºå“\n");
 		printf("           W W W W            T          H      H         \n");
 		printf("            W   W             T          H      H         \n");
 		printf("                                                          \n");
@@ -66,7 +66,7 @@ void flash(bool nocolor , bool quick)
 }
 void maptest()
 {
-	puts("Testing a map with 4¡Á4");
+	puts("Testing a map with 4Ã—4");
 	MAP *M = new MAP(0,4);
 	puts("Done.");
 	delete M;
@@ -129,9 +129,9 @@ int main(int args,char *argv[])
 		/* if(strcmp(argv[i] , "--notupd") == 0) */
 		/* 	; */
 		else 
-			printf("warningÎŞĞ§²ÎÊı:%s\n",argv[i]);
+			printf("warningæ— æ•ˆå‚æ•°:%s\n",argv[i]);
 	}
-	messagebox(NULL,"ÇëÊäÈëÓÃ»§Ãû:\nalso it\'s a test","Welcome to the game",MB_OK);
+	messagebox(NULL,"è¯·è¾“å…¥ç”¨æˆ·å:\nalso it\'s a test","Welcome to the game",MB_OK);
 	printf("Your username:");
 	std::cin >> filepl;
 	debug_print("get username:"+filepl);
@@ -175,7 +175,7 @@ int main(int args,char *argv[])
 		{
 			P->leave(c->M);
 			c =  allcity(mres-100);
-			messagebox(NULL,"Ç°ÍùÁíÒ»¸ö³ÇÊĞ","ÕıÔÚÂ·Í¾ÖĞ...",MB_OK);
+			messagebox(NULL,"å‰å¾€å¦ä¸€ä¸ªåŸå¸‚","æ­£åœ¨è·¯é€”ä¸­...",MB_OK);
 			P->apin(c->M);
 		}
 	}

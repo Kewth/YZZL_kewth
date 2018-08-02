@@ -209,7 +209,7 @@ namespace RUN
 		int getn = sl;
 		for(;getn;getn--)
 			if(mark > num[getn])
-				printf("(ÒÔ%d)´òÆÆµÚ%dÃûµÄ·ÖÊý(%d)¼ÇÂ¼!!!\n",mark,getn,num[getn]);
+				printf("(ä»¥%d)æ‰“ç ´ç¬¬%dåçš„åˆ†æ•°(%d)è®°å½•!!!\n",mark,getn,num[getn]);
 			else break;
 		getn ++;
 		for(int i=sl;i>getn;i--)
@@ -229,12 +229,12 @@ int funcity::xz0::onein(people *)
 int funcity::xz1::onein(people *P)
 {
 	if(P->m_typ != "player")
-		printf("%s°ÑÄã´ø½øÁËÅÜ¿á!!\n",P->m_name.c_str()) ,
+		printf("%sæŠŠä½ å¸¦è¿›äº†è·‘é…·!!\n",P->m_name.c_str()) ,
 		Sleep(999);
 	RUN::note his;
 	RUN::his = his;
 	srand(time(0));
-	say("¿ª·¢Õß","ÅÜ¿áÕýÔÚ²âÊÔ½×¶Î,½ÓÏÂÀ´µÄÑ¯ÎÊ»Ø´ðy,Íæ·¨ÔÚupdate.htmlÖÐÓÐÌáµ½...\n",69);
+	say("å¼€å‘è€…","è·‘é…·æ­£åœ¨æµ‹è¯•é˜¶æ®µ,æŽ¥ä¸‹æ¥çš„è¯¢é—®å›žç­”y,çŽ©æ³•åœ¨update.htmlä¸­æœ‰æåˆ°...\n",69);
 	printf("no ending?\n");
 	if(csgetch())
 	{
@@ -262,23 +262,23 @@ int funcity::xz1::onein(people *P)
 			if(rres == 0) break;
 		}
 	}
-	say("¿ª·¢Õß","ÏëÒª½±ÀøÂð?\n²»´æÔÚµÄ!\n(½ö¹©ÓéÀÖ)\n",69);
+	say("å¼€å‘è€…","æƒ³è¦å¥–åŠ±å—?\nä¸å­˜åœ¨çš„!\n(ä»…ä¾›å¨±ä¹)\n",69);
 	return 0;
 }
 funcity::funcity()
 {
 	newmap("funcity.txt");
 	int mid = maxn >> 1;
-	M->m_name = "ÓéÀÖÊ¥µØfuncity";
+	M->m_name = "å¨±ä¹åœ£åœ°funcity";
 	M->f(0,mid) = new gotocity(0,maxn,mid,'^');
 	M->f(-1,mid) = new wall();
 	M->f(1,mid) = new grass('|');
 	M->f(maxn-5,1) = new xz0();
 	for(uint i=0;i<xz0::name.size();i++)
-		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ÓÉ´ËÍË³ö");
+		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ç”±æ­¤é€€å‡º");
 	M->f(maxn-4,1) = new xz1();
 	for(uint i=0;i<xz1::name.size();i++)
-		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ÓÉ´ËÅÜ¿á");
+		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ç”±æ­¤è·‘é…·");
 }
 std::string funcity::xz0::name = "exit";
 std::string funcity::xz1::name = "parkour";

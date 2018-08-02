@@ -55,7 +55,7 @@ int cutcity::xz1::onein(people* P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%sËÆºõÏëÈ¥É­ÁÖ\n",P->m_name.c_str());
+		fprintf(information , "%sä¼¼ä¹Žæƒ³åŽ»æ£®æž—\n",P->m_name.c_str());
 		return 0;
 	}
 	int bf_x = P->Px , bf_y = P->Py;
@@ -64,7 +64,7 @@ int cutcity::xz1::onein(people* P)
 	player * PL = (player *) P;
 	P->Px = P->Py = 1;
 	atree * T = new atree(3,3,0);
-	MAP * M = new MAP(0,6,"Ð¡Ê÷ÁÖ");
+	MAP * M = new MAP(0,6,"å°æ ‘æž—");
 #define Esl 3
 	people * E[Esl];
 	/* pthread_t tids[Esl]; */
@@ -83,13 +83,13 @@ int cutcity::xz1::onein(people* P)
 	T->apin(M);
 	P->apin(M);
 	int endci = clock() + 30000;
-	std::string end_str = "´íÎóÍË³ö(ÎÒÒ²ºÜÎÞÄÎ)";
+	std::string end_str = "é”™è¯¯é€€å‡º(æˆ‘ä¹Ÿå¾ˆæ— å¥ˆ)";
 	while(!warres)
 	{
 		P->look(M);
-		printf("´ËÊ÷Ê£ÓàÉúÃü:%d\n",T->m_hp);
-		printf("Ê£ÓàÊ±¼ä:%ds\n",(endci - clock())/1000);
-		puts("°´QÍË³ö");
+		printf("æ­¤æ ‘å‰©ä½™ç”Ÿå‘½:%d\n",T->m_hp);
+		printf("å‰©ä½™æ—¶é—´:%ds\n",(endci - clock())/1000);
+		puts("æŒ‰Qé€€å‡º");
 		readinforma();
 		/* int c = ifgetch(199); */
 		int c = getch();
@@ -97,9 +97,9 @@ int cutcity::xz1::onein(people* P)
 		int mres = M->move(P , c);
 		if(mres == 1)
 		{
-			T->leave(M); // Ç¿ÐÐÀë¿ª
+			T->leave(M); // å¼ºè¡Œç¦»å¼€
 			allstop = 1;
-			messagebox(NULL,"Äã¿³µ¹ÁËÕâ¿ÃÊ÷!!!","¹§Ï²:",MB_OK);
+			messagebox(NULL,"ä½ ç å€’äº†è¿™æ£µæ ‘!!!","æ­å–œ:",MB_OK);
 			/* PL->bag->wood_h(diff*10); */
 			diff += 3;
 			/* delete T; */
@@ -110,12 +110,12 @@ int cutcity::xz1::onein(people* P)
 		}
 		if(clock() >= endci) warres = 1;
 	}
-	if(warres == 1) end_str = "Ê±¼äÒÑµ½";
-	else if(warres == 2) end_str = "ËÀÓÚÊ÷ÁÖ";
-	else if(warres == 3) end_str = "Ö÷¶¯ÍË³ö";
-	messagebox(NULL,end_str.c_str(),"¿³Ê÷½áÊø:",MB_OK);
+	if(warres == 1) end_str = "æ—¶é—´å·²åˆ°";
+	else if(warres == 2) end_str = "æ­»äºŽæ ‘æž—";
+	else if(warres == 3) end_str = "ä¸»åŠ¨é€€å‡º";
+	messagebox(NULL,end_str.c_str(),"ç æ ‘ç»“æŸ:",MB_OK);
 	P->Px = bf_x , P->Py = bf_y;
-	printf("·µ»Ø%d\n",warres);
+	printf("è¿”å›ž%d\n",warres);
 	//while(allreturn < Esl) printf("%d\n",allreturn);
 	for(int i=0;i<Esl;i++)
 		th[i] -> join() ,
@@ -134,7 +134,7 @@ int cutcity::xz3::onein(people *P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%sËÆºõÏëÈ¥É­ÁÖ\n",P->m_name.c_str());
+		fprintf(information , "%sä¼¼ä¹Žæƒ³åŽ»æ£®æž—\n",P->m_name.c_str());
 		return 0;
 	}
 	int bf_x = P->Px , bf_y = P->Py;
@@ -144,7 +144,7 @@ int cutcity::xz3::onein(people *P)
 	/* player * PL = (player *) P; */
 	P->Px = P->Py = 1;
 	atree * T = new atree(1,map_size>>1,0);
-	MAP * M = new MAP(0,map_size+1,"É­ÁÖ");
+	MAP * M = new MAP(0,map_size+1,"æ£®æž—");
 	people * E[Esl];
 	std::thread *th[Esl];
 	for(int i=0;i<Esl;i++)
@@ -160,7 +160,7 @@ int cutcity::xz3::onein(people *P)
 	while(!warres)
 	{
 		P->look(M);
-		printf("»÷É±µÐÈË:%d/%d\n",allreturn,Esl);
+		printf("å‡»æ€æ•Œäºº:%d/%d\n",allreturn,Esl);
 		readinforma();
 		int c = ifgetch(199);
 		if(c == 'Q') warres = 2;
@@ -179,22 +179,22 @@ cutcity::cutcity()
 {
 	newmap("cutcity.txt");
 	int mid = maxn >> 1;
-	M->m_name = "éÔ·ò³Çcutcity";
+	M->m_name = "æ¨µå¤«åŸŽcutcity";
 	M->f(maxn,mid) = new gotocity(0,0,mid,'v');
 	M->f(maxn+1,mid) = new wall();
 	M->f(maxn-1,mid) = new grass('|');
 	M->f(maxn-5,1) = new xz0();
 	for(unsigned int i=0;i<xz0::name.size();i++)
-		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ÓÉ´ËÍË³ö");
+		M->f(maxn-5,i+2) = new grass(xz0::name[i],"ç”±æ­¤é€€å‡º");
 	M->f(maxn-4,1) = new xz1();
 	for(unsigned int i=0;i<xz1::name.size();i++)
-		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ÓÉ´Ë¿³Ê÷");
+		M->f(maxn-4,i+2) = new grass(xz1::name[i],"ç”±æ­¤ç æ ‘");
 	M->f(maxn-3,1) = new xz2();
 	for(unsigned int i=0;i<xz2::name.size();i++)
-		M->f(maxn-3,i+2) = new grass(xz2::name[i],"ÓÉ´ËÑøÉñ");
+		M->f(maxn-3,i+2) = new grass(xz2::name[i],"ç”±æ­¤å…»ç¥ž");
 	M->f(maxn-2,1) = new xz3();
 	for(unsigned int i=0;i<xz3::name.size();i++)
-		M->f(maxn-2,i+2) = new grass(xz3::name[i],"ÓÉ´Ë½øÈëÉ­ÁÖ");
+		M->f(maxn-2,i+2) = new grass(xz3::name[i],"ç”±æ­¤è¿›å…¥æ£®æž—");
 }
 
 std::string cutcity::xz0::name = "exit";

@@ -41,18 +41,18 @@ int getch__()
      struct termios tm, tm_old;
      int fd = 0, ch;
  
-     if (tcgetattr(fd, &tm) < 0) {//±£´æÏÖÔÚµÄÖÕ¶ËÉèÖÃ
+     if (tcgetattr(fd, &tm) < 0) {//ä¿å­˜çŽ°åœ¨çš„ç»ˆç«¯è®¾ç½®
           return -1;
      }
  
      tm_old = tm;
-     cfmakeraw(&tm);//¸ü¸ÄÖÕ¶ËÉèÖÃÎªÔ­Ê¼Ä£Ê½£¬¸ÃÄ£Ê½ÏÂËùÓÐµÄÊäÈëÊý¾ÝÒÔ×Ö½ÚÎªµ¥Î»±»´¦Àí
-     if (tcsetattr(fd, TCSANOW, &tm) < 0) {//ÉèÖÃÉÏ¸ü¸ÄÖ®ºóµÄÉèÖÃ
+     cfmakeraw(&tm);//æ›´æ”¹ç»ˆç«¯è®¾ç½®ä¸ºåŽŸå§‹æ¨¡å¼ï¼Œè¯¥æ¨¡å¼ä¸‹æ‰€æœ‰çš„è¾“å…¥æ•°æ®ä»¥å­—èŠ‚ä¸ºå•ä½è¢«å¤„ç†
+     if (tcsetattr(fd, TCSANOW, &tm) < 0) {//è®¾ç½®ä¸Šæ›´æ”¹ä¹‹åŽçš„è®¾ç½®
           return -1;
      }
  
      ch = getchar();
-     if (tcsetattr(fd, TCSANOW, &tm_old) < 0) {//¸ü¸ÄÉèÖÃÎª×î³õµÄÑù×Ó
+     if (tcsetattr(fd, TCSANOW, &tm_old) < 0) {//æ›´æ”¹è®¾ç½®ä¸ºæœ€åˆçš„æ ·å­
           return -1;
      }
      return ch;
@@ -64,14 +64,14 @@ int clock__()
     gettimeofday(&tv,&tz);
     return tv.tv_sec*1000+tv.tv_usec/1000;
 }
-void gotonow(int x,int y)//X±íÊ¾ÐÐ£¬Y±íÊ¾ÁÐ 
+void gotonow(int x,int y)//Xè¡¨ç¤ºè¡Œï¼ŒYè¡¨ç¤ºåˆ— 
 {
 	if(x>0) printf("\033[%dB",x);
 	else if(x<0) printf("\033[%dA",-x);
 	if(y>0) printf("\033[%dC",y);
 	else if(y<0) printf("\033[%dD",-y);
 }
-void gotoxy(int x,int y)//X±íÊ¾ÐÐ£¬Y±íÊ¾ÁÐ 
+void gotoxy(int x,int y)//Xè¡¨ç¤ºè¡Œï¼ŒYè¡¨ç¤ºåˆ— 
 {
 	printf("\033[%d;%dH",x,y);
 }
@@ -104,7 +104,7 @@ int system__(const char *s)
 	else if(ifs=="pause")
 	{
 		while(kbhit()) getch();
-		printf("°´ÈÎÒâ¼ü¼ÌÐø\n");
+		printf("æŒ‰ä»»æ„é”®ç»§ç»­\n");
 		getch();
 		return 0;
 	}
@@ -122,18 +122,18 @@ int system__(const char *s)
 			printf("\033[0m");
 			return 0;
 		}
-		for(int i=6;i<=7;i++) //´«ÈëµÄ²ÎÊýÏÈ±³¾°,ÔÙ×ÖÌå
+		for(int i=6;i<=7;i++) //ä¼ å…¥çš„å‚æ•°å…ˆèƒŒæ™¯,å†å­—ä½“
 		{
 			int add , si = ss[i]-'0';
 			if(ss[i] >= 'a' && ss[i] <= 'f') si = ss[i] - 'a' + 10;
-			if(si%8 == 0) add = 0; //ºÚ
-			else if(si%8 == 1) add = 4; //À¶
-			else if(si%8 == 2) add = 2; //ÂÌ
-			else if(si%8 == 3) add = 6; //Çà
-			else if(si%8 == 4) add = 1; //Éîºì
-			else if(si%8 == 5) add = 5; //×Ï
-			else if(si%8 == 6) add = 3; //»Æ
-			else if(si%8 == 7) add = 7; //°×
+			if(si%8 == 0) add = 0; //é»‘
+			else if(si%8 == 1) add = 4; //è“
+			else if(si%8 == 2) add = 2; //ç»¿
+			else if(si%8 == 3) add = 6; //é’
+			else if(si%8 == 4) add = 1; //æ·±çº¢
+			else if(si%8 == 5) add = 5; //ç´«
+			else if(si%8 == 6) add = 3; //é»„
+			else if(si%8 == 7) add = 7; //ç™½
 			else return -1;
 			if(i == 6) bc += add;
 			else if(i == 7) wc += add;
@@ -215,17 +215,17 @@ int version_check() // for linux
 		debug_print("find new version");
 		while(ver_new != 2);
 		int mres = messagebox(NULL,(
-					"×îÐÂ°æ±¾:"+v_y+"."+v_m+"."+v_d+"\n"
-					"µ±Ç°°æ±¾:"+up_y+"."+up_m+"."+up_d+"\n"
-					"ÊÇ·ñ½øÐÐ¸üÐÂ?\n"
-					"¸üÐÂ½«ÏÂÔØ³ÌÐò,Ô´ÂëÇë×ÔÐÐ»ñÈ¡").c_str(),"·¢ÏÖÐÂ°æ±¾",MB_YESNO);
+					"æœ€æ–°ç‰ˆæœ¬:"+v_y+"."+v_m+"."+v_d+"\n"
+					"å½“å‰ç‰ˆæœ¬:"+up_y+"."+up_m+"."+up_d+"\n"
+					"æ˜¯å¦è¿›è¡Œæ›´æ–°?\n"
+					"æ›´æ–°å°†ä¸‹è½½ç¨‹åº,æºç è¯·è‡ªè¡ŒèŽ·å–").c_str(),"å‘çŽ°æ–°ç‰ˆæœ¬",MB_YESNO);
 		if(mres == 0)
 		{
 			system(("mv YZZL_help/Y"+v_y+"_"+v_m+"_"+v_d+" ./").c_str());
 			/* system(("mv YZZL_help/Y ./Y"+v_y+"_"+v_m+"_"+v_d+"_").c_str()); */ 
 			system("rm -r YZZL_help/");
 			system(("chmod +x Y"+v_y+"_"+v_m+"_"+v_d).c_str());
-			messagebox(NULL,"ÏûÏ¢¿òºó½øÈëÐÂ°æ±¾","ÌáÊ¾:",MB_OK);
+			messagebox(NULL,"æ¶ˆæ¯æ¡†åŽè¿›å…¥æ–°ç‰ˆæœ¬","æç¤º:",MB_OK);
 			system(("./Y"+v_y+"_"+v_m+"_"+v_d).c_str());
 			ver_new = 3;
 			return 1;

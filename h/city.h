@@ -17,7 +17,7 @@ protected:
 			Kuang.clear();
 			printf("???");
 			Kuang.tonext();
-			printf("¹ıÈ¥¿´¿´ÊÇ×î¸ßĞ§µÄ¼ìÑé·½Ê½");
+			printf("è¿‡å»çœ‹çœ‹æ˜¯æœ€é«˜æ•ˆçš„æ£€éªŒæ–¹å¼");
 			Kuang.tonext();
 			system("pause");
 		}
