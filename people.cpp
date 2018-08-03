@@ -687,6 +687,7 @@ void player::exp_h(int ooexp) // {{{
 		messagebox(NULL,"升级了！！！\n","恭喜：",MB_OK);
 	}
 } // }}}
+int player::speed() { return 199; }
 int player::magic_h(int oomagic) // {{{
 {
 	if(!oomagic) return m_magic;
@@ -798,6 +799,7 @@ void Dog::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int Dog::speed() { return 399; }
 // }}}
 
 // pig {{{
@@ -859,6 +861,7 @@ void pig::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int pig::speed() { return 399; }
 // }}}
 
 // snake {{{
@@ -950,6 +953,7 @@ void snake::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int snake::speed() { return 399; }
 // }}}
 
 //atree {{{
@@ -995,6 +999,7 @@ void atree::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int atree::speed() { return 99999; }
 // }}}
 
 

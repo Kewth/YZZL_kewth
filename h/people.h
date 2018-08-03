@@ -58,6 +58,7 @@ public:
 	int c_hpmax();
 	int c_war();
 	virtual void exp_h(int) = 0;
+	virtual int speed() = 0;
 	char reflag(char);
 	people();
 	/* people(int,int); */
@@ -152,6 +153,7 @@ public:
 	int call_pet(MAP *);
 	virtual int move(char=' ');
 	int magic_h(int);
+	int speed();
 	/* bool c_hp(people*,int,int='o'); */
 	player(int,int,std::string);
 	~player();
@@ -171,6 +173,7 @@ public:
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
+	int speed();
 	Dog(int,int,int,std::string="space");
 };
 
@@ -186,6 +189,7 @@ public:
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
+	int speed();
 	pig(int,int,int,std::string="fight");
 };
 
@@ -202,6 +206,7 @@ public:
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
+	int speed();
 	snake(int,int,int,std::string="fight");
 };
 
@@ -218,6 +223,7 @@ public:
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
+	int speed();
 	Tree_guard(int,int,int,std::string="tree");
 };
 
@@ -233,6 +239,7 @@ public:
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
+	int speed();
 	atree(int,int,int,std::string="tree");
 	~atree() {}
 };
