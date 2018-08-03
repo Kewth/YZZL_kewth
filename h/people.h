@@ -219,7 +219,7 @@ private:
 	bool _cans(MAP*,int,int,bool);
 public:
 	static const int FIR_war = 15;
-	static const int FIR_hp = 180;
+	static const int FIR_hp = 10;
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
