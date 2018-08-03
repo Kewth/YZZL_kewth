@@ -24,6 +24,8 @@ do
 done
 touch add.rc
 touch common.dat
+touch runlist.txt
+
 cd /home/ || return
 mkdir for_yzzl
 cd for_yzzl || return

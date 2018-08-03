@@ -110,13 +110,13 @@ namespace RUN
 		{
 			for(int j=1;j<=15;j++)
 			{
-				if(see[i][j] == '#') printf("\e[31;40m");
-				else if(see[i][j] == '$' && !getmon[p.pos-6+j]) printf("\e[33m");
-				else if(see[i][j] == '@' && !getmon[p.pos-6+j]) printf("\e[34m");
-				else if(see[i][j] == 'O' || see[i][j] == '0') res == -1 ? printf("\e[34;41m") : printf("\e[34m");
-				else if(see[i][j] == '-') printf("\e[33m");
+				if(see[i][j] == '#') cgcolor("04");
+				else if(see[i][j] == '$' && !getmon[p.pos-6+j]) cgcolor("06");
+				else if(see[i][j] == '@' && !getmon[p.pos-6+j]) cgcolor("01");
+				else if(see[i][j] == 'O' || see[i][j] == '0') res == -1 ? cgcolor("41") : cgcolor("01");
+				else if(see[i][j] == '-') cgcolor("06");
 				putchar(see[i][j]);
-				printf("\033[0m");
+				cgcolor("");
 			}
 			puts("");
 		}
@@ -168,9 +168,13 @@ namespace RUN
 				update(p);
 				break;
 			} else if(lres == 1) p.mon ++;
-			printf("\033[1A\e[32mJump\n");
+			gotonow(-1 , 0);
+			cgcolor("02");
+			puts("Jump");
 			int ch = tlgetch(speed);
-			printf("\033[1A\033[0mJump\n");
+			gotonow(-1 , 0);
+			cgcolor("");
+			puts("Jump");
 			if(ch == ' ')
 				jump(p,2);
 			else if(ch == '\n')
