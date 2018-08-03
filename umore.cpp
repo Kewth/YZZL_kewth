@@ -186,7 +186,7 @@ bool debug_to_print = 0;
 void debug_print(std::string f)
 {
 	static std::string tab = "";
-	if(f.substr(0,5) != "debug" || not debug_open)
+	if(f.substr(0,5) != "debug" || debug_open)
 	{
 		FILE *for_debug = fopen("/home/for_yzzl/debug.txt" , "a");
 		if(f.substr(f.size()-2 , 2) == "<-") tab = tab.size()<=1 ? "" : tab.substr(0 , tab.size()-1);

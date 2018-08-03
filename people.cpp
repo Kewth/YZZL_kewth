@@ -263,7 +263,7 @@ void FakeWall::rl_introduce()
 
 // people {{{
 // people 构造 {{{
-people::people():flag('w')
+people::people():flag('w'),turn_to_self(clock()-3),bag(new BAG())
 {
 	const int stasl = 4;
 	int now = clock();
@@ -369,6 +369,7 @@ bool people::c_hp(people *from_p,int val,int typ) // {{{
 	m_hp += val;
 	if(m_hp <= 0)
 	{
+		debug_print("debug:" + m_name + "死亡\n");
 		rc_die(from_p);
 		m_hp = 0;
 		return true;
@@ -402,6 +403,17 @@ char people::reflag(char c) // {{{
 	if(c == 'a') return 'd';
 	if(c == 'd') return 'a';
 	else return ' ';
+} // }}}
+int people::Todo() // {{{
+{
+	if(!m_inM) return 0;
+	while(clock() >= turn_to_self)
+	{
+		turn_to_self += speed();
+		this->look(m_inM);
+		return m_inM->move(this , ' ');
+	}
+	return 0;
 } // }}}
 // }}}
 
@@ -505,7 +517,8 @@ player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement)
 	/* B = new plboss(0); */
 	pet = new Dog(x , y+1 , 0 , belong);
 	m_list = new list_jn();
-	bag = new BAG();
+	delete bag;
+	bag = new BAG(true);
 	sjin(this , name);
 	debug_print("made a player");
 } // }}}
@@ -822,8 +835,9 @@ pig::pig(int x,int y,int lv,std::string bl)
 void pig::rc_hp(people *,int&,int) {};
 void pig::rc_die(people* kill_p)
 {
-	kill_p->bag->coin_h(800 * power11(m_lv));
-	kill_p->bag->yuanli_h(6 * power11(m_lv));
+	if(kill_p->bag)
+		kill_p->bag->coin_h(800 * power11(m_lv));
+		kill_p->bag->yuanli_h(6 * power11(m_lv));
 	kill_p->exp_h(6 * power11(m_lv));
 }
 int pig::look(MAP *M)
@@ -884,8 +898,9 @@ snake::snake(int x,int y,int lv,std::string bl)
 void snake::rc_hp(people * , int& , int) {};
 void snake::rc_die(people *kill_p)
 {
-	kill_p->bag->coin_h(900 * power11(m_lv));
-	kill_p->bag->yuanli_h(5 * power11(m_lv));
+	if(kill_p->bag)
+		kill_p->bag->coin_h(900 * power11(m_lv)) ,
+		kill_p->bag->yuanli_h(5 * power11(m_lv));
 	kill_p->exp_h(8 * power11(m_lv));
 }
 bool snake::_cans(MAP *M,int x,int y,bool cansee) { if(!M->f(x,y)) return 0; return cansee && M->f(x,y)->cansee(this); }
@@ -975,8 +990,11 @@ atree::atree(int x,int y,int lv,std::string bl)
 void atree::rc_hp(people* , int& , int) {};
 void atree::rc_die(people* kill_p)
 {
-	kill_p->bag->coin_h(800*power11(m_lv));
-	kill_p->bag->wood_h(30*power11(m_lv));
+	if(!kill_p) return ;
+	if(kill_p->bag)
+		kill_p->bag->coin_h(800*power11(m_lv)) ,
+		kill_p->bag->wood_h(30*power11(m_lv))  ;
+	debug_print("debug:only_debug!"); // debug
 	kill_p->exp_h(8*power11(m_lv));
 }
 int atree::look(MAP *)
@@ -1095,4 +1113,5 @@ void Tree_guard::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int Tree_guard::speed() { return 499; }
 // }}}

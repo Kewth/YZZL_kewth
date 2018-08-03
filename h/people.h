@@ -27,6 +27,7 @@ protected:
 	int m_exp;
 	int m_war ;
 	int m_hpsx ;
+	int turn_to_self;
 	virtual void rc_hp(people*,int&,int) = 0;
 	/* virtual void rc_war() = 0; */
 	virtual void rc_die(people*) = 0;
@@ -59,6 +60,7 @@ public:
 	int c_war();
 	virtual void exp_h(int) = 0;
 	virtual int speed() = 0;
+	int Todo();
 	char reflag(char);
 	people();
 	/* people(int,int); */

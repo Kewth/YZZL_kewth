@@ -25,7 +25,6 @@ int war(people *P , people *G)
 	P->apin(M);
 	G->apin(M);
 	/* std::thread *th = new std::thread(Emain , G , M); */
-	int turn_to_G = clock();
 	while(!warres)
 	{
 		P->look(M);
@@ -35,11 +34,9 @@ int war(people *P , people *G)
 		if(clock() < P->m_sta["stop"].first && c == 'Q') warres = 2;
 		M->move(P , c);
 		if(G->m_hp <= 0) warres = 3;
-		else while(clock() >= turn_to_G)
+		else
 		{
-			turn_to_G += G->speed();
-			G->look(M);
-			M->move(G , ' ');
+			G->Todo();
 			if(P->m_hp <= 0) warres = 1;
 		}
 	}

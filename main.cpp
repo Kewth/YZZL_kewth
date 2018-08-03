@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <stdio.h> 
 #include <stdlib.h>
 #include "h/more.h"
 #include "h/city.h"
