@@ -117,7 +117,6 @@ int system__(const char *s)
 	else if(s[0]=='c' && s[1]=='o' && s[2]=='l' && s[3]=='o' && s[4]=='r')
 	{
 		if(not SET_of_ALL.has_color) return 0;
-		int wc=30 , bc=40;
 		std::string ss = ifs;
 		if(ifs.size() != 8)
 		{
@@ -126,21 +125,20 @@ int system__(const char *s)
 		}
 		for(int i=6;i<=7;i++) //传入的参数先背景,再字体
 		{
-			int add , si = ss[i]-'0';
-			if(ss[i] >= 'a' && ss[i] <= 'f') si = ss[i] - 'a' + 10;
-			if(si%8 == 0) add = 0; //黑
-			else if(si%8 == 1) add = 4; //蓝
-			else if(si%8 == 2) add = 2; //绿
-			else if(si%8 == 3) add = 6; //青
-			else if(si%8 == 4) add = 1; //深红
-			else if(si%8 == 5) add = 5; //紫
-			else if(si%8 == 6) add = 3; //黄
-			else if(si%8 == 7) add = 7; //白
-			else return -1;
-			if(i == 6) bc += add;
-			else if(i == 7) wc += add;
+			int add;
+			if(ss[i] >= 'a' && ss[i] <= 'f') ss[i] = ss[i] - 'a' + '0';
+			if(ss[i] == '0') add = 0; //黑
+			else if(ss[i] == '1') add = 4; //蓝
+			else if(ss[i] == '2') add = 2; //绿
+			else if(ss[i] == '3') add = 6; //青
+			else if(ss[i] == '4') add = 1; //深红
+			else if(ss[i] == '5') add = 5; //紫
+			else if(ss[i] == '6') add = 3; //黄
+			else if(ss[i] == '7') add = 7; //白
+			else continue;
+			if(i == 6) printf("\e[%dm",40+add);
+			else if(i == 7) printf("\e[%dm",30+add);
 		}
-		printf("\e[%d;%dm",wc,bc);
 		return 0;
 	}
 	else if(ifs.substr(0,4) == "copy")
@@ -151,7 +149,7 @@ int Sleep__(int time)
 {
 	return usleep(time*1000);
 }
-int messagebox(void* x,const char* text__,const char* title__,int y)
+int messagebox(void*,const char* text__,const char* title__,int y)
 {
 	std::string empty_line = "\n                                                                ";
 	std::string text = text__ , title = title__;

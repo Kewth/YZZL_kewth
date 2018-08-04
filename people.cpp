@@ -587,7 +587,8 @@ int player::look(MAP *M) // {{{
 		puts("");
 	}
 	// 打印状态栏 {{{
-	cgcolor(std::string("0") + (char)('0'+rand()%7));
+	cgcolor("");
+	cgcolor(std::string("-") + (char)('0'+rand()%7));
 	print_inF Kuang(Pos(1 , liest) , Pos(hang , lieen) , Pos(maxl * 2 + 2 , 1));
 	// 提示 {{{
 	cgcolor("");

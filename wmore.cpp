@@ -65,8 +65,8 @@ void cgcolor(std::string cr) // Linux
 #define bred BACKGROUND_RED
 #define bblu BACKGROUND_BLUE
 #define bgre BACKGROUND_GREEN
-	static int b[] = {0,bred,bgre|bblu,bred|bgre,bblu,bred|bblu,bgre,bred|bblu|bgre};
-	static int f[] = {0,fred,fgre|fblu,fred|fgre,fblu,fred|fblu,fgre,fred|fblu|fgre};
+	static int b[] = {0,bblu,bgre,bblu|bgre,bred,bred|bblu,bgre|bred,bred|bblu|bgre};
+	static int f[] = {0,fblu,fgre,fblu|fgre,fred,fred|fblu,fgre|fred,fgre,fred|fblu|fgre};
 	if(cr.empty()) { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),b[0]|f[7]); return; }
 	else if(cr.size() != 2) { puts("colorERROR"); return; }
 	setc(b[cr[0]-'0'] | f[cr[1]-'0']);

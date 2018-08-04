@@ -165,15 +165,15 @@ int cutcity::xz3::onein(people *P)
 		int c = ifgetch(P->speed());
 		if(c == 'Q') warres = 2;
 		M->move(P , c);
-		if(allreturn == Esl)
-			warres = 3;
-		else for(int id=0;id<Esl;id++)
+		for(int id=0;id<Esl;id++)
 			if(E[id]->m_hp <= 0) allreturn ++;
 			else
 			{
 				E[id]->Todo();
 				if(P->m_hp <= 0) warres = 1;
 			}
+		if(allreturn == Esl)
+			warres = 3;
 	}
 	P->Px = bf_x , P->Py = bf_y;
 	/* for(int i=0;i<Esl;i++) */
