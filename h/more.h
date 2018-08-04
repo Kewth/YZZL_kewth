@@ -31,6 +31,11 @@ public:
 	void tolast(int=1);
 	void clear();
 };
+struct SET
+{
+	bool has_color;
+	SET():has_color(true) {}
+};
 // }}}
 // function {{{
 std::string split(std::string&);

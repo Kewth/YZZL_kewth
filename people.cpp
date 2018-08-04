@@ -263,7 +263,7 @@ void FakeWall::rl_introduce()
 
 // people {{{
 // people 构造 {{{
-people::people():flag('w')
+people::people():flag('w'),turn_to_self(clock()-3),bag(new BAG())
 {
 	const int stasl = 4;
 	int now = clock();
@@ -369,6 +369,7 @@ bool people::c_hp(people *from_p,int val,int typ) // {{{
 	m_hp += val;
 	if(m_hp <= 0)
 	{
+		debug_print("debug:" + m_name + "死亡\n");
 		rc_die(from_p);
 		m_hp = 0;
 		return true;
@@ -402,6 +403,17 @@ char people::reflag(char c) // {{{
 	if(c == 'a') return 'd';
 	if(c == 'd') return 'a';
 	else return ' ';
+} // }}}
+int people::Todo() // {{{
+{
+	if(!m_inM) return 0;
+	while(clock() >= turn_to_self)
+	{
+		turn_to_self += speed();
+		this->look(m_inM);
+		return m_inM->move(this , ' ');
+	}
+	return 0;
 } // }}}
 // }}}
 
@@ -505,7 +517,8 @@ player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement)
 	/* B = new plboss(0); */
 	pet = new Dog(x , y+1 , 0 , belong);
 	m_list = new list_jn();
-	bag = new BAG();
+	delete bag;
+	bag = new BAG(true);
 	sjin(this , name);
 	debug_print("made a player");
 } // }}}
@@ -528,7 +541,7 @@ int player::look(MAP *M) // {{{
 	system("cls");
 	_map2<bool> cansee;
 	cansee(Px,Py) = 1;
-	const int maxl = 8 , liest = 20 , lieen = 50 , hang = 11;
+	const int maxl = 8 , liest = 20 , lieen = 60 , hang = 11;
 	// 判断视野 {{{
 	#define cans(x,y) _cans(M,x,y,cansee(x,y))
 	for(int len=1;len<=maxl+1;len++)
@@ -687,6 +700,7 @@ void player::exp_h(int ooexp) // {{{
 		messagebox(NULL,"升级了！！！\n","恭喜：",MB_OK);
 	}
 } // }}}
+int player::speed() { return 199; }
 int player::magic_h(int oomagic) // {{{
 {
 	if(!oomagic) return m_magic;
@@ -798,6 +812,7 @@ void Dog::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int Dog::speed() { return 399; }
 // }}}
 
 // pig {{{
@@ -820,8 +835,9 @@ pig::pig(int x,int y,int lv,std::string bl)
 void pig::rc_hp(people *,int&,int) {};
 void pig::rc_die(people* kill_p)
 {
-	kill_p->bag->coin_h(800 * power11(m_lv));
-	kill_p->bag->yuanli_h(6 * power11(m_lv));
+	if(kill_p->bag)
+		kill_p->bag->coin_h(800 * power11(m_lv));
+		kill_p->bag->yuanli_h(6 * power11(m_lv));
 	kill_p->exp_h(6 * power11(m_lv));
 }
 int pig::look(MAP *M)
@@ -859,6 +875,7 @@ void pig::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int pig::speed() { return 399; }
 // }}}
 
 // snake {{{
@@ -881,8 +898,9 @@ snake::snake(int x,int y,int lv,std::string bl)
 void snake::rc_hp(people * , int& , int) {};
 void snake::rc_die(people *kill_p)
 {
-	kill_p->bag->coin_h(900 * power11(m_lv));
-	kill_p->bag->yuanli_h(5 * power11(m_lv));
+	if(kill_p->bag)
+		kill_p->bag->coin_h(900 * power11(m_lv)) ,
+		kill_p->bag->yuanli_h(5 * power11(m_lv));
 	kill_p->exp_h(8 * power11(m_lv));
 }
 bool snake::_cans(MAP *M,int x,int y,bool cansee) { if(!M->f(x,y)) return 0; return cansee && M->f(x,y)->cansee(this); }
@@ -950,6 +968,7 @@ void snake::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int snake::speed() { return 399; }
 // }}}
 
 //atree {{{
@@ -971,8 +990,11 @@ atree::atree(int x,int y,int lv,std::string bl)
 void atree::rc_hp(people* , int& , int) {};
 void atree::rc_die(people* kill_p)
 {
-	kill_p->bag->coin_h(800*power11(m_lv));
-	kill_p->bag->wood_h(30*power11(m_lv));
+	if(!kill_p) return ;
+	if(kill_p->bag)
+		kill_p->bag->coin_h(800*power11(m_lv)) ,
+		kill_p->bag->wood_h(30*power11(m_lv))  ;
+	debug_print("debug:only_debug!"); // debug
 	kill_p->exp_h(8*power11(m_lv));
 }
 int atree::look(MAP *)
@@ -995,6 +1017,101 @@ void atree::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
+int atree::speed() { return 99999; }
 // }}}
 
-
+// Tree_guard {{{
+Tree_guard::Tree_guard(int x,int y,int lv,std::string bl)
+{
+	m_typ = "treeguard";
+	m_name = "守树人";
+	color = "04";
+	belong = bl;
+	Px = x;
+	Py = y;
+	/* B = bs; */
+	m_exp = lv ? lvup[lv - 1] : 0;
+	m_war = FIR_war*10*power11(lv);
+	m_hpsx = m_hp = FIR_hp*10*power11(lv);
+	m_lv = lv;
+	face = 't';
+	debug_print("made a treeguard");
+}
+void Tree_guard::rc_hp(people * ft_p, int& val, int)
+{
+	if(ft_p->m_name == "player") fprintf(information , "无法造成伤害!");
+	val = 0;
+}
+void Tree_guard::rc_die(people *kill_p)
+{
+	if(kill_p->m_typ == "player") fprintf(information , "遭受森林神的惩罚!");
+	kill_p->bag->coin_h(kill_p->bag->coin_h(0));
+	kill_p->bag->wood_h(kill_p->bag->wood_h(0));
+}
+bool Tree_guard::_cans(MAP *M,int x,int y,bool cansee) { if(!M->f(x,y)) return 0; return cansee && M->f(x,y)->cansee(this); }
+int Tree_guard::look(MAP *M)
+{
+	_map2<bool> cansee;
+	cansee(Px,Py) = 1;
+	int maxl = 6;
+	int gl = myrand() % 1000;
+	#define cans(x,y) _cans(M,x,y,cansee(x,y))
+	if(gl < 550)
+		for(int len=1;len<=maxl+1;len++)
+		{
+			for(int i=Py-len+1;i<Py+len;i++)
+			{
+				cansee(Px-len,i) = cans(Px-len+1,i);
+				if(cansee(Px-len,i) && M->p(Px-len,i) && M->p(Px-len,i)->belong != belong)
+				{ flag = 'w'; return 0;}
+			}
+			for(int i=Px-len+1;i<Px+len;i++)
+			{
+				cansee(i,Py+len) = cans(i,Py+len-1);
+				if(cansee(i,Py+len) && M->p(i,Py+len) && M->p(i,Py+len)->belong != belong)
+				{ flag = 'd'; return 0;}
+			}
+			for(int i=Py-len+1;i<Py+len;i++)
+			{
+				cansee(Px+len,i) = cans(Px+len-1,i);
+				if(cansee(Px+len,i) && M->p(Px+len,i) && M->p(Px+len,i)->belong != belong)
+				{ flag = 's'; return 0;}
+			}
+			for(int i=Px-len+1;i<Px+len;i++)
+			{
+				cansee(i,Py-len) = cans(i,Py-len+1);
+				if(cansee(i,Py-len) && M->p(i,Py-len) && M->p(i,Py-len)->belong != belong)
+				{ flag = 'a'; return 0;}
+			}
+			cansee(Px-len,Py-len) = (cans(Px-len+1,Py-len) || cans(Px-len,Py-len+1));
+			cansee(Px-len,Py+len) = (cans(Px-len+1,Py+len) || cans(Px-len,Py+len-1));
+			cansee(Px+len,Py-len) = (cans(Px+len-1,Py-len) || cans(Px+len,Py-len+1));
+			cansee(Px+len,Py+len) = (cans(Px+len-1,Py+len) || cans(Px+len,Py+len-1));
+		}
+	#undef cans
+	flag = MOVE[rand()%4];
+	return 0;
+}
+int Tree_guard::meet(people* P)
+{
+	debug_print("debug:"+m_name+"遭遇"+P->m_name+"->");
+	int res = 0;
+	//std::lock_guard<std::mutex> lock(P->m_mut_leave);
+	if(P->belong == belong) res = 0;
+	else if(P->c_hp(this,-c_war()) == 1) res = 1;
+	debug_print("debug:"+m_name+"遭遇"+P->m_name+"<-");
+	return res;
+}
+void Tree_guard::exp_h(int ooexp)
+{
+	m_exp += ooexp;
+	while(m_exp >= lvup[m_lv])
+	{
+		m_war += FIR_war*power11(m_lv);
+		m_hpsx += FIR_hp*power11(m_lv);
+		m_hp = m_hpsx;
+		m_lv ++;
+	}
+}
+int Tree_guard::speed() { return 499; }
+// }}}

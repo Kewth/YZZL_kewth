@@ -99,6 +99,7 @@ int kbhit__(void)
 #undef system
 int system__(const char *s)
 {
+	extern SET SET_of_ALL;
 	std::string ifs = s;
 	if(ifs=="cls") return system("clear");
 	else if(ifs=="pause")
@@ -115,6 +116,7 @@ int system__(const char *s)
 	}
 	else if(s[0]=='c' && s[1]=='o' && s[2]=='l' && s[3]=='o' && s[4]=='r')
 	{
+		if(not SET_of_ALL.has_color) return 0;
 		int wc=30 , bc=40;
 		std::string ss = ifs;
 		if(ifs.size() != 8)
@@ -186,7 +188,7 @@ bool debug_to_print = 0;
 void debug_print(std::string f)
 {
 	static std::string tab = "";
-	if(f.substr(0,5) != "debug" || not debug_open)
+	if(f.substr(0,5) != "debug" || debug_open)
 	{
 		FILE *for_debug = fopen("/home/for_yzzl/debug.txt" , "a");
 		if(f.substr(f.size()-2 , 2) == "<-") tab = tab.size()<=1 ? "" : tab.substr(0 , tab.size()-1);

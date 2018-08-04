@@ -3,48 +3,46 @@
 #include "h/city.h"
 #include "h/city/cutcity.h"
 #include "h/war.h"
-static int warres;
-static int allreturn;
-static bool allstop;
-static void * Emain(people *E , MAP *M)
-{
-	/*
-	std::pair<people *,MAP *> *Pr = ( std::pair<people *,MAP *>*)NU;
-	people * E = Pr->first;
-	MAP * M = Pr->second;
-	*/
-	while(!warres)
-	{
-		while(allstop);
-		E->m_sta["dikang"] = std::make_pair(clock() + 1000 , 1000000);
-		E->look(M);
-		int mres = M->move(E , ' ');
-		if(mres == 1) warres = 2;
-		else Sleep(399);
-		if(E->m_hp <= 0)
-			break;
-	}
-	if(warres) E->leave(M);
-	allreturn ++;
-	return NULL;
-}
+/* static int warres; */
+/* static int allreturn; */
+/* static bool allstop; */
+/*static void * Emain(people *E , MAP *M)*/
+/*{*/
+/*	std::pair<people *,MAP *> *Pr = ( std::pair<people *,MAP *>*)NU;*/
+/*	people * E = Pr->first;*/
+/*	MAP * M = Pr->second;*/
+/*	while(!warres)*/
+/*	{*/
+/*		while(allstop);*/
+/*		E->m_sta["dikang"] = std::make_pair(clock() + 1000 , 1000000);*/
+/*		E->look(M);*/
+/*		int mres = M->move(E , ' ');*/
+/*		if(mres == 1) warres = 2;*/
+/*		else Sleep(399);*/
+/*		if(E->m_hp <= 0)*/
+/*			break;*/
+/*	}*/
+/*	if(warres) E->leave(M);*/
+/*	allreturn ++;*/
+/*	return NULL;*/
+/*}*/
 
-static void Emain2(people *E , MAP *M)
-{
-	E->apin(M);
-	while(!warres)
-	{
-		while(allstop);
-		E->look(M);
-		int mres = M->move(E , ' ');
-		if(mres == 1) warres = 1 ;
-		else Sleep(399);
-		if(E->m_hp <= 0)
-			break;
-	}
-	if(warres) E->leave(M);
-	allreturn ++;
-}
+/*static void Emain2(people *E , MAP *M)*/
+/*{*/
+/*	E->apin(M);*/
+/*	while(!warres)*/
+/*	{*/
+/*		while(allstop);*/
+/*		E->look(M);*/
+/*		int mres = M->move(E , ' ');*/
+/*		if(mres == 1) warres = 1 ;*/
+/*		else Sleep(399);*/
+/*		if(E->m_hp <= 0)*/
+/*			break;*/
+/*	}*/
+/*	if(warres) E->leave(M);*/
+/*	allreturn ++;*/
+/*}*/
 
 int cutcity::xz0::onein(people*)
 {
@@ -59,26 +57,23 @@ int cutcity::xz1::onein(people* P)
 		return 0;
 	}
 	int bf_x = P->Px , bf_y = P->Py;
-	int diff = warres = allreturn = 0;
-	allstop = 0;
+	int diff = 0 , warres = 0;
+	/* allstop = 0; */
 	player * PL = (player *) P;
 	P->Px = P->Py = 1;
 	atree * T = new atree(3,3,0);
 	MAP * M = new MAP(0,6,"小树林");
 #define Esl 3
 	people * E[Esl];
-	/* pthread_t tids[Esl]; */
-	std::thread *th[Esl];
-	/* std::pair<people* , MAP*> Pr[Esl]; */
+	/* std::thread *th[Esl]; */
 	int E_lv = PL->bag->wood_h(0) / 100;
 	for(int i=0;i<Esl;i++)
 	{
-		if(i) E[i] = new pig(5,i+1,E_lv);
-		else E[i] = new snake(5,i+1,E_lv);
+		E[i] = new Tree_guard(5,i+1,E_lv);
 		E[i]->apin(M);
 		/* Pr[i] = std::make_pair(E[i] , M); */
 		/* pthread_create(&tids[i] , NULL , Emain , (void*)&Pr[i]); */
-		th[i] = new std::thread(Emain , E[i] , M);
+		/* th[i] = new std::thread(Emain , E[i] , M); */
 	}
 	T->apin(M);
 	P->apin(M);
@@ -91,24 +86,27 @@ int cutcity::xz1::onein(people* P)
 		printf("剩余时间:%ds\n",(endci - clock())/1000);
 		puts("按Q退出");
 		readinforma();
-		/* int c = ifgetch(199); */
-		int c = getch();
+		int c = ifgetch(P->speed());
 		if(c == 'Q') warres = 3;
 		int mres = M->move(P , c);
 		if(mres == 1)
 		{
 			T->leave(M); // 强行离开
-			allstop = 1;
+			/* allstop = 1; */
 			messagebox(NULL,"你砍倒了这棵树!!!","恭喜:",MB_OK);
-			/* PL->bag->wood_h(diff*10); */
 			diff += 3;
 			/* delete T; */
 			T = new atree(3,3,diff);
 			T->apin(M);
 			endci += 10000;
-			allstop = 0;
+			/* allstop = 0; */
 		}
 		if(clock() >= endci) warres = 1;
+		for(int id=0;id<Esl;id++)
+		{
+			E[id]->Todo();
+			if(P->m_hp <= 0) warres = 2;
+		}
 	}
 	if(warres == 1) end_str = "时间已到";
 	else if(warres == 2) end_str = "死于树林";
@@ -117,9 +115,9 @@ int cutcity::xz1::onein(people* P)
 	P->Px = bf_x , P->Py = bf_y;
 	printf("返回%d\n",warres);
 	//while(allreturn < Esl) printf("%d\n",allreturn);
-	for(int i=0;i<Esl;i++)
-		th[i] -> join() ,
-		delete th[i];
+	/* for(int i=0;i<Esl;i++) */
+	/* 	th[i] -> join() , */
+	/* 	delete th[i]; */
 	delete M;
 #undef Esl
 	return 0;
@@ -138,40 +136,53 @@ int cutcity::xz3::onein(people *P)
 		return 0;
 	}
 	int bf_x = P->Px , bf_y = P->Py;
-	warres = allreturn = 0;
+	int warres = 0;
 	const int map_size = 20 , Esl = 10;
-	allstop = 1;
+	/* allstop = 1; */
 	/* player * PL = (player *) P; */
 	P->Px = P->Py = 1;
 	atree * T = new atree(1,map_size>>1,0);
 	MAP * M = new MAP(0,map_size+1,"森林");
 	people * E[Esl];
-	std::thread *th[Esl];
+	/* std::thread *th[Esl]; */
 	for(int i=0;i<Esl;i++)
 	{
 		E[i] = new snake(3+i,1+rand()%(map_size-1),0);
-		//E[i]->apin(M);
-		th[i] = new std::thread(Emain2 , E[i] , M);
+		E[i]->apin(M);
+		/* th[i] = new std::thread(Emain2 , E[i] , M); */
 	}
 	T->apin(M);
 	P->apin(M);
 	debug_print("debug:all people is ready"); //debug
-	allstop = 0;
+	/* allstop = 0; */
+	int allreturn = 0;
 	while(!warres)
 	{
 		P->look(M);
 		printf("击杀敌人:%d/%d\n",allreturn,Esl);
+		allreturn = 0;
 		readinforma();
-		int c = ifgetch(199);
+		int c = ifgetch(P->speed());
 		if(c == 'Q') warres = 2;
 		M->move(P , c);
 		if(allreturn == Esl)
 			warres = 3;
+		else for(int id=0;id<Esl;id++)
+			if(E[id]->m_hp <= 0) allreturn ++;
+			else
+			{
+				E[id]->Todo();
+				if(P->m_hp <= 0) warres = 1;
+			}
 	}
 	P->Px = bf_x , P->Py = bf_y;
-	for(int i=0;i<Esl;i++)
-		th[i] -> join() ,
-		delete th[i];
+	/* for(int i=0;i<Esl;i++) */
+	/* 	th[i] -> join() , */
+	/* 	delete th[i]; */
+	if(warres == 1) messagebox(nullptr , "暴尸森林" , "结局" , MB_OK);
+	else if(warres == 2) messagebox(nullptr , "主动退出" , "结局" , MB_OK);
+	else if(warres == 3) messagebox(nullptr , "成功扫荡森林" , "结局" , MB_OK);
+	else messagebox(nullptr , "未知的退出原因" , "一个错误!" , MB_OK);
 	return 0;
 }
 

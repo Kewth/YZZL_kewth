@@ -179,7 +179,7 @@ namespace RUN
 				jump(p,2);
 			else if(ch == '\n')
 				p.pos += 2 , p.go = 1;
-			else if(ch == '6')
+			else if(ch == 'w')
 				jump(p,1);
 			if(file.empty())
 				p.map += newmap(1);

@@ -4,20 +4,22 @@
 class player;
 class BAG
 {
-	private:
+private:
+	bool print_mess;
 	int coin;
 	const int max_coin;
 	int yuanli;
 	int wood;
-	public:
+public:
 	int list();
 	int coin_h(int);
 	int yuanli_h(int);
 	int wood_h(int);
 	friend int sjin(player * P,std::string name);
 	friend int sjout(player * P,std::string name);
-	BAG();
+	BAG(bool=false);
 };
+
 class achievement 
 {
 private:
