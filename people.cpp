@@ -301,11 +301,13 @@ void people::introduce() // {{{
 	Kuang.clear();
 	printf("%s:",m_name.c_str());
 	Kuang.tonext();
-	printf("所属阵营:%s",belong.c_str());
+	printf("等级:%d(所属阵营:%s)",m_lv,belong.c_str());
 	Kuang.tonext();
 	printf("生命值:%d/%d",m_hp,c_hpmax());
 	Kuang.tonext();
 	printf("伤害值:%d",c_war());
+	Kuang.tonext();
+	printf("速度:%d",speed());
 	Kuang.tonext();
 	system("pause");
 } // }}}
@@ -426,6 +428,7 @@ int player::meet(people* P) // {{{
 	int res = 0;
 	if(ready_fight)
 	{
+		if(P->belong == belong) fprintf(information , "警告:正在攻击同阵营生物!");
 		m_lianji ++;
 		int bres;
 		if(m_lianji == 3)
