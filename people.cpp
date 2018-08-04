@@ -541,7 +541,7 @@ int player::look(MAP *M) // {{{
 	system("cls");
 	_map2<bool> cansee;
 	cansee(Px,Py) = 1;
-	const int maxl = 8 , liest = 20 , lieen = 50 , hang = 11;
+	const int maxl = 8 , liest = 20 , lieen = 60 , hang = 11;
 	// 判断视野 {{{
 	#define cans(x,y) _cans(M,x,y,cansee(x,y))
 	for(int len=1;len<=maxl+1;len++)

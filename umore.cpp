@@ -99,6 +99,7 @@ int kbhit__(void)
 #undef system
 int system__(const char *s)
 {
+	extern SET SET_of_ALL;
 	std::string ifs = s;
 	if(ifs=="cls") return system("clear");
 	else if(ifs=="pause")
@@ -115,6 +116,7 @@ int system__(const char *s)
 	}
 	else if(s[0]=='c' && s[1]=='o' && s[2]=='l' && s[3]=='o' && s[4]=='r')
 	{
+		if(not SET_of_ALL.has_color) return 0;
 		int wc=30 , bc=40;
 		std::string ss = ifs;
 		if(ifs.size() != 8)

@@ -18,13 +18,27 @@
 
 ** <div id="li_introduce">介绍:</div> **
 
-暂无介绍
+A simpe game.
+
+
 
 ** <div id="upd_dir">Here the writer list some important update:</div> **
 
 In 2018:
 
 *	In Aug\. :
+
+> Day 4:
+> > 1. 添加了无色模式,运行时加入-c参数
+> > 
+> > 2. 修改了跑酷按键
+> > 
+> > 3. 增加状态栏宽度
+
+> Day 3:
+> > 1. 关闭了大量使用多线程的地方,运行更稳定
+> > 
+> > 2. 改变了自动开启debug模式导致向debug.txt输入大量信息
 
 > Day 2:
 > > 1. 兼容windows

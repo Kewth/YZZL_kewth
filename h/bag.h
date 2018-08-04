@@ -19,6 +19,7 @@ public:
 	friend int sjout(player * P,std::string name);
 	BAG(bool=false);
 };
+
 class achievement 
 {
 private:

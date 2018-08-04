@@ -15,6 +15,7 @@ std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a
 extern FILE *information;
 std::string color;
 std::string release = "11.0" , up_y = "2018" , up_m = "08" , up_d = "02";
+SET SET_of_ALL;
 void flash(bool nocolor , bool quick)
 {
 	printf("Flashing\n");
@@ -115,18 +116,20 @@ int main(int args,char *argv[])
 	puts("done");
 	for(int i=1;i<args;i++)
 	{
-		if(strcmp(argv[i] , "--debug") == 0)
+		if(strcmp(argv[i] , "--debug") == 0 || strcmp(argv[i] , "-d") == 0)
 		{
 			extern bool debug_open;
 			debug_open = 1;
 		}
-		else if(strcmp(argv[i] , "--deprint") == 0)
+		else if(strcmp(argv[i] , "--deprint") == 0 || strcmp(argv[i] , "-p") == 0)
 		{
 			extern bool debug_to_print;
 			debug_to_print = 1;
 		}
-		/* if(strcmp(argv[i] , "--notupd") == 0) */
-		/* 	; */
+		else if(strcmp(argv[i] , "--nocolor") == 0 || strcmp(argv[i] , "-c") == 0)
+		{
+			SET_of_ALL.has_color = false;
+		}
 		else 
 			printf("warning无效参数:%s\n",argv[i]);
 	}
