@@ -159,6 +159,8 @@ int main(int args,char *argv[])
 	puts("a player");
 	P->apin(c->M);
 	P->pet->apin(c->M);
+	extern std::vector<people*> Peo_will_do;
+	Peo_will_do.push_back(P->pet);
 	puts("Made a player");
 	while(1)
 	{
@@ -169,7 +171,7 @@ int main(int args,char *argv[])
 			return 0;
 		P->look(c->M);
 		readinforma();
-		int ch = getch();
+		int ch = ifgetch(399);
 		if(ch == 'c') P->call_pet(c->M);
 		int mres = c->move(P,ch);
 		if(mres == 3) break;
@@ -180,6 +182,7 @@ int main(int args,char *argv[])
 			messagebox(NULL,"前往另一个城市","正在路途中...",MB_OK);
 			P->apin(c->M);
 		}
+		Peo_all_do();
 	}
 	printf("EXIT\n");
 	/* sjout(P , "common"); */

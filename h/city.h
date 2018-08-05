@@ -35,12 +35,7 @@ public:
 		w_times ++;
 		player * PL = (player*) P;
 		if(w_times == 30) sjout(PL , "common") , w_times = 0;
-		if(fg == 'B')
-		{
-			PL->bag->list();
-			return 0;
-		}
-		else return M->move(P,fg);
+		return M->move(P,fg);
 	}
 	virtual void newmap(std::string files)
 	{
@@ -51,12 +46,7 @@ public:
 		for(int i=1;!s.empty() && i<=23;i++)
 		{
 			for(uint j=0;j<s.size() && j<23;j++)
-			{
-				if(s[j] == '#')
-					M->f(i,j+1) = new wall();
-				else
-					M->f(i,j+1) = new grass(s[j]);
-			}
+				M->f(i,j+1) = new grass(s[j]);
 			getline(fin,s);
 		}
 		for(uint i=1;i<=10;i++)

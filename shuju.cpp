@@ -31,6 +31,10 @@ int sjin(player * P ,std::string name)
 		P->m_achi->m_achi.insert(s);
 	}
 	fscanf(read,"\n");
+	int pet_m_exp = 0;
+	fscanf(read,"PetEXP:%d\n",&pet_m_exp);
+	P->pet = new Dog(P->Px , P->Py+1 , 0);
+	P->pet->exp_h(pet_m_exp);
 	
 	
 	P->m_list = new list_jn(v);
@@ -59,10 +63,11 @@ int sjout(player * P,std::string name)
 	fprintf(write,"\n");
 	fprintf(write,"achievement_list(%ld):\n",P->m_achi->m_achi.size());
 	for(auto iter=P->m_achi->m_achi.begin();iter!=P->m_achi->m_achi.end();iter++)
-	{
 		fprintf(write,"%s\n",iter->c_str());
-	}
 	fprintf(write,"\n");
+	fprintf(write,"PetEXP:%d\n",P->pet->m_exp);
+
+
 	fclose(write);
 	debug_print("write done");
 	return 0;

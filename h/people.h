@@ -29,7 +29,7 @@ protected:
 	int m_hpsx ;
 	int turn_to_self;
 	virtual void rc_hp(people*,int&,int) = 0;
-	/* virtual void rc_war() = 0; */
+	virtual void rc_introduce(print_inF&) = 0;
 	virtual void rc_die(people*) = 0;
 public:
 	int m_hp;
@@ -63,6 +63,8 @@ public:
 	int Todo();
 	char reflag(char);
 	people();
+	friend int sjin(player * P,std::string name);
+	friend int sjout(player * P,std::string name);
 	/* people(int,int); */
 }; // }}}
 
@@ -125,6 +127,7 @@ public:
 	FakeWall();
 };
 
+// player {{{
 class player:public people
 {
 private:
@@ -135,7 +138,7 @@ private:
 	int m_magic;
 	bool _cans(MAP*,int,int,bool);
 	void rc_hp(people*,int&,int);
-	/* virtual void rc_war(); */
+	void rc_introduce(print_inF&);
 	void rc_die(people*);
 	char pface(char);
 public:
@@ -162,28 +165,32 @@ public:
 	friend int sjin(player * P,std::string name);
 	friend int sjout(player * P,std::string name);
 };
+// }}}
 
+// Dog {{{
 class Dog : public people
 {
 protected:
 	virtual void rc_hp(people*,int&,int);
-	/* virtual void rc_war(); */
+	void rc_introduce(print_inF&);
 	virtual void rc_die(people*);
 public:
-	static const int FIR_war = 10;
-	static const int FIR_hp = 100;
+	static const int FIR_war = 13;
+	static const int FIR_hp = 140;
 	int meet(people*);
 	int look(MAP *);
 	void exp_h(int);
 	int speed();
 	Dog(int,int,int,std::string="space");
 };
+// }}}
 
+// pig {{{
 class pig:public people
 {
 private:
 	virtual void rc_hp(people*,int&,int);
-	/* virtual void rc_war(); */
+	void rc_introduce(print_inF&);
 	virtual void rc_die(people*);
 public:
 	static const int FIR_war = 12;
@@ -194,12 +201,14 @@ public:
 	int speed();
 	pig(int,int,int,std::string="fight");
 };
+// }}}
 
+// snake {{{
 class snake:public people
 {
 private:
 	virtual void rc_hp(people*,int&,int);
-	/* virtual void rc_war(); */
+	void rc_introduce(print_inF&);
 	virtual void rc_die(people*);
 	bool _cans(MAP*,int,int,bool);
 public:
@@ -211,12 +220,14 @@ public:
 	int speed();
 	snake(int,int,int,std::string="fight");
 };
+// }}}
 
+// Tree_guard {{{
 class Tree_guard:public people
 {
 private:
 	virtual void rc_hp(people*,int&,int);
-	/* virtual void rc_war(); */
+	void rc_introduce(print_inF&);
 	virtual void rc_die(people*);
 	bool _cans(MAP*,int,int,bool);
 public:
@@ -228,12 +239,14 @@ public:
 	int speed();
 	Tree_guard(int,int,int,std::string="tree");
 };
+// }}}
 
+// atree {{{
 class atree:public people
 {
 private:
 	virtual void rc_hp(people*,int&,int);
-	/* virtual void rc_war(); */
+	void rc_introduce(print_inF&);
 	virtual void rc_die(people*);
 public:
 	static const int FIR_war = 0;
@@ -245,6 +258,7 @@ public:
 	atree(int,int,int,std::string="tree");
 	~atree() {}
 };
+// }}}
 
 //const int psl = 5;
 //static FLOOR* ALLP[psl] = {new wall(),new grass(),new grass(),new grass(),new grass(),};

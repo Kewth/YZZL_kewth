@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "h/more.h"
+#include "h/people.h"
 FILE* information;
 
 // Pos {{{
@@ -7,21 +8,21 @@ Pos::Pos(int x,int y):x(x),y(y) {}
 Pos Pos::move(int fg)
 {
 	Pos res = *this;
-	if(fg == 0) res.x --;
-	else if(fg == 1) res.x ++;
-	else if(fg == 2) res.y --;
-	else if(fg == 3) res.y ++;
+	if(fg == 0 || fg == 'w') res.x --;
+	else if(fg == 1 || fg == 's') res.x ++;
+	else if(fg == 2 || fg == 'a') res.y --;
+	else if(fg == 3 || fg == 'd') res.y ++;
 	return res;
 }
-Pos Pos::move(char fg)
-{
-	Pos res = *this;
-	if(fg == 'w') res.x --;
-	else if(fg == 's') res.x ++;
-	else if(fg == 'a') res.y --;
-	else if(fg == 'd') res.y ++;
-	return res;
-}
+/* Pos Pos::move(char fg) */
+/* { */
+/* 	Pos res = *this; */
+/* 	if(fg == 'w') res.x --; */
+/* 	else if(fg == 's') res.x ++; */
+/* 	else if(fg == 'a') res.y --; */
+/* 	else if(fg == 'd') res.y ++; */
+/* 	return res; */
+/* } */
 // }}}
 // print_inF {{{
 print_inF::print_inF(Pos U , Pos D , Pos B):U(U),D(D),B(B),now_pox(U.x)
@@ -202,4 +203,18 @@ std::string number_str(int num)
 void P_gotoxy(Pos pos)
 {
 	gotoxy(pos.x , pos.y);
+}
+std::vector<people*> Peo_will_do;
+void Peo_all_do()
+{
+	std::vector<std::vector<people*>::iterator> era;
+	for(auto i=Peo_will_do.begin();i!=Peo_will_do.end();i++)
+	{
+		if((*i)->m_hp <= 0)
+			era.push_back(i);
+		else
+			(*i)->Todo();
+	}
+	for(uint i=0;i<era.size();i++)
+		Peo_will_do.erase(era[i]);
 }

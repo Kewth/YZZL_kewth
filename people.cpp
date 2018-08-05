@@ -26,12 +26,12 @@ int MAP::move(people *P,char flag)
 		debug_print("debug:people"+P->m_name+"move in"+m_name+" and do nothing<-");
 		return 2;
 	}
-	if(P->m_typ == "player")
-	{
-		player *pl = (player *) P;
-		if(pl->pet->m_inM == this)
-			this ->move(pl->pet , ' ');
-	}
+	/* if(P->m_typ == "player") */
+	/* { */
+	/* 	player *pl = (player *) P; */
+	/* 	if(pl->pet->m_inM == this) */
+	/* 		this ->move(pl->pet , ' '); */
+	/* } */
 	bool back = 0;
 	/* debug_print("debug:move2");//debug */
 	people *meet_p = p(P->Px , P->Py);
@@ -91,49 +91,168 @@ int MAP::newfloor(int x,int y)
 	else if(rd <1000) f(x,y) = new grass();
 	return 0;
 }
-static int linked(MAP *M,_map2<bool> *vis,int x,int y)
-{
-	if(M->f(x,y)->face == '#') return 0;
-	int res = M->f(x,y)->face=='.';
-	(*vis)(x,y) = 1;
-	for(int i=0;i<4;i++)
-	{
-		int tx = x + movex[i] , ty = y + movey[i];
-		if(!(*vis)(tx,ty)) res +=  linked(M,vis,tx,ty);
-	}
-	return res;
-}
+/* static int linked(MAP *M,_map2<bool> *vis,int x,int y) */
+/* { */
+/* 	if(M->f(x,y)->face == '#') return 0; */
+/* 	int res = M->f(x,y)->face=='.'; */
+/* 	(*vis)(x,y) = 1; */
+/* 	for(int i=0;i<4;i++) */
+/* 	{ */
+/* 		int tx = x + movex[i] , ty = y + movey[i]; */
+/* 		if(!(*vis)(tx,ty)) res +=  linked(M,vis,tx,ty); */
+/* 	} */
+/* 	return res; */
+/* } */
 MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name)
 {
-	while(1)
+	static const int Gsl = 5;
+	static const int GL[Gsl] = { 300 , 1 , 10 , 10 , 50};
+	bool cannot[Gsl];
+	// 边界 {{{
+	Pos U(mins,mins);
+	while(U.x < maxn)
+		f(U) = new wall(),
+		U = U.move('s') ;
+	while(U.y < maxn)
+		f(U) = new wall(),
+		U = U.move('d');
+	while(U.x > mins)
+		f(U) = new wall(),
+		U = U.move('w');
+	while(U.y > mins)
+		f(U) = new wall(),
+		U = U.move('a');
+	U = Pos(mins+1 , mins+1);
+	while(U.x < maxn - 1)
+		f(U) = new grass('.'),
+		U = U.move('s') ;
+	while(U.y < maxn - 1)
+		f(U) = new grass('.'),
+		U = U.move('d');
+	while(U.x > mins + 1)
+		f(U) = new grass('.'),
+		U = U.move('w');
+	while(U.y > mins + 1)
+		f(U) = new grass('.'),
+		U = U.move('a'); // }}}
+	// 结构体预存 {{{
+	struct node
 	{
-		int floorsl = 0;
-		for(int i=mins;i<=maxn;i++)
-			for(int j=mins;j<=maxn;j++)
-			{
-				if(i == mins || j == mins || i==maxn || j==maxn) f(i,j) = new wall();
-				else newfloor(i,j);
-				floorsl += f(i,j)->face == '.';
-			}
-		_map2<bool> *vis = new _map2<bool>;
-		int lres = linked(this,vis,mins+1,mins+1);
-		if(lres == floorsl) break;
-		else
+		int x;int y;FLOOR *f;
+		node(int x,int y,FLOOR*f):x(x),y(y),f(f) {}
+	}; // }}}
+	// 刷图 {{{
+	auto make_f = [this](std::vector<node> &v) -> bool
+	{
+		for(uint i=0;i<v.size();i++)
+			if(this->f(v[i].x , v[i].y)) return false;
+		for(uint i=0;i<v.size();i++)
+			this->f(v[i].x , v[i].y) = v[i].f;
+		return true;
+	}; // }}}
+	std::vector<node> v;
+	std::function<bool(int,int)> rl_mk_f[Gsl] = 
+	{
+		[&](int x,int y) -> bool // 平地4×4 {{{
 		{
-			printf("MAP make error:%d(ex%d)\n",lres,floorsl);
-			debug_print("warning:地图死角,联通大小"+number_str(lres)+"期待"+number_str(floorsl));
-			if(maxn-mins == 4)
+			v.clear();
+			for(int i=0;i<4;i++)
+				for(int j=0;j<4;j++)
+					v.push_back(node(x+i , y+j , new grass()));
+			return make_f(v);
+		}, // }}}
+		[&](int x,int y) -> bool // 平地1×1 {{{
+		{
+			v.clear();
+			v.push_back(node(x,y,new grass('.')));
+			return make_f(v);
+		}, // }}}
+		[&](int x,int y) -> bool // 长廊3×8 {{{
+		{
+			v.clear();
+			for(int i=0;i<8;i++)
 			{
-				for(int i=mins;i<=maxn;i++,puts(""))
-					for(int j=mins;j<=maxn;j++)
-						putchar(f(i,j)->face);
-				for(int i=mins;i<=maxn;i++,puts(""))
-					for(int j=mins;j<=maxn;j++)
-						printf("%d",(*vis)(i,j));
+				if(i&&i!=7)
+					v.push_back(node(x+0 , y+i , new wall())),
+					v.push_back(node(x+2 , y+i , new wall()));
+				else
+					v.push_back(node(x+0 , y+i , new grass())),
+					v.push_back(node(x+2 , y+i , new grass()));
+				v.push_back(node(x+1 , y+i , new grass()));
 			}
-		}
-		delete vis;
-	}
+			return make_f(v);
+		}, // }}}
+		[&](int x,int y) -> bool // 长廊8×3 {{{
+		{
+			v.clear();
+			for(int i=0;i<8;i++)
+			{
+				if(i&&i!=7)
+					v.push_back(node(x+i , y+0 , new wall())),
+					v.push_back(node(x+i , y+2 , new wall()));
+				else
+					v.push_back(node(x+i , y+0 , new grass())),
+					v.push_back(node(x+i , y+2 , new grass()));
+				v.push_back(node(x+i , y+1 , new grass()));
+			}
+			return make_f(v);
+		}, // }}}
+		[&](int x,int y) -> bool // 房间5×5 {{{
+		{
+			v.clear();
+			for(int i=0;i<5;i++)
+				v.push_back(node(x , y+i , new wall()));
+			for(int i=1;i<5;i++)
+				v.push_back(node(x+i , y , new wall())),
+				v.push_back(node(x+i , y+4 , new wall()));
+			std::string bl = (rand()%100 < 30) ? "fight" : "space";
+			for(int i=1;i<4;i++)
+				v.push_back(node(x+4 , y+i , new Door(bl)));
+			for(int i=1;i<4;i++)
+				for(int j=1;j<4;j++)
+					v.push_back(node(x+i , y+j , new grass('!' , (bl+"万岁!"))));
+			bool res = make_f(v);
+			if(res)
+			{
+				p(x+1 , y+1) = new pig(x+1 , y+1 , 0);
+				p(x+1 , y+1)->apin(this);
+				extern std::vector<people*> Peo_will_do;
+				Peo_will_do.push_back(p(x+1 , y+1));
+			}
+			return res;
+		}, // }}}
+	};
+	/* while(1) */
+	/* { */
+	/* 	f.clear(); */
+		for(int i=mins+1;i<maxn;i++)
+			for(int j=mins+1;j<maxn;j++)
+				if(not f(i , j))
+				{
+					memset(cannot , 0 , sizeof(cannot));
+					while(1)
+					{
+						int sum = 0;
+						for(uint k=0;k<Gsl;k++)
+							if(not cannot[k])
+								sum += GL[k];
+						int gl = rand() % sum;
+						bool ojbk = false;
+						for(uint k=0;k<Gsl;k++)
+							if(not cannot[k])
+							{
+								if(gl < GL[k])
+								{
+									if(rl_mk_f[k](i,j)) ojbk = true;
+									else cannot[k] = true;
+									break;
+								}
+								else gl -= GL[k];
+							}
+						if(ojbk) break;
+					}
+				}
+	/* } */
 }
 // }}}
 
@@ -297,7 +416,7 @@ int people::move(char fg) // {{{
 } // }}}
 void people::introduce() // {{{
 {
-	print_inF Kuang(Pos(1,1) , Pos(7,34) , Pos(1,1));
+	print_inF Kuang(Pos(1,1) , Pos(10,45) , Pos(1,1));
 	Kuang.clear();
 	printf("%s:",m_name.c_str());
 	Kuang.tonext();
@@ -308,6 +427,7 @@ void people::introduce() // {{{
 	printf("伤害值:%d",c_war());
 	Kuang.tonext();
 	printf("速度:%d",speed());
+	rc_introduce(Kuang);
 	Kuang.tonext();
 	system("pause");
 } // }}}
@@ -409,6 +529,8 @@ char people::reflag(char c) // {{{
 int people::Todo() // {{{
 {
 	if(!m_inM) return 0;
+	if(clock() - turn_to_self > 2000)
+		turn_to_self = clock() - 2000;
 	while(clock() >= turn_to_self)
 	{
 		turn_to_self += speed();
@@ -428,33 +550,38 @@ int player::meet(people* P) // {{{
 	int res = 0;
 	if(ready_fight)
 	{
-		if(P->belong == belong) fprintf(information , "警告:正在攻击同阵营生物!");
-		m_lianji ++;
-		int bres;
-		if(m_lianji == 3)
-			bres = P->c_hp(this , -m_war*2.5) ,
-			fprintf(information , "%s对%s打出了重伤!\n",m_name.c_str(),P->m_name.c_str()) ;
-		else if(m_lianji >= 34)
-			bres = P->c_hp(this , -m_war*0.04);
-		else if(m_lianji >= 25)
-			bres = P->c_hp(this , -m_war*0.1) ,
-				fprintf(information , "%s开始对频繁的攻击感到乏力...\n",m_name.c_str());
-		else if(m_lianji >= 15)
-			bres = P->c_hp(this , -m_war*0.2);
-		else if(m_lianji >= 8)
-			bres = P->c_hp(this , -m_war*0.4);
-		else if(m_lianji >= 5)
-			bres = P->c_hp(this , -m_war*0.66);
+		if(m_hp <= 0)
+			fprintf(information,"你没有足够的力气攻击了,快治疗治疗自己!\n");
 		else
-			bres = P->c_hp(this , -m_war);
-		if(m_lianji == 2 || m_lianji == 4)
-			P->m_sta["back"] = std::make_pair(clock()+300 , flag) ,
-			fprintf(information , "%s对%s打出了击退!!!\n",m_name.c_str(),P->m_name.c_str());
-		if(bres == 1)
 		{
-			debug_print("debug:"+m_name+"击杀people"+P->m_name+"->");
-			res = 1;
-			debug_print("debug:"+m_name+"击杀people"+P->m_name+"<-");
+			if(P->belong == belong) fprintf(information , "警告:正在攻击同阵营生物!\n");
+			m_lianji ++;
+			int bres;
+			if(m_lianji == 3)
+				bres = P->c_hp(this , -m_war*2.5) ,
+				fprintf(information , "%s对%s打出了重伤!\n",m_name.c_str(),P->m_name.c_str()) ;
+			else if(m_lianji >= 34)
+				bres = P->c_hp(this , -m_war*0.04);
+			else if(m_lianji >= 25)
+				bres = P->c_hp(this , -m_war*0.1) ,
+					fprintf(information , "%s开始对频繁的攻击感到乏力...\n",m_name.c_str());
+			else if(m_lianji >= 15)
+				bres = P->c_hp(this , -m_war*0.2);
+			else if(m_lianji >= 8)
+				bres = P->c_hp(this , -m_war*0.4);
+			else if(m_lianji >= 5)
+				bres = P->c_hp(this , -m_war*0.66);
+			else
+				bres = P->c_hp(this , -m_war);
+			if(m_lianji == 2 || m_lianji == 4)
+				P->m_sta["back"] = std::make_pair(clock()+300 , flag) ,
+				fprintf(information , "%s对%s打出了击退!!!\n",m_name.c_str(),P->m_name.c_str());
+			if(bres == 1)
+			{
+				debug_print("debug:"+m_name+"击杀people"+P->m_name+"->");
+				res = 1;
+				debug_print("debug:"+m_name+"击杀people"+P->m_name+"<-");
+			}
 		}
 	}
 	else P->introduce() , m_lianji = 0;
@@ -471,7 +598,7 @@ int player::move(char fg) // {{{
 	int res = 0;
 	if(fg == 'i') m_I->doit(this) , res = 2;
 	else if(fg == 'o') m_O->doit(this) , res = 2;
-	else if(fg == 'k' && ~bag->wood_h(-10)) m_sta["tishen"] = std::make_pair(clock()+600 , flag) , res = 2;
+	else if(fg == 'k' && ~bag->wood_h(-4)) m_sta["tishen"] = std::make_pair(clock()+600 , flag) , res = 2;
 	else if(fg == 'L')
 	{
 		Pos l_pos(0 , 0);
@@ -518,7 +645,7 @@ player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement)
 	m_magic = m_magicsx = FIR_magic * 10;
 	Px=x; Py=y; face='P';
 	/* B = new plboss(0); */
-	pet = new Dog(x , y+1 , 0 , belong);
+	/* pet = new Dog(x , y+1 , 0 , belong); */
 	m_list = new list_jn();
 	delete bag;
 	bag = new BAG(true);
@@ -678,18 +805,19 @@ void player::introduce() // {{{
 {
 	print_inF Kuang(Pos(1,1) , Pos(7,38) , Pos(1,1));
 	Kuang.clear();
-	printf("勇士%s:",IO_name.c_str());
+	printf("%s阵营的勇士%s:",belong.c_str(),IO_name.c_str());
 	Kuang.tonext();
 	printf("基础生命上限:%5d  基础伤害:%dn",m_hpsx,m_war);
 	Kuang.tonext();
 	printf("实际生命上限:%5d  实际伤害:%d",c_hpmax(),c_war());
 	Kuang.tonext();
-	printf("基础魔法上限:%d",m_magicsx);
+	printf("基础魔法上限:%5d",m_magicsx);
 	Kuang.tonext();
 	printf("作为一个勇士,你还是太菜了");
 	Kuang.tonext();
 	system("pause");
 } // }}}
+void player::rc_introduce(print_inF &) {}
 void player::exp_h(int ooexp) // {{{
 {
 	/* extern int lvup[]; */
@@ -725,14 +853,18 @@ void player::rc_hp(people *,int& val,int typ) // {{{
 void player::rc_die(people *kill_p) // {{{
 {
 	fprintf(information , "%s杀死了你!\n",kill_p->m_name.c_str());
-	kill_p->exp_h(100*power11(m_lv));
+	kill_p->exp_h(20*power11(m_lv));
 } // }}}
 int player::call_pet(MAP *M) // {{{
 {
 	debug_print("debug:you call pet->");
-	if(pet->m_mut_leave . try_lock())
+	if(pet->m_hp <= 0)
 	{
-		debug_print("debug:call su");
+		fprintf(information , "你的%s已经死亡\n",pet->m_name.c_str());
+	}
+	else if(pet->m_mut_leave . try_lock())
+	{
+		debug_print("debug:call successfully");
 		pet->m_mut_leave . unlock();
 		pet->leave(pet->m_inM);
 		int fg = myrand() % 4;
@@ -807,7 +939,7 @@ int Dog::meet(people* P)
 }
 void Dog::exp_h(int ooexp)
 {
-	m_exp += ooexp;
+	m_exp += ooexp*1.5;
 	while(m_exp >= lvup[m_lv])
 	{
 		m_war += FIR_war*power11(m_lv);
@@ -817,6 +949,13 @@ void Dog::exp_h(int ooexp)
 	}
 }
 int Dog::speed() { return 399; }
+void Dog::rc_introduce(print_inF &Kuang)
+{
+	Kuang.tonext();
+	printf("大部分%s是十分友好的生物",m_name.c_str());
+	Kuang.tonext();
+	printf("它们虽然脆弱,但悟性很高");
+}
 // }}}
 
 // pig {{{
@@ -880,6 +1019,13 @@ void pig::exp_h(int ooexp)
 	}
 }
 int pig::speed() { return 399; }
+void pig::rc_introduce(print_inF &Kuang)
+{
+	Kuang.tonext();
+	printf("%s整天游手好闲,喜欢到处走",m_name.c_str());
+	Kuang.tonext();
+	printf("但是一旦它发现敌人靠近,一定会缠到底的");
+}
 // }}}
 
 // snake {{{
@@ -972,7 +1118,14 @@ void snake::exp_h(int ooexp)
 		m_lv ++;
 	}
 }
-int snake::speed() { return 399; }
+int snake::speed() { return 249; }
+void snake::rc_introduce(print_inF &Kuang)
+{
+	Kuang.tonext();
+	printf("%s很灵活!真的很灵活!",m_name.c_str());
+	Kuang.tonext();
+	printf("而且它的视野很广,攻击性强,能轻易发现敌人");
+}
 // }}}
 
 //atree {{{
@@ -1022,6 +1175,11 @@ void atree::exp_h(int ooexp)
 	}
 }
 int atree::speed() { return 99999; }
+void atree::rc_introduce(print_inF &Kuang)
+{
+	Kuang.tonext();
+	printf("%s虽然只有被打的份,但它的树皮很厚",m_name.c_str());
+}
 // }}}
 
 // Tree_guard {{{
@@ -1118,4 +1276,11 @@ void Tree_guard::exp_h(int ooexp)
 	}
 }
 int Tree_guard::speed() { return 499; }
+void Tree_guard::rc_introduce(print_inF &Kuang)
+{
+	Kuang.tonext();
+	printf("传说%s是森林神召唤的守护者......",m_name.c_str());
+	Kuang.tonext();
+	printf("虽然很迟钝,但它是不可撼动的,一生只为守护%s阵营",belong.c_str());
+}
 // }}}

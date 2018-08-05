@@ -158,8 +158,9 @@ int maincity::xz3::onein(people * P)
 {
 	if(P->m_typ != "player")
 	{
-		fprintf(information , "%s尝试学习,然而一窍不通\n",P->m_name.c_str());
+		fprintf(information , "%s尝试学习,似乎大有所悟\n",P->m_name.c_str());
 		P->m_sta["stop"] = std::make_pair(clock() + 999,0);
+		P->exp_h(P->m_lv*6+7);
 		return 0;
 	}
 	player * pl = (player *) P;

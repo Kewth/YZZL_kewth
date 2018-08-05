@@ -8,7 +8,7 @@ public :
 	int x;
 	int y;
 	Pos move(int);
-	Pos move(char);
+	/* Pos move(char); */
 	Pos(int,int);
 };
 template <class T>
@@ -48,6 +48,7 @@ int version_check();
 void debug_print(std::string);
 void say(std::string,std::string,int,int=0);
 void cgcolor(std::string);
+void Peo_all_do();
 bool csgetch();
 int intgetch();
 int ifgetch(int);
