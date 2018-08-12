@@ -160,7 +160,7 @@ int maincity::xz3::onein(people * P)
 	{
 		fprintf(information , "%s尝试学习,似乎大有所悟\n",P->m_name.c_str());
 		P->m_sta["stop"] = std::make_pair(clock() + 999,0);
-		P->exp_h(P->m_lv*6+7);
+		P->exp_h(P->m_lv*2+3);
 		return 0;
 	}
 	player * pl = (player *) P;
