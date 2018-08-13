@@ -6,7 +6,7 @@
 
 // MAP {{{
 char& MAP::operator () (int x,int y) { return p(x,y)->face; }
-int MAP::move(people *P,char flag)
+int MAP::move(people *P,char flag) // {{{
 //1:kill someone
 //2:cannot move or do not move
 //3:exit
@@ -83,27 +83,15 @@ int MAP::move(people *P,char flag)
 	P->apin(this);
 	debug_print("debug:people"+P->m_name+"move in"+m_name+"<-");
 	return res;
-}
-int MAP::newfloor(int x,int y)
+} // }}}
+int MAP::newfloor(int x,int y) // {{{
 {
 	int rd = rand()%1000;
 	if(rd <100) f(x,y) = new wall();
 	else if(rd <1000) f(x,y) = new grass();
 	return 0;
-}
-/* static int linked(MAP *M,_map2<bool> *vis,int x,int y) */
-/* { */
-/* 	if(M->f(x,y)->face == '#') return 0; */
-/* 	int res = M->f(x,y)->face=='.'; */
-/* 	(*vis)(x,y) = 1; */
-/* 	for(int i=0;i<4;i++) */
-/* 	{ */
-/* 		int tx = x + movex[i] , ty = y + movey[i]; */
-/* 		if(!(*vis)(tx,ty)) res +=  linked(M,vis,tx,ty); */
-/* 	} */
-/* 	return res; */
-/* } */
-MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name)
+} // }}}
+MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name) // {{{
 {
 	static const int Gsl = 5;
 	static const int GL[Gsl] = { 300 , 1 , 10 , 10 , 50};
@@ -253,7 +241,16 @@ MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name
 					}
 				}
 	/* } */
-}
+} // }}}
+MAP::~MAP() // {{{
+{
+	for(auto i : p.mps)
+		while(i.second->m_inM == this)
+			i.second->leave(this);
+	/* for(auto i : f.mps) */
+	/* 	delete i.second; */
+
+} // }}}
 // }}}
 
 // FLOOR {{{

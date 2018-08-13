@@ -53,6 +53,7 @@ public:
 			M->f(maxn-6 , i) = new Door("space");
 	}
 	city():maxn(30) { M = new MAP(0,maxn); }
+	virtual ~city() {}
 };
 class gotocity:public grass
 {

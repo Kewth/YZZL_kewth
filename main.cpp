@@ -94,11 +94,15 @@ unsigned long long readrc()
 }
 city* allcity(int id)
 {
-	if(id == 0) return new maincity();
-	if(id == 1) return new cutcity();
-	if(id == 2) return new funcity();
-	if(id == 3) return new workcity();
-	if(id == 4) return new firstcity();
+	static city *CITYS[5];
+	if(CITYS[id]) return CITYS[id];
+	city *res;
+	if(id == 0) res = new maincity();
+	if(id == 1) res = new cutcity();
+	if(id == 2) res = new funcity();
+	if(id == 3) res = new workcity();
+	if(id == 4) res = new firstcity();
+	return CITYS[id] = res;
 	return NULL;
 }
 int main(int args,char *argv[])
@@ -178,7 +182,7 @@ int main(int args,char *argv[])
 		if(mres >=100 && mres <=200)
 		{
 			P->leave(c->M);
-			c =  allcity(mres-100);
+			c = allcity(mres-100);
 			messagebox(NULL,"前往另一个城市","正在路途中...",MB_OK);
 			P->apin(c->M);
 		}
@@ -188,4 +192,3 @@ int main(int args,char *argv[])
 	/* sjout(P , "common"); */
 	debug_print("game end successfully");
 }
-// MessageBox(NULL , "text" , "title" , MB_OK);

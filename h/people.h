@@ -18,6 +18,7 @@ class MAP // {{{
 		int newfloor(int,int);
 		int move(people*,char);
 	MAP(int,int,std::string="荒野");//峳栰
+	~MAP();
 //	friend int player::look(MAP *M);
 }; // }}}
 

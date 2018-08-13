@@ -197,7 +197,7 @@ void Peo_all_do()
 	std::vector<std::vector<people*>::iterator> era;
 	for(auto i=Peo_will_do.begin();i!=Peo_will_do.end();i++)
 	{
-		if((*i)->m_hp <= 0)
+		if((*i)->m_hp <= 0 or not (*i)->m_inM)
 			era.push_back(i);
 		else
 			(*i)->Todo();

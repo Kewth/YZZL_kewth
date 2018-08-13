@@ -349,9 +349,12 @@ In 2018:
 > > 
 > > 2. 改boss模式的行动,若超过2秒未反应则视为无行d
 
-**<div id="re_comp">手动编译</div>**  
-Linux :运行more目录下的G.sh  
-windows :运行G.bat  
+**<div id="re_comp">手动编译?</div>**  
+哦手动编译!肯定很麻烦!!!  
+然而事实上,我已经准备好了自动编译的文件!!!  
+
+Linux :运行more目录下的G.sh,将文件生成在当前目录并自动运行
+windows :运行主目录的G.bat,将文件生成在C:\adds\里面并自动运行  
 
 Some tips:
 =====
