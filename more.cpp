@@ -27,21 +27,6 @@ Pos Pos::move(int fg)
 // print_inF {{{
 print_inF::print_inF(Pos U , Pos D , Pos B):U(U),D(D),B(B),now_pox(U.x)
 {
-#ifdef windows
-	auto print_hang = []() -> void { printf("-"); } ;
-	auto print_lie = []() -> void { printf("|"); } ;
-	auto print_lu = []() -> void { printf("/"); } ;
-	auto print_ld = []() -> void { printf("\\"); } ;
-	auto print_ru = []() -> void { printf("\\"); } ;
-	auto print_rd = []() -> void { printf("/"); } ;
-#else
-	auto print_hang = []() -> void { printf("─"); } ;
-	auto print_lie = []() -> void { printf("│"); } ;
-	auto print_lu = []() -> void { printf("┌"); } ;
-	auto print_ld = []() -> void { printf("└"); } ;
-	auto print_ru = []() -> void { printf("┐"); } ;
-	auto print_rd = []() -> void { printf("┘"); } ;
-#endif
 	P_gotoxy(U.move('d'));
 	for(int i=U.y+1;i<D.y;i++)
 		print_hang();

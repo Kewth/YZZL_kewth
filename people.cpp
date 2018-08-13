@@ -730,10 +730,32 @@ int player::look(MAP *M) // {{{
 		}
 		puts("");
 	}
+	printf("💓");
+	cgcolor("-2");
+	bool isgreen = true;
+	for(int i=0;i<=c_hpmax();i+=c_hpmax()/40)
+	{
+		if(isgreen && i >= m_hp)
+			cgcolor("-4"),
+			isgreen = false;
+		print_hang();
+	}
+	puts("");
+	printf("💫");
+	cgcolor("-2");
+	isgreen = true;
+	for(int i=0;i<=m_magicsx;i+=m_magicsx/40)
+	{
+		if(isgreen && i >= m_magic)
+			cgcolor("-4"),
+			isgreen = false;
+		print_hang();
+	}
+	puts("");
 	// 打印状态栏 {{{
 	cgcolor("");
 	cgcolor(std::string("-") + (char)('0'+rand()%7));
-	print_inF Kuang(Pos(1 , liest) , Pos(hang , lieen) , Pos(maxl * 2 + 2 , 1));
+	print_inF Kuang(Pos(1 , liest) , Pos(hang , lieen) , Pos(maxl * 2 + 4 , 1));
 	// 提示 {{{
 	cgcolor("");
 	printf("Your imformation:");
@@ -812,7 +834,8 @@ int player::look(MAP *M) // {{{
 	if(m_lianji) printf("%d连击!!!\n",m_lianji);
 	// }}}
 	// }}}
-	cgcolor(""); // }}}
+	cgcolor("");
+	// }}}
 	return 0;
 } // }}}
 void player::introduce() // {{{
@@ -1313,3 +1336,5 @@ void Tree_guard::rc_introduce(print_inF &Kuang)
 }
 void Tree_guard::rc_chat_with(player *) {}
 // }}}
+
+

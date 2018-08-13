@@ -1,6 +1,7 @@
 #ifndef MORE_H
 #define MORE_H
 #include <bits/stdc++.h>
+/* #define windows nullptr */
 // class {{{
 class Pos
 {
@@ -78,5 +79,20 @@ const int MB_OK = 1 , MB_YESNO = 2;
 extern FILE *information;
 // }}}
 typedef unsigned int uint;
-/* #define windows nullptr */
+#ifdef windows
+const auto print_hang = []() -> void { printf("-"); } ;
+const auto print_lie = []() -> void { printf("|"); } ;
+const auto print_lu = []() -> void { printf("/"); } ;
+const auto print_ld = []() -> void { printf("\\"); } ;
+const auto print_ru = []() -> void { printf("\\"); } ;
+const auto print_rd = []() -> void { printf("/"); } ;
+#else
+const auto print_hang = []() -> void { printf("─"); } ;
+const auto print_lie = []() -> void { printf("│"); } ;
+const auto print_lu = []() -> void { printf("┌"); } ;
+const auto print_ld = []() -> void { printf("└"); } ;
+const auto print_ru = []() -> void { printf("┐"); } ;
+const auto print_rd = []() -> void { printf("┘"); } ;
+#endif
+
 #endif
