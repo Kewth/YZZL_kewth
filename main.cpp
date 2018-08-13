@@ -14,7 +14,7 @@ std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a
 #endif
 extern FILE *information;
 std::string color;
-std::string release = "11.0" , up_y = "2018" , up_m = "08" , up_d = "02";
+std::string release = "11.0" , up_y = "2018" , up_m = "08" , up_d = "13";
 SET SET_of_ALL;
 void flash(bool nocolor , bool quick)
 {

@@ -143,7 +143,9 @@ std::string split(std::string& s)
 	s.clear();
 	return res;	std::ifstream fin;
 }
-unsigned long myrand(void) {//period 2^96-1
+unsigned long myrand(void)
+//period 2^96-1
+{
 	static unsigned long randx=123456789, randy=362436069, randz=521288629;
 	unsigned long &x=randx,&y=randy,&z=randz;
 	unsigned long t;
@@ -156,7 +158,7 @@ unsigned long myrand(void) {//period 2^96-1
    y = z;
    z = t ^ x ^ y;
  
-  return (z+clock());
+  return (z ^ clock());
 }
 void cpinfors(int times)
 {

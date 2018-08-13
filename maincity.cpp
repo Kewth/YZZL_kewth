@@ -53,42 +53,42 @@ int maincity::xz1::onein(people* P)
 		if(c=='1')
 		{
 			int rd = myrand()%3;
-			res=war(P , new pig(5 , 5 , rd));
+			res=war(PP , new pig(5 , 5 , rd));
 		}
 		else if(c=='2')
 		{
-			int rd = 5 + myrand()%4;
-			res=war(P , new pig(5 , 5 ,rd));
+			int rd = 4 + myrand()%4;
+			res=war(PP , new pig(5 , 5 ,rd));
 		}
 		else if(c=='3')
 		{
-			int rd = myrand()%4;
-			if(rd < 2) res = war(P , new pig(5 , 5 , rd));
-			else res=war(P , new snake(5 , 5 , rd));
+			int rd = 7 + myrand()%4;
+			if(rd < 9) res = war(PP , new pig(5 , 5 , rd));
+			else res=war(PP , new snake(5 , 5 , rd));
 		}
 		else if(c=='4')
 		{
-			int rd = 6 + myrand()%5;
-			if(rd < 8) res = war(P , new pig(5 , 5 , rd));
-			else res=war(P , new snake(5 , 5 , rd));
+			int rd = 12 + myrand()%5;
+			if(rd < 14) res = war(PP , new pig(5 , 5 , rd));
+			else res=war(PP , new snake(5 , 5 , rd));
 		}
 		else if(c=='5')
 		{
-			int rd = 15 + myrand()%6;
-			if(rd < 17) res = war(P , new pig(5 , 5 , rd));
-			else res=war(P , new snake(5 , 5 , rd));
+			int rd = 18 + myrand()%6;
+			if(rd < 20) res = war(PP , new pig(5 , 5 , rd));
+			else res=war(PP , new snake(5 , 5 , rd));
 		}
 		else if(c=='6')
 		{
 			int rd = 25 + myrand()%10;
-			if(rd < 27) res = war(P , new pig(5 , 5 , rd));
-			else res=war(P , new snake(5 , 5 , rd));
+			if(rd < 27) res = war(PP , new pig(5 , 5 , rd));
+			else res=war(PP , new snake(5 , 5 , rd));
 		}
 		else if(c=='7')
 		{ 
-			int rd = 30 + myrand()%20;
-			if(rd < 33) res = war(P , new pig(5 , 5 , rd));
-			else res=war(P , new snake(5 , 5 , rd));
+			int rd = 32 + myrand()%20;
+			if(rd < 35) res = war(PP , new pig(5 , 5 , rd));
+			else res=war(PP , new snake(5 , 5 , rd));
 		}
 		else return 0;
 		printf("\n\n\n");

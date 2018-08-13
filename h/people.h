@@ -30,6 +30,7 @@ protected:
 	int turn_to_self;
 	virtual void rc_hp(people*,int&,int) = 0;
 	virtual void rc_introduce(print_inF&) = 0;
+	virtual void rc_chat_with(player *) = 0;
 	virtual void rc_die(people*) = 0;
 public:
 	int m_hp;
@@ -51,7 +52,7 @@ public:
 	int apin(MAP*);
 	int leave(MAP*);
 	virtual int look(MAP*) = 0;
-	virtual void introduce();
+	virtual void introduce(player * = nullptr);
 	void get_more_war(int);
 	void get_more_hpsx(int);
 	void upd();
@@ -139,6 +140,7 @@ private:
 	bool _cans(MAP*,int,int,bool);
 	void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
 	void rc_die(people*);
 	char pface(char);
 public:
@@ -173,6 +175,7 @@ class Dog : public people
 protected:
 	virtual void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
 	virtual void rc_die(people*);
 public:
 	static const int FIR_war = 13;
@@ -191,6 +194,7 @@ class pig:public people
 private:
 	virtual void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
 	virtual void rc_die(people*);
 public:
 	static const int FIR_war = 12;
@@ -209,6 +213,7 @@ class snake:public people
 private:
 	virtual void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
 	virtual void rc_die(people*);
 	bool _cans(MAP*,int,int,bool);
 public:
@@ -228,6 +233,7 @@ class Tree_guard:public people
 private:
 	virtual void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
 	virtual void rc_die(people*);
 	bool _cans(MAP*,int,int,bool);
 public:
@@ -247,6 +253,7 @@ class atree:public people
 private:
 	virtual void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
 	virtual void rc_die(people*);
 public:
 	static const int FIR_war = 0;

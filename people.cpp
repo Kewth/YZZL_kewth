@@ -414,7 +414,7 @@ int people::move(char fg) // {{{
 	flag = fg;
 	return res;
 } // }}}
-void people::introduce() // {{{
+void people::introduce(player *) // {{{
 {
 	print_inF Kuang(Pos(1,1) , Pos(10,45) , Pos(1,1));
 	Kuang.clear();
@@ -428,8 +428,15 @@ void people::introduce() // {{{
 	Kuang.tonext();
 	printf("速度:%d",speed());
 	rc_introduce(Kuang);
-	Kuang.tonext();
-	system("pause");
+	if(getch() == 'c')
+	{
+		Kuang.clear();
+		printf("Chating with %s:",m_name.c_str());
+		Kuang.tonext();
+		printf("Nothing to chat");
+		Kuang.tonext();
+		system("pause");
+	}
 } // }}}
 int people::apin(MAP* M) // {{{
 {
@@ -492,7 +499,8 @@ bool people::c_hp(people *from_p,int val,int typ) // {{{
 	if(m_hp <= 0)
 	{
 		debug_print("debug:" + m_name + "死亡\n");
-		rc_die(from_p);
+		if(from_p) rc_die(from_p);
+		else fprintf(information , "%s死于自然力量\n",m_name.c_str());
 		m_hp = 0;
 		return true;
 	}
@@ -584,7 +592,13 @@ int player::meet(people* P) // {{{
 			}
 		}
 	}
-	else P->introduce() , m_lianji = 0;
+	else
+	{
+		P->introduce(this);
+		m_lianji = 0;
+		if(P == pet)
+			P->m_sta["back"] = std::make_pair(clock()+300 , flag);
+	}
 	debug_print("debug:"+m_name+"遭遇"+P->m_name+"<-");
 	return res;
 } // }}}
@@ -732,7 +746,7 @@ int player::look(MAP *M) // {{{
 	// 等级 {{{
 	Kuang.tonext();
 	cgcolor("");
-	printf("LV:%d/%d(EXP:%d/%d)",m_lv,lvmax,m_exp,lvup[m_lv]);
+	printf("LV:%d/%d(EXP:%d/%lld)",m_lv,lvmax,m_exp,lvup[m_lv]);
 	// }}}
 	// 生命值 {{{
 	Kuang.tonext();
@@ -864,18 +878,28 @@ int player::call_pet(MAP *M) // {{{
 	}
 	else if(pet->m_mut_leave . try_lock())
 	{
-		debug_print("debug:call successfully");
-		pet->m_mut_leave . unlock();
-		pet->leave(pet->m_inM);
-		int fg = myrand() % 4;
-		pet->Px = Px + movex[fg];
-		pet->Py = Py + movey[fg];
-		pet->apin(M);
+		if(std::abs(pet->Px - Px) <= 1 && std::abs(pet->Py - Py) <= 1)
+		{
+			debug_print("debug:stop successfully");
+			pet->m_sta["stop"] = std::make_pair(clock() + 2000 , 0);
+			pet->m_mut_leave . unlock();
+		}
+		else
+		{
+			debug_print("debug:call successfully");
+			pet->m_mut_leave . unlock();
+			pet->leave(pet->m_inM);
+			int fg = myrand() % 4;
+			pet->Px = Px + movex[fg];
+			pet->Py = Py + movey[fg];
+			pet->apin(M);
+		}
 	}
 	else fprintf(information , "召唤!!──────────失败......\n");
 	debug_print("debug:you call pet<-");
 	return 0;
 } // }}}
+void player::rc_chat_with(player *) {}
 // }}}
 
 // Dog {{{
@@ -940,7 +964,7 @@ int Dog::meet(people* P)
 void Dog::exp_h(int ooexp)
 {
 	m_exp += ooexp*1.5;
-	while(m_exp >= lvup[m_lv])
+	while(m_lv < lvmax && m_exp >= lvup[m_lv])
 	{
 		m_war += FIR_war*power11(m_lv);
 		m_hpsx += FIR_hp*power11(m_lv);
@@ -956,6 +980,7 @@ void Dog::rc_introduce(print_inF &Kuang)
 	Kuang.tonext();
 	printf("它们虽然脆弱,但悟性很高");
 }
+void Dog::rc_chat_with(player *) {}
 // }}}
 
 // pig {{{
@@ -1010,7 +1035,7 @@ int pig::meet(people* P)
 void pig::exp_h(int ooexp)
 {
 	m_exp += ooexp;
-	while(m_exp >= lvup[m_lv])
+	while(m_lv < lvmax && m_exp >= lvup[m_lv])
 	{
 		m_war += FIR_war*power11(m_lv);
 		m_hpsx += FIR_hp*power11(m_lv);
@@ -1026,6 +1051,7 @@ void pig::rc_introduce(print_inF &Kuang)
 	Kuang.tonext();
 	printf("但是一旦它发现敌人靠近,一定会缠到底的");
 }
+void pig::rc_chat_with(player *) {}
 // }}}
 
 // snake {{{
@@ -1110,7 +1136,7 @@ int snake::meet(people* P)
 void snake::exp_h(int ooexp)
 {
 	m_exp += ooexp;
-	while(m_exp >= lvup[m_lv])
+	while(m_lv < lvmax && m_exp >= lvup[m_lv])
 	{
 		m_war += FIR_war*power11(m_lv);
 		m_hpsx += FIR_hp*power11(m_lv);
@@ -1126,6 +1152,7 @@ void snake::rc_introduce(print_inF &Kuang)
 	Kuang.tonext();
 	printf("而且它的视野很广,攻击性强,能轻易发现敌人");
 }
+void snake::rc_chat_with(player *) {}
 // }}}
 
 //atree {{{
@@ -1166,7 +1193,7 @@ int atree::meet(people*)
 void atree::exp_h(int ooexp)
 {
 	m_exp += ooexp;
-	while(m_exp >= lvup[m_lv])
+	while(m_lv < lvmax && m_exp >= lvup[m_lv])
 	{
 		m_war += FIR_war*power11(m_lv);
 		m_hpsx += FIR_hp*power11(m_lv);
@@ -1180,6 +1207,7 @@ void atree::rc_introduce(print_inF &Kuang)
 	Kuang.tonext();
 	printf("%s虽然只有被打的份,但它的树皮很厚",m_name.c_str());
 }
+void atree::rc_chat_with(player *) {}
 // }}}
 
 // Tree_guard {{{
@@ -1267,7 +1295,7 @@ int Tree_guard::meet(people* P)
 void Tree_guard::exp_h(int ooexp)
 {
 	m_exp += ooexp;
-	while(m_exp >= lvup[m_lv])
+	while(m_lv < lvmax && m_exp >= lvup[m_lv])
 	{
 		m_war += FIR_war*power11(m_lv);
 		m_hpsx += FIR_hp*power11(m_lv);
@@ -1283,4 +1311,5 @@ void Tree_guard::rc_introduce(print_inF &Kuang)
 	Kuang.tonext();
 	printf("虽然很迟钝,但它是不可撼动的,一生只为守护%s阵营",belong.c_str());
 }
+void Tree_guard::rc_chat_with(player *) {}
 // }}}

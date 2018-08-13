@@ -1,1 +1,2 @@
-int war(people* , people *);
+int war(player* , people *);
+ 

@@ -31,11 +31,9 @@ int sjin(player * P ,std::string name)
 		P->m_achi->m_achi.insert(s);
 	}
 	fscanf(read,"\n");
-	int pet_m_exp = 0;
-	fscanf(read,"PetEXP:%d\n",&pet_m_exp);
 	P->pet = new Dog(P->Px , P->Py+1 , 0);
-	P->pet->exp_h(pet_m_exp);
-	
+	fscanf(read,"PetEXP:%d\n",&P->pet->m_exp);
+	P->pet->exp_h(0);
 	
 	P->m_list = new list_jn(v);
 	P->m_I = P->m_list->jn[0];

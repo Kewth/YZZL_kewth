@@ -14,7 +14,7 @@ int workcity::xz1::onein(people* P)
 		return 0;
 	}
 	say("","即将打开神奇的目录...",69);
-	system(("xdg-open " + filepl +" 2> /dev/null").c_str());
+	system(("see " + filepl +" 2> /dev/null").c_str());
 	return 0;
 }
 int workcity::xz2::onein(people *P)
@@ -27,7 +27,7 @@ int workcity::xz2::onein(people *P)
 	extern std::string ftppl;
 	say("","即将打开神奇的目录...",69);
 	puts(ftppl.c_str());
-	system(("xdg-open " + ftppl +" 2> /dev/null").c_str());
+	system(("see " + ftppl +" 2> /dev/null").c_str());
 	return 0;
 }
 workcity::workcity()
@@ -37,7 +37,10 @@ workcity::workcity()
 	M->m_name = "工城workcity";
 	M->f(mid,0) = new gotocity(0,mid,maxn,'<');
 	M->f(mid,-1) = new wall();
-	M->f(mid,1) = new grass('-');
+	M->f(mid,1) = new grass('-',"此处前往主城");
+	M->f(mid,maxn) = new gotocity(4,1,1,'>');
+	M->f(mid,maxn+1) = new wall();
+	M->f(mid,maxn-1) = new grass('-',"由此重温新手教程");
 	M->f(maxn-5,1) = new xz0();
 	for(uint i=0;i<xz0::name.size();i++)
 		M->f(maxn-5,i+2) = new grass(xz0::name[i],"由此退出");

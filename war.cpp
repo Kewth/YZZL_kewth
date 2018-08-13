@@ -14,7 +14,7 @@
 /* 	} */
 /* 	return NULL; */
 /* } */
-int war(people *P , people *G)
+int war(player *P , people *G)
 //1:lose
 //2:spc
 //3:win
@@ -31,6 +31,7 @@ int war(people *P , people *G)
 		printf("Its hp:%d\n",G->m_hp);
 		readinforma();
 		int c = ifgetch(P->speed());
+		if(c == 'c') P->call_pet(M);
 		if(clock() < P->m_sta["stop"].first && c == 'Q') warres = 2;
 		M->move(P , c);
 		if(G->m_hp <= 0) warres = 3;
@@ -39,10 +40,11 @@ int war(people *P , people *G)
 			G->Todo();
 			if(P->m_hp <= 0) warres = 1;
 		}
+		Peo_all_do();
 	}
 	P->look(M);
 	puts("War done.");
 	/* th->join(); */
-	delete M;
+	/* delete M; */
 	return warres;
 }

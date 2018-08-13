@@ -6,8 +6,8 @@ int firstcity::xz0::onein(people* P)
 {
 	if(P->m_typ != "player") return 0;
 	player *pl = (player*) P;
-	pl->bag->coin_h(1000);
-	say("","奖励1000金币!\n正在传送\n",69);
+	pl->bag->coin_h(100);
+	say("","奖励100金币!\n正在传送\n",69);
 	P->Px = 1;
 	P->Py += 2;
 	return 0;
@@ -42,7 +42,7 @@ int firstcity::xz4::onein(people *P)
 	fprintf(information,"多走走试试\n");
 	static int jsq = 0;
 	jsq ++;
-	if(jsq == 10) P->Py += 3;
+	if(jsq >= 10) P->Py += 3;
 	P->c_hp(nullptr , -10 , 'r');
 	return 0;
 }
@@ -55,13 +55,13 @@ int firstcity::xz5::onein(people *P)
 	static int jsq = 0;
 	if(!jsq) pl->magic_h(100);
 	jsq ++;
-	if(jsq == 20) P->Px += 2;
+	if(jsq >= 20) P->Px += 2;
 	return 0;
 }
 int firstcity::xz6::onein(people *P)
 {
 	if(P->m_typ != "player") return 0;
-	say("向导","恭喜你总算是通过了新手城的考验,下次来我会将你带到主城,那里......\n",79);
+	say("向导","恭喜你总算是通过了新手城的考验,下次来我会将你带到主城,那里......\n咳咳,你学会的仅仅是基本操作,在主城找到我(Q),我会告诉你接下来该怎么做\n",79);
 	extern std::string filepl;
 	system(("echo set notfirst >> " + filepl + "add.rc").c_str());
 	return 3;
@@ -176,7 +176,7 @@ firstcity::firstcity()
 	M->f(9,6) = new grass('!' , "事实上你有一只宠物,嗯之前说过了,你也一定看见了");
 	M->f(9,7) = new grass('!' , "但是你走的太快,它跟不上来了");
 	M->f(9,8) = new grass('!' , "不要激动我的意思不是要你回去,事实上有更简单的办法");
-	M->f(9,9) = new grass('!' , "很简单,按一下c(意思是call)");
+	M->f(9,9) = new grass('!' , "很简单,按一下c(意思是call)\n而如果你想让它停下来,按两下c");
 	M->f(9,10) = new grass('!' , "想详细了解你的宠物?朝它移动就行,试试\n!!!注意,是移动不是攻击!!!(肯定有熊孩子把这个当做一个提示的)");
 	M->f(9,11) = new grass('!' , "事实上,朝任何生物移动,都会得到一个介绍");
 	M->f(9,12) = new grass('!' , "怎么得到自己的详细信息?\n右上角不够你看的吗?");
