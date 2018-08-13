@@ -165,6 +165,7 @@ int main(int args,char *argv[])
 	P->pet->apin(c->M);
 	extern std::vector<people*> Peo_will_do;
 	Peo_will_do.push_back(P->pet);
+	std::thread th_of_chprint([=]() { P->check_print(); });
 	puts("Made a player");
 	while(1)
 	{
@@ -175,7 +176,9 @@ int main(int args,char *argv[])
 			return 0;
 		P->look(c->M);
 		readinforma();
+		P->check_print_open = 1;
 		int ch = ifgetch(399);
+		P->check_print_open = 0;
 		if(ch == 'c') P->call_pet(c->M);
 		int mres = c->move(P,ch);
 		if(mres == 3) break;
@@ -189,6 +192,8 @@ int main(int args,char *argv[])
 		Peo_all_do();
 	}
 	printf("EXIT\n");
+	P->check_print_open = -1;
+	th_of_chprint.join();
 	/* sjout(P , "common"); */
 	debug_print("game end successfully");
 }

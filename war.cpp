@@ -28,7 +28,7 @@ int war(player *P , people *G)
 	while(!warres)
 	{
 		P->look(M);
-		printf("Its hp:%d\n",G->m_hp);
+		SJ_inline("It's HP:",G->m_hp,G->c_hpmax());
 		readinforma();
 		int c = ifgetch(P->speed());
 		if(c == 'c') P->call_pet(M);

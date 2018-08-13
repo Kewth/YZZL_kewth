@@ -682,7 +682,7 @@ int player::look(MAP *M) // {{{
 	system("cls");
 	_map2<bool> cansee;
 	cansee(Px,Py) = 1;
-	const int maxl = 8 , liest = 20 , lieen = 60 , hang = 11;
+	const int maxl = 8 , liest = 20 , lieen = 60 , hang = 13;
 	// 判断视野 {{{
 	#define cans(x,y) _cans(M,x,y,cansee(x,y))
 	for(int len=1;len<=maxl+1;len++)
@@ -727,28 +727,6 @@ int player::look(MAP *M) // {{{
 		}
 		puts("");
 	}
-	printf("💓");
-	cgcolor("-2");
-	bool isgreen = true;
-	for(int i=0;i<=c_hpmax();i+=c_hpmax()/40)
-	{
-		if(isgreen && i >= m_hp)
-			cgcolor("-4"),
-			isgreen = false;
-		print_hang();
-	}
-	puts("");
-	printf("💫");
-	cgcolor("-2");
-	isgreen = true;
-	for(int i=0;i<=m_magicsx;i+=m_magicsx/40)
-	{
-		if(isgreen && i >= m_magic)
-			cgcolor("-4"),
-			isgreen = false;
-		print_hang();
-	}
-	puts("");
 	// 打印状态栏 {{{
 	cgcolor("");
 	cgcolor(std::string("-") + (char)('0'+rand()%7));
@@ -771,10 +749,10 @@ int player::look(MAP *M) // {{{
 	Kuang.tonext();
 	cgcolor("");
 	printf("Your HP:");
-	if(m_hp < m_hpsx*0.3) cgcolor("04");
-	else if(m_hp < m_hpsx*0.5) cgcolor("06");
-	else if(m_hp < m_hpsx*0.8) cgcolor("01");
-	else cgcolor("02");
+	if(m_hp < c_hpmax()*0.25) cgcolor("-4");
+	else if(m_hp < c_hpmax()*0.5) cgcolor("-6");
+	else if(m_hp < c_hpmax()*0.75) cgcolor("-3");
+	else cgcolor("-2");
 	printf("%d/%d",m_hp,m_hpsx);
 	if(!m_hpinfor.empty())
 	{
@@ -785,10 +763,10 @@ int player::look(MAP *M) // {{{
 	}
 	cgcolor("");
 	printf("(Pet's:");
-	if(pet->m_hp < pet->c_hpmax()*0.3) cgcolor("04");
-	else if(pet->m_hp < pet->c_hpmax()*0.5) cgcolor("06");
-	else if(pet->m_hp < pet->c_hpmax()*0.8) cgcolor("01");
-	else cgcolor("02");
+	if(pet->m_hp < pet->c_hpmax()*0.25) cgcolor("-4");
+	else if(pet->m_hp < pet->c_hpmax()*0.5) cgcolor("-6");
+	else if(pet->m_hp < pet->c_hpmax()*0.75) cgcolor("-3");
+	else cgcolor("-2");
 	printf("%d",pet->m_hp);
 	cgcolor("");
 	putchar(')');
@@ -797,10 +775,10 @@ int player::look(MAP *M) // {{{
 	Kuang.tonext();
 	cgcolor("");
 	printf("Your Magic:");
-	if(m_magic < m_magicsx*0.3) cgcolor("04");
-	else if(m_magic < m_magicsx*0.5) cgcolor("06");
-	else if(m_magic < m_magicsx*0.8) cgcolor("01");
-	else cgcolor("02");
+	if(m_magic < m_magicsx*0.25) cgcolor("-4");
+	else if(m_magic < m_magicsx*0.5) cgcolor("-6");
+	else if(m_magic < m_magicsx*0.75) cgcolor("-3");
+	else cgcolor("-2");
 	printf("%d/%d",m_magic,m_magicsx);
 	cgcolor("");
 	printf("  |  ");
@@ -830,11 +808,43 @@ int player::look(MAP *M) // {{{
 	cgcolor("");
 	if(m_lianji) printf("%d连击!!!\n",m_lianji);
 	// }}}
+	// 数据条 {{{
+	Kuang.tonext();
+	SJ_inline("💓" , m_hp , c_hpmax());
+	Kuang.tonext();
+	SJ_inline("💫" , m_magic , m_magicsx);
 	// }}}
-	cgcolor("");
+	// }}}
 	// }}}
 	return 0;
 } // }}}
+void player::check_print()
+{
+	while(~check_print_open)
+	{
+		while(not check_print_open);
+		static int last_hp = 0;
+		int hpadd = c_hpmax()/100;
+		if(std::abs(m_hp-last_hp) >= hpadd)
+		{
+			if(m_hp > last_hp) last_hp = last_hp + hpadd;
+			else last_hp = last_hp - hpadd;
+			gotoxy(10,21);
+			SJ_inline("💓" , last_hp , c_hpmax());
+		}
+		static int last_magic = 0;
+		int maadd = m_magicsx/100;
+		if(std::abs(m_magic-last_magic) >= maadd)
+		{
+			if(m_magic > last_magic) last_magic = last_magic + maadd;
+			else last_magic = last_magic - maadd;
+			gotoxy(11,21);
+			SJ_inline("💫" , last_magic , m_magicsx);
+		}
+		Sleep(39);
+	}
+	/* fprintf(information , "THEXIT!!!\n"); */
+}
 void player::introduce() // {{{
 {
 	print_inF Kuang(Pos(1,1) , Pos(7,38) , Pos(1,1));

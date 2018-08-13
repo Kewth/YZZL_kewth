@@ -50,6 +50,7 @@ void debug_print(std::string);
 void say(std::string,std::string,int,int=0);
 void cgcolor(std::string);
 void Peo_all_do();
+void SJ_inline(std::string,int,int);
 bool csgetch();
 int intgetch();
 int ifgetch(int);
@@ -79,20 +80,5 @@ const int MB_OK = 1 , MB_YESNO = 2;
 extern FILE *information;
 // }}}
 typedef unsigned int uint;
-#ifdef windows
-const auto print_hang = []() -> void { printf("-"); } ;
-const auto print_lie = []() -> void { printf("|"); } ;
-const auto print_lu = []() -> void { printf("/"); } ;
-const auto print_ld = []() -> void { printf("\\"); } ;
-const auto print_ru = []() -> void { printf("\\"); } ;
-const auto print_rd = []() -> void { printf("/"); } ;
-#else
-const auto print_hang = []() -> void { printf("─"); } ;
-const auto print_lie = []() -> void { printf("│"); } ;
-const auto print_lu = []() -> void { printf("┌"); } ;
-const auto print_ld = []() -> void { printf("└"); } ;
-const auto print_ru = []() -> void { printf("┐"); } ;
-const auto print_rd = []() -> void { printf("┘"); } ;
-#endif
 
 #endif

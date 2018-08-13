@@ -151,12 +151,14 @@ public:
 	people *pet;
 	achievement *m_achi;
 	int ready_fight;
+	int check_print_open;
 	JN * m_I , *m_O;
 	list_jn * m_list;
 	int m_magicsx;
 	int meet(people*);
 	int look(MAP *);
 	void introduce();
+	void check_print();
 	void exp_h(int);
 	int call_pet(MAP *);
 	virtual int move(char=' ');

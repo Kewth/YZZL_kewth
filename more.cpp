@@ -2,6 +2,21 @@
 #include "h/more.h"
 #include "h/people.h"
 FILE* information;
+#ifdef windows
+const auto print_hang = []() -> void { printf("-"); } ;
+const auto print_lie = []() -> void { printf("|"); } ;
+const auto print_lu = []() -> void { printf("/"); } ;
+const auto print_ld = []() -> void { printf("\\"); } ;
+const auto print_ru = []() -> void { printf("\\"); } ;
+const auto print_rd = []() -> void { printf("/"); } ;
+#else
+const auto print_hang = []() -> void { printf("─"); } ;
+const auto print_lie = []() -> void { printf("│"); } ;
+const auto print_lu = []() -> void { printf("┌"); } ;
+const auto print_ld = []() -> void { printf("└"); } ;
+const auto print_ru = []() -> void { printf("┐"); } ;
+const auto print_rd = []() -> void { printf("┘"); } ;
+#endif
 
 // Pos {{{
 Pos::Pos(int x,int y):x(x),y(y) {}
@@ -204,4 +219,32 @@ void Peo_all_do()
 	}
 	for(uint i=0;i<era.size();i++)
 		Peo_will_do.erase(era[i]);
+}
+void SJ_inline(std::string text,int now,int tot)
+{
+	cgcolor("");
+	printf("%s",text.c_str());
+	const double add = tot/100;
+	auto f = [=](std::string st,std::string en,int ist)
+	{
+		bool isgreen = true;
+		cgcolor(st);
+		for(int i=ist;i<ist+25;i++)
+		{
+			if(isgreen && add*i >= now)
+				cgcolor(en),
+				isgreen = false;
+			print_hang();
+		}
+	};
+	if(now < add*25)
+		f("-4" , "-7" , 0);
+	else if(now < add*50)
+		f("-6" , "-4" , 25);
+	else if(now < add*75)
+		f("-3" , "-6" , 50);
+	else
+		f("-2" , "-3" , 75);
+	puts("");
+	cgcolor("");
 }
