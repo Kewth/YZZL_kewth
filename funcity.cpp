@@ -151,14 +151,14 @@ namespace RUN
 			}
 			his.map = map;
 		}
-		system("clear");
+		system("cls");
 		look(his);
 		string news = "Good luck for you...";
 		for(uint i=0;i<news.size();i++)
 			fprintf(stderr,"%c",news[i]) , Sleep(29);
 		for(note p(his);;p.pos++)
 		{
-			system("clear");
+			system("cls");
 			printf("pos:%d($:%d),marks:%d\n",p.pos,p.mon,p.pos+p.mon*5);
 			int lres = look(p);
 			if(lres == -1)
