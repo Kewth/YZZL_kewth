@@ -2,6 +2,8 @@
 #include "h/more.h"
 #include "h/jn.h"
 #include "h/people.h"
+
+// JN {{{ 
 int JN::lvup()
 {
 	if(m_lv == m_lvmax)
@@ -37,8 +39,9 @@ void JN::check(bool more)
 	printf("魔法值消耗:%d",m_need[m_lv]);
 	if(more) printf("(下一级:%d)",m_need[m_lv+1]);
 	puts("");
-}
-jn_hp::jn_hp(int lv)
+} // }}}
+
+jn_hp::jn_hp(int lv) // {{{
 {
 	m_lvmax = 7;
 	//const int val[]={45,100,200,400,800,1600,};
@@ -66,18 +69,22 @@ void jn_hp::rlcheck(bool more)
 	printf("回复%d",m_val[m_lv]);
 	if(more) printf("(下一级:%d)",m_val[m_lv+1]);
 	puts("点生命");
-}
-list_jn::list_jn(std::vector<int> v)
+} // }}}
+
+list_jn::list_jn(std::vector<int> v) // {{{
 {
 	jn[0] = new jn_hp(v[0]);
 	jn[1] = new jn_dikang(v[1]);
+	jn[2] = new jn_throw_Stone(v[2]);
 }
 list_jn::list_jn()
 {
 	jn[0] = new jn_hp(0);
 	jn[1] = new jn_dikang(0);
-}
-jn_dikang::jn_dikang(int lv)
+	jn[2] = new jn_throw_Stone(0);
+} // }}}
+
+jn_dikang::jn_dikang(int lv) // {{{
 {
 	m_lvmax = 7;
 	/*
@@ -112,4 +119,37 @@ void jn_dikang::rlcheck(bool more)
 	printf("ms内抵抗%d",m_val[m_lv]);
 	if(more) printf("(下一级:%d)",m_val[m_lv+1]);
 	puts("点伤害");
+} // }}}
+
+jn_throw_Stone::jn_throw_Stone(int lv) // {{{
+{
+	m_lvmax = 7;
+	//const int val[]={45,100,200,400,800,1600,};
+	//const int need[]={10,17,28,48,80,140,};
+	//const int use[]={999,900,800,700,600,500,};
+	//const int pay[]={2000,5000,12000,26000,60000,};
+	const int val[]={135,305,750,755,1365,1425,2700,3150,};
+	const int need[]={10,20,40,40,60,60,90,90,};
+	const int use[]={1500,2200,4000,2000,2800,1400,2000,1100,};
+	const int pay[]={3000,7000,20000,40000,70000,120000,180000,};
+	memcpy(m_val,val,sizeof(val));
+	memcpy(m_need,need,sizeof(need));
+	memcpy(m_tuse,use,sizeof(use));
+	memcpy(m_pay,pay,sizeof(pay));
+	m_lv = lv;
+	m_name = "投掷";
 }
+int jn_throw_Stone::rldo(player * P)
+{
+	extern std::vector<people*> Peo_will_do;
+	people* st = new Stone(P->Px,P->Py,m_val[m_lv],P->flag,P->belong);
+	st->apin(P->m_inM);
+	Peo_will_do.push_back(st);
+	return 0;
+}
+void jn_throw_Stone::rlcheck(bool more)
+{
+	printf("投掷%d",m_val[m_lv]);
+	if(more) printf("(下一级:%d)",m_val[m_lv+1]);
+	puts("点伤害的石头");
+} // }}}

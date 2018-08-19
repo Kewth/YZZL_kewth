@@ -818,7 +818,7 @@ int player::look(MAP *M) // {{{
 	// }}}
 	return 0;
 } // }}}
-void player::check_print()
+void player::check_print() // {{{
 {
 	while(~check_print_open)
 	{
@@ -844,7 +844,7 @@ void player::check_print()
 		Sleep(39);
 	}
 	/* fprintf(information , "THEXIT!!!\n"); */
-}
+} // }}}
 void player::introduce() // {{{
 {
 	print_inF Kuang(Pos(1,1) , Pos(7,38) , Pos(1,1));
@@ -1344,4 +1344,52 @@ void Tree_guard::rc_introduce(print_inF &Kuang)
 void Tree_guard::rc_chat_with(player *) {}
 // }}}
 
+// Zi_dan {{{
+Zi_dan::Zi_dan()
+{
+	m_exp = 0;
+	m_hpsx = m_hp = 1;
+}
+void Zi_dan::rc_hp(people*,int &,int) {}
+void Zi_dan::rc_introduce(print_inF &) {}
+void Zi_dan::rc_chat_with(player *) {}
+void Zi_dan::rc_die(people*) {}
+int Zi_dan::meet(people *P)
+{
+	debug_print("debug:"+m_name+"遭遇"+P->m_name+"->");
+	int res = 0;
+	//std::lock_guard<std::mutex> lock(P->m_mut_leave);
+	if(P->belong == belong) res = 0;
+	else if(P->c_hp(this,-c_war()) == 1) res = 1;
+	rc_meet(P);
+	debug_print("debug:"+m_name+"遭遇"+P->m_name+"<-");
+	return res;
+}
+void Zi_dan::exp_h(int) {}
+// }}}
+
+// Stone {{{
+Stone::Stone(int x,int y,int val,int fg,std::string bl) // {{{
+{
+	m_typ = "Stone";
+	m_name = "石头";
+	color = "04";
+	belong = bl;
+	Px = x;
+	Py = y;
+	m_war = val;
+	m_lv = 0;
+	face = '.';
+	flag = fg;
+	/* move(fg); */
+	debug_print("made a Stone");
+}// }}}
+void Stone::rc_meet(people* P) // {{{
+{
+	m_hp = 0;
+	c_hp(P , -1);
+} // }}}
+int Stone::look(MAP*) { return 0; }
+int Stone::speed() { return 59; }
+// }}}
 
