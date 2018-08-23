@@ -157,7 +157,7 @@ public:
 	int m_magicsx;
 	int meet(people*);
 	int look(MAP *);
-	void introduce();
+	void introduce(player * = nullptr);
 	void check_print();
 	void exp_h(int);
 	int call_pet(MAP *);

@@ -818,7 +818,7 @@ int player::look(MAP *M) // {{{
 	// }}}
 	return 0;
 } // }}}
-void player::check_print()
+void player::check_print() // {{{
 {
 	while(~check_print_open)
 	{
@@ -844,8 +844,8 @@ void player::check_print()
 		Sleep(39);
 	}
 	/* fprintf(information , "THEXIT!!!\n"); */
-}
-void player::introduce() // {{{
+} // }}}
+void player::introduce(player*) // {{{
 {
 	print_inF Kuang(Pos(1,1) , Pos(7,38) , Pos(1,1));
 	Kuang.clear();
