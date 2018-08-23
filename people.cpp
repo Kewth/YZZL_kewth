@@ -471,7 +471,7 @@ int people::leave(MAP *M) // {{{
 		if(!M->p(Px,Py))
 		{
 			debug_print("error:在此之前提前离开,发生在"+number_str(Px)+","+number_str(Py));
-			return -1;
+			res = -1;
 		}
 		else if(M->p(Px , Py) != this)
 		{
@@ -495,9 +495,9 @@ bool people::c_hp(people *from_p,int val,int typ) // {{{
 	m_hp += val;
 	if(m_hp <= 0)
 	{
-		debug_print("debug:" + m_name + "死亡\n");
-		if(from_p) rc_die(from_p);
-		else fprintf(information , "%s死于自然力量\n",m_name.c_str());
+		debug_print("debug:" + m_name + "死亡");
+		rc_die(from_p);
+		if(not from_p) fprintf(information , "%s死于自然力量\n",m_name.c_str());
 		m_hp = 0;
 		return true;
 	}
@@ -536,11 +536,11 @@ int people::Todo() // {{{
 	if(!m_inM) return 0;
 	if(clock() - turn_to_self > 2000)
 		turn_to_self = clock() - 2000;
-	while(clock() >= turn_to_self)
+	while(clock() >= turn_to_self && m_hp > 0)
 	{
 		turn_to_self += speed();
 		this->look(m_inM);
-		return m_inM->move(this , ' ');
+		m_inM->move(this , ' ');
 	}
 	return 0;
 } // }}}
@@ -609,6 +609,7 @@ int player::move(char fg) // {{{
 	int res = 0;
 	if(fg == 'i') m_I->doit(this) , res = 2;
 	else if(fg == 'o') m_O->doit(this) , res = 2;
+	else if(fg == 'u') m_U->doit(this) , res = 2;
 	else if(fg == 'k' && ~bag->wood_h(-4)) m_sta["tishen"] = std::make_pair(clock()+600 , flag) , res = 2;
 	else if(fg == 'L')
 	{
@@ -784,6 +785,11 @@ int player::look(MAP *M) // {{{
 	printf("  |  ");
 	printf("ATK:%d",c_war());
 	// }}}
+	// 技能U {{{
+	Kuang.tonext();
+	cgcolor("");
+	printf("-U-:%s(%d级)",m_U->m_name.c_str(),m_U->m_lv);
+	// }}}
 	// 技能I {{{
 	Kuang.tonext();
 	cgcolor("");
@@ -829,7 +835,7 @@ void player::check_print() // {{{
 		{
 			if(m_hp > last_hp) last_hp = last_hp + hpadd;
 			else last_hp = last_hp - hpadd;
-			gotoxy(10,21);
+			gotoxy(11,21);
 			SJ_inline("💓" , last_hp , c_hpmax());
 		}
 		static int last_magic = 0;
@@ -838,7 +844,7 @@ void player::check_print() // {{{
 		{
 			if(m_magic > last_magic) last_magic = last_magic + maadd;
 			else last_magic = last_magic - maadd;
-			gotoxy(11,21);
+			gotoxy(12,21);
 			SJ_inline("💫" , last_magic , m_magicsx);
 		}
 		Sleep(39);
@@ -896,6 +902,7 @@ void player::rc_hp(people *,int& val,int typ) // {{{
 } // }}}
 void player::rc_die(people *kill_p) // {{{
 {
+	if(not kill_p) return ;
 	fprintf(information , "%s杀死了你!\n",kill_p->m_name.c_str());
 	kill_p->exp_h(20*power11(m_lv));
 } // }}}
@@ -952,6 +959,7 @@ Dog::Dog(int x,int y,int lv,std::string bl)
 void Dog::rc_hp(people * , int& , int) {}
 void Dog::rc_die(people *kill_p)
 {
+	if(not kill_p) return ;
 	if(kill_p->m_typ == "player")
 		fprintf(information , "天啊,你竟然差点杀了Doge");
 	kill_p->c_hp(this , -1000 , 'r');
@@ -1033,6 +1041,7 @@ pig::pig(int x,int y,int lv,std::string bl)
 void pig::rc_hp(people *,int&,int) {};
 void pig::rc_die(people* kill_p)
 {
+	if(not kill_p) return ;
 	if(kill_p->bag)
 		kill_p->bag->coin_h(800 * power11(m_lv));
 		kill_p->bag->yuanli_h(6 * power11(m_lv));
@@ -1104,6 +1113,7 @@ snake::snake(int x,int y,int lv,std::string bl)
 void snake::rc_hp(people * , int& , int) {};
 void snake::rc_die(people *kill_p)
 {
+	if(not kill_p) return ;
 	if(kill_p->bag)
 		kill_p->bag->coin_h(900 * power11(m_lv)) ,
 		kill_p->bag->yuanli_h(5 * power11(m_lv));
@@ -1204,7 +1214,7 @@ atree::atree(int x,int y,int lv,std::string bl)
 void atree::rc_hp(people* , int& , int) {};
 void atree::rc_die(people* kill_p)
 {
-	if(!kill_p) return ;
+	if(not kill_p) return ;
 	if(kill_p->bag)
 		kill_p->bag->coin_h(800*power11(m_lv)) ,
 		kill_p->bag->wood_h(30*power11(m_lv))  ;
@@ -1264,6 +1274,7 @@ void Tree_guard::rc_hp(people * ft_p, int& val, int)
 }
 void Tree_guard::rc_die(people *kill_p)
 {
+	if(not kill_p) return;
 	if(kill_p->m_typ == "player") fprintf(information , "遭受森林神的惩罚!");
 	kill_p->bag->coin_h(kill_p->bag->coin_h(0));
 	kill_p->bag->wood_h(kill_p->bag->wood_h(0));
@@ -1345,16 +1356,23 @@ void Tree_guard::rc_chat_with(player *) {}
 // }}}
 
 // Zi_dan {{{
-Zi_dan::Zi_dan()
+Zi_dan::Zi_dan() // {{{
 {
 	m_exp = 0;
-	m_hpsx = m_hp = 1;
-}
-void Zi_dan::rc_hp(people*,int &,int) {}
+} // }}}
+void Zi_dan::rc_hp(people*,int &val,int) // {{{
+{
+	if(val < 0) val = -1;
+	else val = 0;
+} // }}}
 void Zi_dan::rc_introduce(print_inF &) {}
 void Zi_dan::rc_chat_with(player *) {}
-void Zi_dan::rc_die(people*) {}
-int Zi_dan::meet(people *P)
+void Zi_dan::rc_die(people*) // {{{
+{
+	host->exp_h(m_exp);
+	m_exp = 0;
+} // }}}
+int Zi_dan::meet(people *P) // {{{
 {
 	debug_print("debug:"+m_name+"遭遇"+P->m_name+"->");
 	int res = 0;
@@ -1364,32 +1382,42 @@ int Zi_dan::meet(people *P)
 	rc_meet(P);
 	debug_print("debug:"+m_name+"遭遇"+P->m_name+"<-");
 	return res;
+} // }}}
+void Zi_dan::exp_h(int get)
+{
+	m_exp += get;
 }
-void Zi_dan::exp_h(int) {}
 // }}}
 
 // Stone {{{
-Stone::Stone(int x,int y,int val,int fg,std::string bl) // {{{
+Stone::Stone(people *h,int val) // {{{
+	:dist(10)
 {
+	host = h;
 	m_typ = "Stone";
 	m_name = "石头";
 	color = "04";
-	belong = bl;
-	Px = x;
-	Py = y;
+	belong = h->belong;
+	Px = h->Px;
+	Py = h->Py;
 	m_war = val;
+	m_hp = m_hpsx = 1;
 	m_lv = 0;
 	face = '.';
-	flag = fg;
+	flag = h->flag;
 	/* move(fg); */
 	debug_print("made a Stone");
 }// }}}
 void Stone::rc_meet(people* P) // {{{
 {
-	m_hp = 0;
 	c_hp(P , -1);
 } // }}}
-int Stone::look(MAP*) { return 0; }
+int Stone::look(MAP*) // {{{
+{
+	dist --;
+	if(not dist) c_hp(this , -1);
+	return 0;
+} // }}}
 int Stone::speed() { return 59; }
 // }}}
 

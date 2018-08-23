@@ -37,7 +37,8 @@ int sjin(player * P ,std::string name)
 	
 	P->m_list = new list_jn(v);
 	P->m_I = P->m_list->jn[0];
-	P->m_O = P->m_list->jn[2];
+	P->m_O = P->m_list->jn[1];
+	P->m_U = P->m_list->jn[2];
 	fclose(read);
 	debug_print("read done");
 	return 0;

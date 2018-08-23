@@ -130,7 +130,7 @@ jn_throw_Stone::jn_throw_Stone(int lv) // {{{
 	//const int pay[]={2000,5000,12000,26000,60000,};
 	const int val[]={135,305,750,755,1365,1425,2700,3150,};
 	const int need[]={10,20,40,40,60,60,90,90,};
-	const int use[]={1500,2200,4000,2000,2800,1400,2000,1100,};
+	const int use[]={750,1100,2000,1000,1400,700,1000,550,};
 	const int pay[]={3000,7000,20000,40000,70000,120000,180000,};
 	memcpy(m_val,val,sizeof(val));
 	memcpy(m_need,need,sizeof(need));
@@ -142,7 +142,7 @@ jn_throw_Stone::jn_throw_Stone(int lv) // {{{
 int jn_throw_Stone::rldo(player * P)
 {
 	extern std::vector<people*> Peo_will_do;
-	people* st = new Stone(P->Px,P->Py,m_val[m_lv],P->flag,P->belong);
+	people* st = new Stone(P,m_val[m_lv]);
 	st->apin(P->m_inM);
 	Peo_will_do.push_back(st);
 	return 0;

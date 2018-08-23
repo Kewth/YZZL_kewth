@@ -152,7 +152,7 @@ public:
 	achievement *m_achi;
 	int ready_fight;
 	int check_print_open;
-	JN * m_I , *m_O;
+	JN *m_I , *m_O , *m_U;
 	list_jn * m_list;
 	int m_magicsx;
 	int meet(people*);
@@ -293,11 +293,12 @@ class Stone : public Zi_dan
 {
 private:
 	void rc_meet(people*);
+	int dist;
 public:
 	static const int FIR_war = 100;
 	int look(MAP*);
 	int speed();
-	Stone(int,int,int,int,std::string);
+	Stone(people*,int);
 }; // }}}
 
 //const int psl = 5;

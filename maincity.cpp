@@ -165,7 +165,7 @@ int maincity::xz3::onein(people * P)
 	}
 	player * pl = (player *) P;
 	printf("选择你要学习的技能:\n");
-	int l=0,r=1;
+	int l=0,r=2;
 #define jns(x) pl->m_list->jn[x]
 	for(int i=l;i<=r;i++)
 	{
