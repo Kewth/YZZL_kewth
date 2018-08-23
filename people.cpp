@@ -213,8 +213,8 @@ MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name
 	/* while(1) */
 	/* { */
 	/* 	f.clear(); */
-		for(int i=mins+1;i<maxn;i++)
-			for(int j=mins+1;j<maxn;j++)
+		for(int i=_min+1;i<maxn;i++)
+			for(int j=_min+1;j<maxn;j++)
 				if(not f(i , j))
 				{
 					memset(cannot , 0 , sizeof(cannot));
@@ -379,7 +379,7 @@ void FakeWall::rl_introduce()
 
 // people {{{
 // people 构造 {{{
-people::people():flag('w'),turn_to_self(clock()-3),bag(new BAG())
+people::people():turn_to_self(clock()-3), bag(new BAG()), flag('w') 
 {
 	const int stasl = 4;
 	int now = clock();
@@ -647,7 +647,7 @@ int player::move(char fg) // {{{
 } // }}}
 bool player::_cans(MAP *M,int x,int y,bool cansee) { if(!M->f(x,y)) M->newfloor(x,y); return cansee && M->f(x,y)->cansee(this); }
 // player构造 {{{
-player::player(int x,int y,std::string name):m_lianji(0),m_achi(new achievement),IO_name(name) 
+player::player(int x,int y,std::string name):IO_name(name),m_lianji(0),m_achi(new achievement) 
 {
 	belong = "space";
 	m_typ = "player";
