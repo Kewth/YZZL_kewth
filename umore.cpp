@@ -237,3 +237,10 @@ int version_check() // for linux
 	else debug_print("this is already the latest version");
 	return 0;
 }
+bool CG_guangbiao()
+{
+	static bool open = true;
+	if(open) printf("\033[?25h");
+	else printf("\033[?25l");
+	return true;
+}

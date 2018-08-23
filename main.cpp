@@ -141,6 +141,10 @@ int main(int args,char *argv[])
 	printf("Your username:");
 	std::cin >> filepl;
 	debug_print("get username:"+filepl);
+	if(CG_guangbiao())
+		printf("SetConsoleCursorInfo:Done");
+	else
+		printf("SetConsoleCursorInfo:Fail");
 	extern int ver_new;
 	if(ver_new == 1)
 		ver_new = 2 ,

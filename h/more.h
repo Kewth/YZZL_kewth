@@ -51,6 +51,7 @@ void say(std::string,std::string,int,int=0);
 void cgcolor(std::string);
 void Peo_all_do();
 void SJ_inline(std::string,int,int);
+bool CG_guangbiao();
 bool csgetch();
 int intgetch();
 int ifgetch(int);

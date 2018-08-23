@@ -123,3 +123,11 @@ int version_check()
 	ver_new = 0;
 }
 //中文
+bool CG_guangbiao()
+{
+	HANDLE fd = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cinfo;
+	cinfo.bVisible = 0;
+	cinfo.dwSize = 1;
+	return SetConsoleCursorInfo(fd,&cinfo);
+}
