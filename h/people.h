@@ -152,7 +152,7 @@ public:
 	achievement *m_achi;
 	int ready_fight;
 	int check_print_open;
-	JN * m_I , *m_O;
+	JN *m_I , *m_O , *m_U;
 	list_jn * m_list;
 	int m_magicsx;
 	int meet(people*);
@@ -269,6 +269,37 @@ public:
 	~atree() {}
 };
 // }}}
+
+// Zi_dan {{{
+class Zi_dan : public people
+{
+protected:
+	people *host;
+	void rc_hp(people*,int&,int);
+	void rc_introduce(print_inF&);
+	void rc_chat_with(player *);
+	void rc_die(people*);
+	virtual void rc_meet(people*) = 0;
+public:
+	int meet(people*);
+	virtual int look(MAP*) = 0;
+	void exp_h(int);
+	virtual int speed() = 0;
+	Zi_dan();
+}; // }}}
+
+// Stone {{{
+class Stone : public Zi_dan
+{
+private:
+	void rc_meet(people*);
+	int dist;
+public:
+	static const int FIR_war = 100;
+	int look(MAP*);
+	int speed();
+	Stone(people*,int);
+}; // }}}
 
 //const int psl = 5;
 //static FLOOR* ALLP[psl] = {new wall(),new grass(),new grass(),new grass(),new grass(),};

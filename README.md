@@ -8,7 +8,8 @@
 
 * [简介](#li_introduce)
 * [编译方式](#re_comp)
-* [更新日志](#upd_dir)
+* [更新日志:时间](#upd_dir)
+* [更新日志:版本](#upd_dir_ver)
 
 <div id="li_introduce">介绍:</div>
 
@@ -27,12 +28,24 @@ A simpe game.
 ###### 自动更新
 如果你用的是Linux版本,恭喜,你可以享受到自动更新服务!!!再也不用担心玩的版本太老了!!!
 
+<div id="upd_dir_ver">Here the writer list some important update:</div>
+
+**1.0**  
+* 
+
+
 
 <div id="upd_dir">Here the writer list some important update:</div>
 
 In 2018:
 
 *	In Aug\. :
+
+> Day 20:
+> > 1. 改变生物速度实际受限的版本特性
+
+> Day 19:
+> > 1. 添加技能:投掷
 
 > Day 13:
 > > 1. 优化宠物功能:碰撞宠物会使宠物后退
@@ -54,9 +67,6 @@ In 2018:
 > > 9. 改变受自然伤害后死亡会崩溃的版本特性
 > >
 > > 10. 添加形象的血条和蓝条
-
-
-
 
 > Day 5:
 > > 1. 改变了以往纯随机刷图的方式,现在你会碰到一些事先规划的建筑和一些~~惊悚~~惊喜

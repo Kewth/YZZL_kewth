@@ -38,11 +38,19 @@ class jn_dikang:public JN
 	int rldo(player *);
 	jn_dikang(int=0);
 };
+class jn_throw_Stone : public JN
+{
+protected:
+	void rlcheck(bool);
+public:
+	int rldo(player *);
+	jn_throw_Stone(int=0);
+};
 class list_jn
 {
 	private:
 	public:
-	static const int jnsl = 2;
+	static const int jnsl = 3;
 	JN* jn[jnsl];
 	list_jn();
 	list_jn(std::vector<int>);
