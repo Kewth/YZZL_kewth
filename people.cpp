@@ -913,7 +913,7 @@ void player::exp_h(int ooexp) // {{{
 		messagebox(NULL,"升级了！！！\n","恭喜：",MB_OK);
 	}
 } // }}}
-int player::speed() { return 199; }
+int player::speed() { return 69; }
 int player::magic_h(int oomagic) // {{{
 {
 	if(!oomagic) return m_magic;
