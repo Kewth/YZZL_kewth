@@ -142,9 +142,9 @@ int main(int args,char *argv[])
 	std::cin >> filepl;
 	debug_print("get username:"+filepl);
 	if(CG_guangbiao())
-		printf("SetConsoleCursorInfo:Done");
+		puts("SetConsoleCursorInfo:Done");
 	else
-		printf("SetConsoleCursorInfo:Fail");
+		puts("SetConsoleCursorInfo:Fail");
 	extern int ver_new;
 	if(ver_new == 1)
 		ver_new = 2 ,
@@ -181,7 +181,7 @@ int main(int args,char *argv[])
 		P->look(c->M);
 		readinforma();
 		P->check_print_open = 1;
-		int ch = ifgetch(399);
+		int ch = ifgetch(69);
 		P->check_print_open = 0;
 		if(ch == 'c') P->call_pet(c->M);
 		int mres = c->move(P,ch);

@@ -679,13 +679,16 @@ char player::pface(char c) // {{{
 } // }}}
 int player::look(MAP *M) // {{{
 {
+	debug_print("debug:player::look->");
+	/* puts("Looking"); //debug */
 	pet->look(pet->m_inM);
-	system("cls");
-	_map2<bool> cansee;
-	cansee(Px,Py) = 1;
+	m_look_mut.lock();
+	debug_print("debug:get lock");
 	const int maxl = 8 , liest = 20 , lieen = 60 , hang = 13;
 	// 判断视野 {{{
 	#define cans(x,y) _cans(M,x,y,cansee(x,y))
+	cansee.clear();
+	cansee(Px,Py) = pface(flag);
 	for(int len=1;len<=maxl+1;len++)
 	{
 		for(int i=Py-len+1;i<Py+len;i++)
@@ -704,10 +707,15 @@ int player::look(MAP *M) // {{{
 	#undef cans
 	// }}}
 	//  进行打印 {{{
+	/* puts("print in looking"); // debug */
+	extern int new_read_info;
+	if(not new_read_info) system("cls");
+	else gotoxy(1,1);
 	for(int i=Px-maxl;i<=Px+maxl;i++)
 	{
 		for(int j=Py-maxl;j<=Py+maxl;j++)
 		{
+			/* puts("pr"); // debug */
 			if(!cansee(i,j)) cgcolor("") , putchar(' ');
 			else if(i == Px && j == Py)
 			{
@@ -822,12 +830,34 @@ int player::look(MAP *M) // {{{
 	// }}}
 	// }}}
 	// }}}
+	m_look_mut.unlock();
+	debug_print("debug:player::look<-");
 	return 0;
 } // }}}
 void player::check_print() // {{{
 {
+	/* const int maxl = 8; */
 	while(~check_print_open)
 	{
+		/* debug_print("debug:player::check_print->"); */
+		/* m_look_mut.lock(); */
+		/* debug_print("debug:get lock"); */
+		/* puts("chprint"); // debug */
+		/* Sleep(999); */
+		/* for(int i=Px-maxl;i<=Px+maxl;i++) */
+		/* 	for(int j=Py-maxl;j<=Py+maxl;j++) */
+		/* 	{ */
+		/* 		int f = m_inM->p(i,j)?m_inM->p(i,j)->face:m_inM->f(i,j)->face; */
+		/* 		if((i==Px&&j==Py) or not cansee(i,j) or f == cansee(i,j)) continue; */
+		/* 		else gotoxy(i-Px+maxl+1 , j-Py+maxl+1); */
+		/* 		if(m_inM->p(i,j)) */
+		/* 			cgcolor(m_inM->p(i,j)->color); */
+		/* 		else */
+		/* 			cgcolor(m_inM->f(i,j)->color); */
+		/* 		putchar(f); */
+		/* 	} */
+		/* debug_print("debug:deubg only"); */
+		/* debug_print("debug:openstatus:"+number_str(check_print_open)); */
 		while(not check_print_open);
 		static int last_hp = 0;
 		int hpadd = c_hpmax()/100;
@@ -848,8 +878,9 @@ void player::check_print() // {{{
 			SJ_inline("💫" , last_magic , m_magicsx);
 		}
 		Sleep(39);
+		/* m_look_mut.unlock(); */
+		/* debug_print("debug:player::check_print<-"); */
 	}
-	/* fprintf(information , "THEXIT!!!\n"); */
 } // }}}
 void player::introduce(player*) // {{{
 {

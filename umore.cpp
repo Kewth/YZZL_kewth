@@ -240,7 +240,7 @@ int version_check() // for linux
 bool CG_guangbiao()
 {
 	static bool open = true;
-	if(open) printf("\033[?25h");
-	else printf("\033[?25l");
+	if(open) printf("\033[?25l");
+	else printf("\033[?25h");
 	return true;
 }

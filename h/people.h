@@ -136,8 +136,11 @@ private:
 	std::string IO_name;
 	std::queue<int> m_hpinfor;
 	int m_lianji;
+	std::mutex m_look_mut;
 	/* bool will_check; */
+	_map2<int> cansee;
 	int m_magic;
+	/* bool m_looked; */
 	bool _cans(MAP*,int,int,bool);
 	void rc_hp(people*,int&,int);
 	void rc_introduce(print_inF&);

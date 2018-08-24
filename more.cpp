@@ -160,6 +160,7 @@ unsigned long myrand(void)
  
   return (z ^ clock());
 }
+int new_read_info = 0;
 void cpinfors(int times)
 {
 	extern std::string filepl;
@@ -173,7 +174,7 @@ void cpinfors(int times)
 		if(s.empty()) break;
 		puts(s.c_str());
 	}
-	if(times > 1)
+	if(times > 1 && not new_read_info)
 		system(("copy " + filepl + "informa" + (char)('0'+times-1) + ".txt " + filepl + "informa" + (char)('0'+times) + ".txt > just_now.txt").c_str());
 	fin.close();
 	cpinfors(times - 1);
@@ -185,7 +186,16 @@ void readinforma()
 	if(!information) puts("ERROR");
 	else fclose(information);
 	cpinfors(8);
-	information = fopen((filepl + "informa1.txt").c_str() , "w");
+	if(not new_read_info)
+	{
+		information = fopen((filepl + "informa1.txt").c_str() , "w");
+		new_read_info = 7;
+	}
+	else
+	{
+		information = fopen((filepl + "informa1.txt").c_str() , "ab");
+		new_read_info --;
+	}
 }
 float power11(int x)
 {
