@@ -12,6 +12,16 @@ int BAG::list()
 	system("pause");
 	return 0;
 }
+void BAG::clear()
+{
+	coin = yuanli = wood = 0;
+}
+void BAG::add_an(BAG *an_bag)
+{
+	coin_h(an_bag->coin);
+	yuanli_h(an_bag->yuanli);
+	wood_h(an_bag->wood);
+}
 int BAG::coin_h(int oocoin)
 {
 	if(!oocoin) return coin;

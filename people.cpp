@@ -1401,6 +1401,7 @@ void Zi_dan::rc_chat_with(player *) {}
 void Zi_dan::rc_die(people*) // {{{
 {
 	host->exp_h(m_exp);
+	host->bag->add_an(bag);
 	m_exp = 0;
 } // }}}
 int Zi_dan::meet(people *P) // {{{

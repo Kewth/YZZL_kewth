@@ -7,11 +7,13 @@ class BAG
 private:
 	bool print_mess;
 	int coin;
-	const int max_coin;
 	int yuanli;
 	int wood;
+	const int max_coin;
 public:
 	int list();
+	void clear();
+	void add_an(BAG *);
 	int coin_h(int);
 	int yuanli_h(int);
 	int wood_h(int);
