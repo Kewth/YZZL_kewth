@@ -164,7 +164,7 @@ int main(int args,char *argv[])
 	unsigned long long rres = readrc();
 	city *c = (rres & 1) ? allcity(4) : allcity(0);
 	puts("Made a city");
-	player *P = new player(1 , 1 , "common");
+	player *P = new player(1 , 2 , "common");
 	/* sjin(P , "common"); */
 	puts("a player");
 	P->apin(c->M);
