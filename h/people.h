@@ -1,3 +1,5 @@
+#ifndef PEOPLE_H
+#define PEOPLE_H
 #include <bits/stdc++.h>
 #include "more.h"
 #include "bag.h"
@@ -17,7 +19,8 @@ class MAP // {{{
 		char& operator () (int,int);
 		int newfloor(int,int);
 		int move(people*,char);
-	MAP(int,int,std::string="荒野");//峳栰
+		void init();
+	MAP(int,int,std::string="荒野",int=1);//峳栰
 	~MAP();
 //	friend int player::look(MAP *M);
 }; // }}}
@@ -309,3 +312,4 @@ public:
 const char MOVE[4] = {'w' , 's' , 'a' , 'd'}; 
 const int movex[4] = {-1 , 1 , 0 , 0};
 const int movey[4] = {0 , 0 , -1 , 1};
+#endif

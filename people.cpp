@@ -91,11 +91,8 @@ int MAP::newfloor(int x,int y) // {{{
 	else if(rd <1000) f(x,y) = new grass();
 	return 0;
 } // }}}
-MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name) // {{{
+MAP::MAP(int mins,int _maxn,std::string name,int typ):_min(mins),maxn(_maxn),m_name(name) // {{{
 {
-	static const int Gsl = 5;
-	static const int GL[Gsl] = { 300 , 1 , 10 , 10 , 50};
-	bool cannot[Gsl];
 	// 边界 {{{
 	Pos U(mins,mins);
 	while(U.x < maxn)
@@ -110,19 +107,34 @@ MAP::MAP(int mins,int _maxn,std::string name):_min(mins),maxn(_maxn),m_name(name
 	while(U.y > mins)
 		f(U) = new wall(),
 		U = U.move('a');
-	U = Pos(mins+1 , mins+1);
-	while(U.x < maxn - 1)
-		f(U) = new grass('.'),
-		U = U.move('s') ;
-	while(U.y < maxn - 1)
-		f(U) = new grass('.'),
-		U = U.move('d');
-	while(U.x > mins + 1)
-		f(U) = new grass('.'),
-		U = U.move('w');
-	while(U.y > mins + 1)
-		f(U) = new grass('.'),
-		U = U.move('a'); // }}}
+	// }}}
+	if(typ == 2) // 铺满 {{{ 
+		for(int i=_min+1;i<maxn;i++)
+			for(int j=_min+1;i<maxn;i++)
+				f(i,j) = new grass(); // }}}
+	else if(typ == 1) // 随机 {{{
+	{
+		U = Pos(mins+1 , mins+1);
+		while(U.x < maxn - 1)
+			f(U) = new grass('.'),
+			U = U.move('s') ;
+		while(U.y < maxn - 1)
+			f(U) = new grass('.'),
+			U = U.move('d');
+		while(U.x > mins + 1)
+			f(U) = new grass('.'),
+			U = U.move('w');
+		while(U.y > mins + 1)
+			f(U) = new grass('.'),
+			U = U.move('a');
+		init();
+	} // }}}
+} // }}}
+void MAP::init() // {{{
+{
+	static const int Gsl = 5;
+	static const int GL[Gsl] = { 300 , 1 , 10 , 10 , 50};
+	bool cannot[Gsl];
 	// 结构体预存 {{{
 	struct node
 	{

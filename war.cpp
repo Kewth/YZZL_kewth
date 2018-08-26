@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include "h/more.h"
-#include "h/people.h"
 #include "h/war.h"
+#include "h/city/skycity.h"
 /* static volatile int warres; */
 /* static void* Emain(people *E , MAP *M) */
 /* { */
@@ -14,7 +14,7 @@
 /* 	} */
 /* 	return NULL; */
 /* } */
-int war(player *P , people *G)
+int war(player *P , people *G) // {{{
 //1:lose
 //2:spc
 //3:win
@@ -47,4 +47,9 @@ int war(player *P , people *G)
 	/* th->join(); */
 	/* delete M; */
 	return warres;
-}
+} // }}}
+
+int goto_sky(people* P) // {{{
+{
+	return 0;
+} // }}}

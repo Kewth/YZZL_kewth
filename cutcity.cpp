@@ -63,7 +63,7 @@ int cutcity::xz1::onein(people* P)
 	P->Px = P->Py = 1;
 	atree * T = new atree(3,3,0);
 	MAP * M = new MAP(0,6,"小树林");
-#define Esl 3
+#define Esl 2
 	people * E[Esl];
 	/* std::thread *th[Esl]; */
 	int E_lv = PL->bag->wood_h(0) / 100;
@@ -118,7 +118,7 @@ int cutcity::xz1::onein(people* P)
 	/* for(int i=0;i<Esl;i++) */
 	/* 	th[i] -> join() , */
 	/* 	delete th[i]; */
-	delete M;
+	/* delete M; */
 #undef Esl
 	return 0;
 }

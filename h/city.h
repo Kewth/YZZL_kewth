@@ -37,8 +37,9 @@ public:
 		if(w_times == 30) sjout(PL , "common") , w_times = 0;
 		return M->move(P,fg);
 	}
-	virtual void newmap(std::string files)
+	virtual void newmap(std::string files,int typ = 1)
 	{
+		M = new MAP(0,maxn,"",typ);
 		std::ifstream fin;
 		fin.open((filepl+files).c_str());
 		std::string s;
@@ -52,7 +53,7 @@ public:
 		for(uint i=1;i<=10;i++)
 			M->f(maxn-6 , i) = new Door("space");
 	}
-	city():maxn(30) { M = new MAP(0,maxn); }
+	city():maxn(30) {}
 	virtual ~city() {}
 };
 class gotocity:public grass

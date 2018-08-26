@@ -5,4 +5,5 @@
 #include "city/funcity.h"
 #include "city/workcity.h"
 #include "city/firstcity.h"
+#include "city/skycity.h"
 #endif

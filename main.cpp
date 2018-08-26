@@ -92,8 +92,10 @@ unsigned long long readrc()
 	puts("Rced");
 	return res;
 }
+static int last_id;
 city* allcity(int id)
 {
+	last_id = id;
 	static city *CITYS[5];
 	if(CITYS[id]) return CITYS[id];
 	city *res;
@@ -194,6 +196,13 @@ int main(int args,char *argv[])
 			P->apin(c->M);
 		}
 		Peo_all_do();
+		if(P->m_hp <= 0 and c->M->m_name != "天堂skycity")
+		{
+			P->leave(c->M);
+			c = new skycity(last_id , P->Px , P->Py);
+			P->Px = P->Py = 1;
+			P->apin(c->M);
+		}
 	}
 	printf("EXIT\n");
 	P->check_print_open = -1;
