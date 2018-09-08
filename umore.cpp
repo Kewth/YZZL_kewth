@@ -188,7 +188,7 @@ void debug_print(std::string f)
 	static std::string tab = "";
 	if(f.substr(0,5) != "debug" || debug_open)
 	{
-		FILE *for_debug = fopen("/home/for_yzzl/debug.txt" , "a");
+		FILE *for_debug = fopen("/home/_yzzl/debug.txt" , "a");
 		if(f.substr(f.size()-2 , 2) == "<-") tab = tab.size()<=1 ? "" : tab.substr(0 , tab.size()-1);
 		fputs((tab + f + '\n').c_str(),for_debug);
 		if(f.substr(f.size()-2 , 2) == "->") tab += '\t';
@@ -246,18 +246,20 @@ bool CG_guangbiao()
 }
 void make_new_user(std::string name)
 {
-	system(("mkdir /home/"+name+"/").c_str());
-	system(("rm /home/"+name+"/.yzzl -r").c_str());
-	system(("mkdir /home/"+name+"/.yzzl").c_str());
+	std::string FP = "/home/"+name+"/";
+	system(("mkdir "+FP).c_str());
+	system(("rm "+FP+".yzzl/ -r").c_str());
+	system(("mkdir "+FP+".yzzl/").c_str());
+	FP += ".yzzl/";
 	for(int i=1;i<=10;i++)
-		system(("touch /home/"+name+"/.yzzl/informa"+number_str(i)+".txt").c_str());
-	system(("touch /home/"+name+"/.yzzl/maincity.txt").c_str());
-	system(("touch /home/"+name+"/.yzzl/cutcity.txt").c_str());
-	system(("touch /home/"+name+"/.yzzl/funcity.txt").c_str());
-	system(("touch /home/"+name+"/.yzzl/workcity.txt").c_str());
-	system(("touch /home/"+name+"/.yzzl/add.rc").c_str());
-	system(("touch /home/"+name+"/.yzzl/common.dat").c_str());
-	system(("touch /home/"+name+"/.yzzl/runlist.txt").c_str());
-	system("mkdir /home/for_yzzl");
-	system("touch /home/for_yzzl/debug.txt");
+		system(("touch "+FP+"informa"+number_str(i)+".txt").c_str());
+	system(("touch "+FP+"maincity.txt").c_str());
+	system(("touch "+FP+"cutcity.txt").c_str());
+	system(("touch "+FP+"funcity.txt").c_str());
+	system(("touch "+FP+"workcity.txt").c_str());
+	system(("touch "+FP+"add.rc").c_str());
+	system(("touch "+FP+"common.dat").c_str());
+	system(("touch "+FP+"runlist.txt").c_str());
+	system("mkdir /home/_yzzl");
+	system("touch /home/_yzzl/debug.txt");
 }
