@@ -244,3 +244,20 @@ bool CG_guangbiao()
 	else printf("\033[?25h");
 	return true;
 }
+void make_new_user(std::string name)
+{
+	system(("mkdir /home/"+name+"/").c_str());
+	system(("rm /home/"+name+"/.yzzl -r").c_str());
+	system(("mkdir /home/"+name+"/.yzzl").c_str());
+	for(int i=1;i<=10;i++)
+		system(("touch /home/"+name+"/.yzzl/informa"+number_str(i)+".txt").c_str());
+	system(("touch /home/"+name+"/.yzzl/maincity.txt").c_str());
+	system(("touch /home/"+name+"/.yzzl/cutcity.txt").c_str());
+	system(("touch /home/"+name+"/.yzzl/funcity.txt").c_str());
+	system(("touch /home/"+name+"/.yzzl/workcity.txt").c_str());
+	system(("touch /home/"+name+"/.yzzl/add.rc").c_str());
+	system(("touch /home/"+name+"/.yzzl/common.dat").c_str());
+	system(("touch /home/"+name+"/.yzzl/runlist.txt").c_str());
+	system("mkdir /home/for_yzzl");
+	system("touch /home/for_yzzl/debug.txt");
+}

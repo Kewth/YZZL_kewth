@@ -14,7 +14,7 @@ std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a
 #endif
 extern FILE *information;
 std::string color;
-std::string release = "11.0" , up_y = "2018" , up_m = "08" , up_d = "13";
+std::string release = "2.0" , up_y = "2018" , up_m = "09" , up_d = "08";
 SET SET_of_ALL;
 void flash(bool nocolor , bool quick)
 {
@@ -139,9 +139,10 @@ int main(int args,char *argv[])
 		else 
 			printf("warning无效参数:%s\n",argv[i]);
 	}
-	messagebox(NULL,"请输入用户名:\nalso it\'s a test","Welcome to the game",MB_OK);
-	printf("Your username:");
+	messagebox(NULL,"请输入用户名:\n或输入_null来注册","Welcome to the game",MB_OK);
+	printf("Your username(or \'_null\'):");
 	std::cin >> filepl;
+	if(filepl == "_null") filepl = new_user();
 	debug_print("get username:"+filepl);
 	if(CG_guangbiao())
 		puts("SetConsoleCursorInfo:Done");

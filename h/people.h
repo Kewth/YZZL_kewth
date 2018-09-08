@@ -67,6 +67,7 @@ public:
 	virtual int speed() = 0;
 	int Todo();
 	char reflag(char);
+	virtual unsigned long long Hash_Number();
 	people();
 	friend int sjin(player * P,std::string name);
 	friend int sjout(player * P,std::string name);
@@ -150,6 +151,7 @@ private:
 	void rc_chat_with(player *);
 	void rc_die(people*);
 	char pface(char);
+	unsigned long long Hash_Number();
 public:
 	static const int FIR_war = 10;
 	static const int FIR_hp = 200;

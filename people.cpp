@@ -390,6 +390,18 @@ void FakeWall::rl_introduce()
 // }}}
 
 // people {{{
+unsigned long long people::Hash_Number()  // {{{
+{
+	unsigned long long res = 0;
+	res += m_lv * 12312213;
+	res += m_exp * 12321342141;
+	res += m_hp * 123421313;
+	res += m_hpsx * 9234823;
+	res += m_war * 1763472347;
+	/* res += bag->Hash_Number(); */
+	/* res += m_achi->Hash_Number(); */
+	return res;
+} // }}}
 // people 构造 {{{
 people::people():turn_to_self(clock()-3), bag(new BAG()), flag('w') 
 {
@@ -559,6 +571,24 @@ int people::Todo() // {{{
 // }}}
 
 // player {{{
+unsigned long long player::Hash_Number()  // {{{
+{
+	unsigned long long res = 0;
+	res += m_lv * 12312213;
+	res += m_exp * 12321342141;
+	res += m_hp * 123421313;
+	res += m_hpsx * 9234823;
+	res += m_magic * 12321;
+	res += m_magicsx * 93;
+	res += m_war * 1763472347;
+	/* res += bag->Hash_Number(); */
+	res += m_list->jn[0]->m_lv * 3452133;
+	res += m_list->jn[1]->m_lv * 12423423;
+	res += m_list->jn[2]->m_lv * 71234;
+	/* res += m_achi->Hash_Number(); */
+	res += pet ? pet->Hash_Number() : 0;
+	return res;
+} // }}}
 int player::meet(people* P) // {{{
 //1:kill
 {
