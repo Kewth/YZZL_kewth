@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include "h/more.h"
-#include "more.cpp"
+// #include "more.cpp"
 void say(std::string name,std::string thing,int speed,int in)
 {
 	if(name!="")

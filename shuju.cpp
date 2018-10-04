@@ -60,7 +60,7 @@ int sjout(player * P,std::string name)
 	for(int i=0;i<list_jn::jnsl;i++)
 		fprintf(write," %d",P->m_list->jn[i]->m_lv);
 	fprintf(write,"\n");
-	fprintf(write,"achievement_list(%ld):\n",P->m_achi->m_achi.size());
+	fprintf(write,"achievement_list(%u):\n",P->m_achi->m_achi.size());
 	for(auto iter=P->m_achi->m_achi.begin();iter!=P->m_achi->m_achi.end();iter++)
 		fprintf(write,"%s\n",iter->c_str());
 	fprintf(write,"\n");
