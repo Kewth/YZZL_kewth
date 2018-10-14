@@ -5,11 +5,13 @@
 #include "h/allcity.h"
 #include "h/shuju.h"
 #include "h/const.h"
+#include "h/system.h"
 #ifdef windows
 std::string filepl = "C:\\yzzlrc\\user\\";
 std::string ftppl = "C:\\yzzlrc\\";
 #else
-std::string filepl = "/home/user/.yzzl/";
+/* std::string filepl = "/home/user/.yzzl/"; */
+std::string filepl = "./";
 std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a/b/c/d/";
 #endif
 extern FILE *information;
@@ -109,13 +111,6 @@ city* allcity(int id)
 }
 int main(int args,char *argv[])
 {
-#ifndef windows
-	if(system("[ `whoami` = \"root\" ]"))
-	{
-		printf("You should run it as root!\n");
-		return 0;
-	}
-#endif
 	debug_print("\ngame start:");
 	puts("check version...");
 	std::thread to_ck_ver(version_check);
@@ -156,8 +151,11 @@ int main(int args,char *argv[])
 		return 0;
 #ifdef windows
 	filepl = "C:\\yzzlrc\\" + filepl + "\\";
-#else
-	filepl = "/home/" + filepl + "/.yzzl/";
+#else 
+	NOTHING {
+		System sys(1);
+		filepl = "/home/" + sys.Name() + "/.yzzl/" + filepl;
+	}
 #endif
 	information = fopen((filepl + "informa1.txt").c_str() , "w");
 	//debug_start

@@ -1,6 +1,7 @@
 #ifndef MORE_H
 #define MORE_H
 #include <bits/stdc++.h>
+#define NOTHING ;;;
 /* #define windows nullptr */
 // class {{{
 class Pos

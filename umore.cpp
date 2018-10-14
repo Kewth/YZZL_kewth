@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include "h/more.h"
+#include "h/system.h"
 #include "more.cpp"
 void say(std::string name,std::string thing,int speed,int in)
 {
@@ -185,10 +186,17 @@ bool debug_open = 0;
 bool debug_to_print = 0;
 void debug_print(std::string f)
 {
+	static bool first = true;
+	if(first) {
+		System sys(1);
+		sys.make_file("/home/"+sys.Name()+"/.yzzl/");
+		sys.make_file("/home/"+sys.Name()+"/.yzzl/debug.txt");
+	}
 	static std::string tab = "";
 	if(f.substr(0,5) != "debug" || debug_open)
 	{
-		FILE *for_debug = fopen("/home/_yzzl/debug.txt" , "a");
+		System sys(1);
+		FILE *for_debug = fopen(("/home/" + sys.Name() + "/.yzzl/debug.txt").c_str() , "a");
 		if(f.substr(f.size()-2 , 2) == "<-") tab = tab.size()<=1 ? "" : tab.substr(0 , tab.size()-1);
 		fputs((tab + f + '\n').c_str(),for_debug);
 		if(f.substr(f.size()-2 , 2) == "->") tab += '\t';
@@ -246,20 +254,17 @@ bool CG_guangbiao()
 }
 void make_new_user(std::string name)
 {
-	std::string FP = "/home/"+name+"/";
+	System sys(1);
+	std::string FP = "/home/"+sys.Name()+"/.yzzl/" + name + "/";
+	debug_print("create new user at " + FP);
 	system(("mkdir "+FP).c_str());
-	system(("rm "+FP+".yzzl/ -r").c_str());
-	system(("mkdir "+FP+".yzzl/").c_str());
-	FP += ".yzzl/";
 	for(int i=1;i<=10;i++)
-		system(("touch "+FP+"informa"+number_str(i)+".txt").c_str());
-	system(("touch "+FP+"maincity.txt").c_str());
-	system(("touch "+FP+"cutcity.txt").c_str());
-	system(("touch "+FP+"funcity.txt").c_str());
-	system(("touch "+FP+"workcity.txt").c_str());
-	system(("touch "+FP+"add.rc").c_str());
-	system(("touch "+FP+"common.dat").c_str());
-	system(("touch "+FP+"runlist.txt").c_str());
-	system("mkdir /home/_yzzl");
-	system("touch /home/_yzzl/debug.txt");
+		sys.make_file(FP+"informa"+number_str(i)+".txt");
+	sys.make_file(FP+"maincity.txt");
+	sys.make_file(FP+"cutcity.txt");
+	sys.make_file(FP+"funcity.txt");
+	sys.make_file(FP+"workcity.txt");
+	sys.make_file(FP+"add.rc");
+	sys.make_file(FP+"common.dat");
+	sys.make_file(FP+"runlist.txt");
 }

@@ -281,20 +281,27 @@ std::string new_user()
 {
 	while(kbhit()) getch();
 	std::string name;
-	const int line = 7;
+	const int line = 8;
 	system("cls");
-	puts("请输入一个合法用户名:");
+	puts("请输入一个合法用户名:(按ctrl-c退出)");
 	puts("");
 	puts("以下的用户名被认为是非法的:");
 	puts("1.以下划线开头");
 	puts("2.空用户名");
 	puts("3.包含字母、下划线、数字以外的字符");
+	puts("4.名字长度超过10");
 	gotoxy(2,0);
 	while(1)
 	{
+		puts("----------");
+		gotonow(-1 , 0);
 		printf("%s",name.c_str());
 		int ch = getch();
-		if(ch == '_' && name.empty())
+		if(ch == '')  {
+			name = "_public";
+			break;
+		}
+		else if(ch == '_' && name.empty())
 			gotoxy(line,0),
 			puts("违反规则1!"),
 			gotoxy(2,0);
@@ -304,15 +311,31 @@ std::string new_user()
 			gotoxy(2,0);
 		else if(ch == '\n' || ch == '\r')
 			break;
-		else if((ch<'a'||ch>'z') && (ch<'A'||ch>'Z') && ch!='_' && (ch<'0'||ch>'9'))
-			gotoxy(line,0),
-			puts("违反规则3!"),
+		else if(ch == '') {
+			gotoxy(line,0);
+			if(name.empty()) 
+				puts("名字已为空.");
+			else
+				puts("未违反规则.");
 			gotoxy(2,0);
-		else
-			gotoxy(line,0),
-			puts("未违反规则"),
-			gotoxy(2,0),
+			name = name.substr(0 , name.size() - 1);
+		}
+		else if((ch<'a'||ch>'z') && (ch<'A'||ch>'Z') && ch!='_' && (ch<'0'||ch>'9')) {
+			gotoxy(line,0);
+			puts("违反规则3!");
+			gotoxy(2,0);
+		}
+		else if(name.size() >= 10) {
+			gotoxy(line,0);
+			puts("违反规则4!");
+			gotoxy(2,0);
+		}
+		else {
+			gotoxy(line,0);
+			puts("未违反规则.");
+			gotoxy(2,0);
 			name += ch;
+		}
 	}
 	make_new_user(name);
 	return name;
