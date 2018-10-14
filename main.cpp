@@ -132,7 +132,7 @@ int main(int args,char *argv[])
 			SET_of_ALL.has_color = false;
 		}
 		else 
-			printf("warning无效参数:%s\n",argv[i]);
+			printf("warning:无效参数:%s\n",argv[i]);
 	}
 	messagebox(NULL,"请输入用户名:\n或输入_null来注册","Welcome to the game",MB_OK);
 	printf("Your username(or \'_null\'):");
@@ -154,7 +154,7 @@ int main(int args,char *argv[])
 #else 
 	NOTHING {
 		System sys(1);
-		filepl = "/home/" + sys.Name() + "/.yzzl/" + filepl;
+		filepl = "/home/" + sys.Name() + "/.yzzl/" + filepl + '/';
 	}
 #endif
 	information = fopen((filepl + "informa1.txt").c_str() , "w");

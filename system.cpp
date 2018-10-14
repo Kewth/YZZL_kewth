@@ -35,6 +35,18 @@ int System::make_file(std::string name) {
 	}
 }
 
+// Copy a file {{{1
+int System::copy_file(std::string name,std::string to) {
+	switch(sys_typ) {
+		default:
+			return -1;
+		case 0:
+			return system(("copy " + name + " " + to).c_str());
+		case 1:
+			return system(("cp " + name + " " + to).c_str());
+	}
+}
+
 // System init {{{1
 System::System(int typ) : sys_typ(typ) {
 }

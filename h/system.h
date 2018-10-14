@@ -8,5 +8,6 @@ private:
 public:
 	std::string Name();
 	int make_file(std::string);
+	int copy_file(std::string , std::string);
 	System(int);
 };
