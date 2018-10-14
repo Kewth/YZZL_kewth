@@ -113,7 +113,7 @@ bool debug_open;
 bool debug_to_print;
 void debug_print(std::string f)
 {
-	FILE *for_debug = fopen("C:/yzzlrc/debug.txt" , "a");
+	FILE *for_debug = fopen("C:\\yzzlrc\\_yzzl\\debug.txt" , "a");
 	fputs((f + '\n').c_str(),for_debug);
 	fclose(for_debug);
 }
@@ -130,4 +130,22 @@ bool CG_guangbiao()
 	cinfo.bVisible = 0;
 	cinfo.dwSize = 1;
 	return SetConsoleCursorInfo(fd,&cinfo);
+}
+void make_new_user(std::string name)
+{
+	std::string FP = "C:\\yzzlrc\\"+name+"\\";
+	system(("mkdir "+FP).c_str());
+	system(("rm "+FP+".yzzl/ -r").c_str());
+	system(("mkdir "+FP+".yzzl/").c_str());
+	for(int i=1;i<=10;i++)
+		system(("touch "+FP+"informa"+number_str(i)+".txt").c_str());
+	system(("touch "+FP+"maincity.txt").c_str());
+	system(("touch "+FP+"cutcity.txt").c_str());
+	system(("touch "+FP+"funcity.txt").c_str());
+	system(("touch "+FP+"workcity.txt").c_str());
+	system(("touch "+FP+"add.rc").c_str());
+	system(("touch "+FP+"common.dat").c_str());
+	system(("touch "+FP+"runlist.txt").c_str());
+	system("mkdir C:\\yzzlrc\\_yzzl");
+	system("touch C:\\yzzlrc\\_yzzl\\debug.txt");
 }

@@ -96,11 +96,11 @@ int firstcity::xz10::onein(people *P)
 }
 firstcity::firstcity()
 {
+	M = new MAP(0,maxn,"新手城firstcity",0);
 	for(int i=1;i<maxn;i++)
 		for(int j=1;j<maxn;j++)
 			M->f(i,j) = new grass(' ');
 	/* int mid = maxn >> 1; */
-	M->m_name = "新手城firstcity";
 	// 移动教程 {{{
 	for(uint i=0;i<infor.size();i++)
 		M->f(1,i+1) = new grass(infor[i] , "如你所见,按d可以向右移动\n那个移动的绿色的D是你的宠物,不会产生敌意"),

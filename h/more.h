@@ -39,6 +39,8 @@ struct SET
 };
 // }}}
 // function {{{
+void make_new_user(std::string);
+std::string new_user();
 std::string split(std::string&);
 unsigned long myrand();
 void cpinfor(int);

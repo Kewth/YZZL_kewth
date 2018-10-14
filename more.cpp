@@ -277,3 +277,43 @@ void SJ_inline(std::string text,int now,int tot)
 	puts("");
 	cgcolor("");
 }
+std::string new_user()
+{
+	while(kbhit()) getch();
+	std::string name;
+	const int line = 7;
+	system("cls");
+	puts("请输入一个合法用户名:");
+	puts("");
+	puts("以下的用户名被认为是非法的:");
+	puts("1.以下划线开头");
+	puts("2.空用户名");
+	puts("3.包含字母、下划线、数字以外的字符");
+	gotoxy(2,0);
+	while(1)
+	{
+		printf("%s",name.c_str());
+		int ch = getch();
+		if(ch == '_' && name.empty())
+			gotoxy(line,0),
+			puts("违反规则1!"),
+			gotoxy(2,0);
+		else if((ch == '\n' || ch == '\r') && name.empty())
+			gotoxy(line,0),
+			puts("违反规则2!"),
+			gotoxy(2,0);
+		else if(ch == '\n' || ch == '\r')
+			break;
+		else if((ch<'a'||ch>'z') && (ch<'A'||ch>'Z') && ch!='_' && (ch<'0'||ch>'9'))
+			gotoxy(line,0),
+			puts("违反规则3!"),
+			gotoxy(2,0);
+		else
+			gotoxy(line,0),
+			puts("未违反规则"),
+			gotoxy(2,0),
+			name += ch;
+	}
+	make_new_user(name);
+	return name;
+}
