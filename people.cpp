@@ -395,9 +395,9 @@ unsigned long long people::Hash_Number()  // {{{
 	unsigned long long res = 0;
 	res += m_lv * 12312213;
 	res += m_exp * 12321342141;
-	res += m_hp * 123421313;
-	res += m_hpsx * 9234823;
-	res += m_war * 1763472347;
+	// res += m_hp * 123421313;
+	// res += m_hpsx * 9234823;
+	// res += m_war * 1763472347;
 	/* res += bag->Hash_Number(); */
 	/* res += m_achi->Hash_Number(); */
 	return res;

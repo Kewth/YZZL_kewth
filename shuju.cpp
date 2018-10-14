@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include "h/people.h"
 #include "h/shuju.h"
-static void sj_Error()
+static void sj_Error(player *P)
 {
 	cgcolor("");
 	debug_print("error:Get sj in error!");
@@ -17,8 +17,10 @@ static void sj_Error()
 		say("warning:","很抱歉,你的账号因数据错误将被重置,确定重置(y/n)?",79);
 		if(csgetch())
 		{
-			say("waning:","真的很抱歉,暂时没有自动重置,请运行fishrst.exe",79);
-			system("pause");
+			say("waning:","真的很抱歉,暂时没有自动重置,请重新注册,如果你没有作弊而是反作弊系统出错,请输入y进入调试,否则输入n.",79);
+			if(csgetch())
+			{
+			}
 			exit(0);
 		}
 		else
@@ -71,8 +73,12 @@ int sjin(player * P ,std::string name)
 	P->m_O = P->m_list->jn[1];
 	P->m_U = P->m_list->jn[2];
 	fclose(read);
-	if(Hash_Number != P->Hash_Number())
-		sj_Error();
+	if(Hash_Number != P->Hash_Number()) {
+		printf("NUMBER%llu\n",Hash_Number);
+		printf("P's Hash_number():%llu\n",P->Hash_Number());
+		system("pause");
+		sj_Error(P);
+	}
 	debug_print("read done");
 	return 0;
 }
