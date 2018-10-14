@@ -13,7 +13,8 @@ std::string System::Name() {
 		case 1:
 			NOTHING {
 				system("whoami > just_now.txt"); 
-				std::ifstream fin("just_now.txt");
+				std::ifstream fin;
+				fin.open("just_now.txt");
 				std::string res;
 				fin >> res;
 				return res;

@@ -7,11 +7,11 @@
 #include "h/const.h"
 #include "h/system.h"
 #ifdef windows
-std::string filepl = "C:\\yzzlrc\\user\\";
+std::string filepl = "C:";
 std::string ftppl = "C:\\yzzlrc\\";
 #else
 /* std::string filepl = "/home/user/.yzzl/"; */
-std::string filepl = "./";
+std::string filepl = "/home/";
 std::string ftppl = "/run/user/1001/gvfs/ftp:host=172.16.14.3/g2018/Kewth/more/a/b/c/d/";
 #endif
 extern FILE *information;
@@ -111,6 +111,15 @@ city* allcity(int id)
 }
 int main(int args,char *argv[])
 {
+	NOTHING {
+#ifdef windows
+		System sys(0);
+#else
+		System sys(1);
+#endif
+		sys.make_file(filepl + sys.Name() + "/.yzzl/");
+		sys.make_file(filepl + sys.Name() + "/.yzzl/debug.txt");
+	}
 	debug_print("\ngame start:");
 	puts("check version...");
 	std::thread to_ck_ver(version_check);

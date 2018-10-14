@@ -186,12 +186,6 @@ bool debug_open = 0;
 bool debug_to_print = 0;
 void debug_print(std::string f)
 {
-	static bool first = true;
-	if(first) {
-		System sys(1);
-		sys.make_file("/home/"+sys.Name()+"/.yzzl/");
-		sys.make_file("/home/"+sys.Name()+"/.yzzl/debug.txt");
-	}
 	static std::string tab = "";
 	if(f.substr(0,5) != "debug" || debug_open)
 	{

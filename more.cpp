@@ -182,20 +182,37 @@ void cpinfors(int times)
 void readinforma()
 {
 	extern std::string filepl;
-	std::ifstream fin;
+	static const int maxsize = 20;
+	static int now = 0;
+	static std::string INFOR[maxsize];
 	if(!information) puts("ERROR");
 	else fclose(information);
-	cpinfors(8);
-	if(not new_read_info)
-	{
-		information = fopen((filepl + "informa1.txt").c_str() , "w");
-		new_read_info = 7;
+	std::ifstream fin((filepl + "informa1.txt").c_str());
+	std::string ss;
+	while(getline(fin , ss)) {
+		debug_print("debug:readinforma:" + ss);
+		INFOR[now++] = ss;
+		if(now >= maxsize)
+			now = 0;
 	}
-	else
-	{
-		information = fopen((filepl + "informa1.txt").c_str() , "ab");
-		new_read_info --;
+	for(int i=now,t=0;t<20;i--,t++) {
+		if(i < 0)
+			i = maxsize - 1;
+		/* if(not INFOR[i].empty()) */
+			puts(INFOR[i].c_str());
 	}
+	information = fopen((filepl + "informa1.txt").c_str() , "w");
+	/* cpinfors(8); */
+	/* if(not new_read_info) */
+	/* { */
+	/* 	information = fopen((filepl + "informa1.txt").c_str() , "w"); */
+	/* 	new_read_info = 7; */
+	/* } */
+	/* else */
+	/* { */
+	/* 	information = fopen((filepl + "informa1.txt").c_str() , "ab"); */
+	/* 	new_read_info --; */
+	/* } */
 }
 float power11(int x)
 {
