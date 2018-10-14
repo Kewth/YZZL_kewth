@@ -7,6 +7,7 @@
 #include "h/more.h"
 #include "h/system.h"
 #include "more.cpp"
+// #include "more.cpp"
 void say(std::string name,std::string thing,int speed,int in)
 {
 	if(name!="")
