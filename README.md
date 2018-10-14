@@ -35,9 +35,11 @@ A simpe game.
 **新功能**  
 * 增加反作弊功能:通过哈希判断账号数据是否合法(很遗憾,这意味着之前版本的账号将不合法)  
 * 增加自动注册功能:你不会再需要一个多余的first.exe  
+* 添加makefile以替代G.sh
 >
 **体验微调**  
 * 添加一套合法的名字规则  
+* 小幅度提高刷屏速度
 >
 
 **1.0**  
@@ -70,6 +72,13 @@ A simpe game.
 <div id="upd_dir">Here the writer list some important update:</div>
 
 In 2018:
+
+*	In Oct\. :
+
+> Day 14:
+> > 1. 完善自动注册功能
+> > 
+> > 2. 取消了Linux下运行的权限,也就是说可以直接运行而无需sudo
 
 *	In Setp\. :
 
@@ -415,7 +424,7 @@ In 2018:
 哦手动编译!肯定很麻烦!!!
 然而事实上,我已经准备好了自动编译的文件!!!
 
-Linux :运行more目录下的G.sh,将文件生成在当前目录并自动运行
+Linux :在源码的目录下执行`make`,生成名为YZZL的可执行文件
 windows :运行主目录的G.bat,将文件生成在C:\adds\里面并自动运行
 
 Some tips:
